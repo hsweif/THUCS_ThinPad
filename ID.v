@@ -20,8 +20,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 module ID(
 	input [15:0] instr,
-	input [3:0] writeRegT,
-	input [15:0] writeDataT,
+	input [3:0] writeBackReg,
+	input [15:0] writeBackData,
 
     output [3:0] ALUOp,
     output [1:0] controlB,
@@ -51,14 +51,14 @@ module ID(
 	assign readReg2 = {1'b0, instr[7:5]};
 	assign reg1Index = readReg1[3]*8+readReg1[2]*4+readReg1[1]*2+readReg1[0];
 	assign reg2Index = readReg2[3]*8+readReg2[2]*4+readReg2[1]*2+readReg2[0];
-	assign writeIndex = writeRegT[3]*8+writeRegT[2]*4+writeRegT[1]*2+writeRegT[0];
+	assign writeIndex = writeBackReg[3]*8+writeBackReg[2]*4+writeBackReg[1]*2+writeBackReg[0];
 
 	assign readData1 = register[reg1Index];
 	assign readData2 = register[reg2Index];
 
 	always @(*) begin
 		// error may be right here, fix me
-		register[writeIndex] = writeDataT;
+		register[writeIndex] = writeBackData;
 	end
 
 endmodule
