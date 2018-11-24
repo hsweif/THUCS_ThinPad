@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    14:33:39 11/24/2018 
+// Create Date:    15:36:29 11/24/2018 
 // Design Name: 
-// Module Name:    PC_reg 
+// Module Name:    Forwarding 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,34 +18,21 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module PC_reg(
-    input PCKeep,
-    input clk,
+module Forwarding(
 	 input rst,
-    output reg [15:0] pc,
-	 output reg [15:0] AddedPC
+	 input [3:0] WRegFW1,
+    input [3:0] WRegFW2,
+	 input [3:0] R1,
+    input [3:0] R2,
+	 input [15:0] RData1,
+    input [15:0] RData2,
+	 output [1:0] Forward,
+	 output [1:0] ForwardingA,
+	 output [1:0] ForwardingB
     );
 
-reg [15:0] origin = 16'b0;
-
-always @ (negedge rst) begin
-	begin
-		pc <= origin;
-	end
-end
-
-always @ (*) begin
-	AddedPC = pc + 4'h4;
-end
-
-always @ (negedge clk) begin
-	if (PCKeep == 1) begin
-	end 
-	else 
-	begin
-		pc <= AddedPC;
-	end
-end
+assign Forward = 2'b0;
+assign ForwardingA = 2'b0;
+assign ForwardingB = 2'b0;
 
 endmodule
-

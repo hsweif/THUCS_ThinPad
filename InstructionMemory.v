@@ -25,7 +25,7 @@ module InstructionMemory(
     input [15:0] pc,
     output reg[15:0] Instruction
     );
-
+ 
 // The size of fake memory
 reg status = 0;
 reg[15:0] memPool[0:3];

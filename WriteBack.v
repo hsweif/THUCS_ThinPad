@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    14:33:39 11/24/2018 
+// Create Date:    15:26:27 11/24/2018 
 // Design Name: 
-// Module Name:    PC_reg 
+// Module Name:    WriteBack 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,34 +18,14 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module PC_reg(
-    input PCKeep,
+module WriteBack(
     input clk,
-	 input rst,
-    output reg [15:0] pc,
-	 output reg [15:0] AddedPC
+    input [15:0] mem,
+    input [15:0] alu,
+    output [15:0] WriteBackData,
+    input MemToReg
     );
 
-reg [15:0] origin = 16'b0;
-
-always @ (negedge rst) begin
-	begin
-		pc <= origin;
-	end
-end
-
-always @ (*) begin
-	AddedPC = pc + 4'h4;
-end
-
-always @ (negedge clk) begin
-	if (PCKeep == 1) begin
-	end 
-	else 
-	begin
-		pc <= AddedPC;
-	end
-end
+assign WriteBackData=(MemToReg==0)?mem:alu;
 
 endmodule
-

@@ -22,8 +22,6 @@ module Exe(
     input [15:0] RData1,
     input [15:0] RData2,
     input [15:0] Imme,
-    input [3:0] R1,
-    input [3:0] R2,
     output [15:0] WData,
     input [15:0] PCSrc,
     input [3:0] ALUOp,
@@ -32,10 +30,11 @@ module Exe(
     output [15:0] NewPC,
     output [1:0] ControlBTB,
 	 input [1:0] JorB,
-    input [3:0] WRegFW1,
-    input [3:0] WRegFW2,
 	 input [15:0] ALUBack,
 	 input [15:0] WriteBackData,
+	 input [1:0] Forward,
+	 input [1:0] ForwardingA,
+	 input [1:0] ForwardingB,
 	 input clk
     );
 
@@ -44,9 +43,7 @@ reg [15:0] A = 16'b0;
 reg [15:0] B = 16'b0;
 reg [15:0] ShiftImme = 16'b0;
 reg [15:0] CalPC = 16'b0;
-reg [1:0] Forward = 2'b0;
-reg [1:0] ForwardingA = 2'b0;
-reg [1:0] ForwardingB = 2'b0;
+
 
 always @(*)//mux1
 begin
