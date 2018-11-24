@@ -20,15 +20,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 module control(
     input [15:0] instr,
-    output reg[3:0] ALUOp,
-    output reg[1:0] controlB,
-    output reg[1:0] controlMem,
-    output reg ifJump,
-    output reg[15:0] immNum,
-    output reg[1:0] jorB,
-    output reg memToReg,
-    output reg[3:0] readReg,
-    output reg[3:0] writeReg
+    output [3:0] ALUOp,
+    output [1:0] controlB,
+    output [1:0] controlMem,
+    output ifJump,
+    output [15:0] immNum,
+    output [1:0] jorB,
+    output memToReg,
+    output [3:0] readReg1,
+    output [3:0] writeReg
     );
 	ALUOp alu(		.instr(instr), .ALUOp(ALUOp));
 	ControlB ctB(	.instr(instr), .controlB(controlB));
@@ -37,7 +37,7 @@ module control(
 	ImmNum imm(		.instr(instr), .immNum(immNum));
 	JorB jb(		.instr(instr), .jorB(jorB));
 	MemToReg mtr(	.instr(instr), .memToReg(memToReg));
-	ReadReg1 rr(	.instr(instr), .readReg(readReg));
+	ReadReg1 rr(	.instr(instr), .readReg(readReg1));
 	WriteReg wr(	.instr(instr), .writeReg(writeReg));
 
 endmodule

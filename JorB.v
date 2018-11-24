@@ -29,7 +29,7 @@ module JorB(
 			jorB = 2'b00;
 		else if(instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000)
 			jorB = 2'b01;
-		else if(instr[15:11] == 5'b00100 || instr[15:8] == 5'b01100000)
+		else if(instr[15:11] == 5'b00100 || instr[15:8] == 8'b01100000)
 			jorB = 2'b10;
 		else
 			jorB = 2'b11;
