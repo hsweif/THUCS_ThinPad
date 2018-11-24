@@ -35,7 +35,8 @@ module Exe(
     input [3:0] WRegFW1,
     input [3:0] WRegFW2,
 	 input [15:0] ALUBack,
-	 input [15:0] WriteBackData
+	 input [15:0] WriteBackData,
+	 input clk
     );
 
 reg [15:0] B0 = 16'b0;
