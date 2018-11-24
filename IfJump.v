@@ -24,7 +24,7 @@ module IfJump(
     );
 	
 	always @(*) begin
-		if(instr[15:11] == 5'b00010 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:11] == 5'b01100 || (instr[15:11] == 5'b11101 && instr[7:0] == 5'b00000000))
+		if(instr[15:11] == 5'b00010 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:11] == 5'b01100 || (instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000))
 			ifJump = 0;
 		else
 			ifJump = 1;
