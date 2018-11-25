@@ -33,20 +33,20 @@ reg[15:0] fakeMemPool[0:255];
 reg[15:0] content;
 integer pos = 0;
 
-always @(negedge rst)
+always @(negedge clk or negedge rst)
 begin
-	$readmemb("FakeMemPool.mem", fakeMemPool);
-end
-
-always @(negedge clk)
-begin
-	if(MemRead == 1)
-		ReadData <= fakeMemPool[pos];
-	else if(MemWrite == 1)
-		fakeMemPool[pos] = WriteData;
+	if(rst == 0)
+		$readmemb("FakeMemPool.mem", fakeMemPool);
 	else
-		;
-	AddressSrc <= 1; // Fake condition: All in ram2.
+	begin
+		if(MemRead == 1)
+			ReadData <= fakeMemPool[pos];
+		else if(MemWrite == 1)
+			fakeMemPool[pos] = WriteData;
+		else
+			;
+		AddressSrc <= 1; // Fake condition: All in ram2.
+	end
 end
 
 always @(*)
