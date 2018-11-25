@@ -182,6 +182,7 @@ Forwarding _forward(
    .WRegFW2 (wb_wreg),
 	.R1 (exe_rreg1),
    .R2 (exe_rreg2),
+	.MemControl (exe_controlmem),
 	.RData1 (exe_rdata1),
    .RData2 (exe_rdata2),
 	.Forward (exe_forward),

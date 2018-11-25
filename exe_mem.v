@@ -34,6 +34,19 @@ module exe_mem(
     );
 
 always @ (negedge clk) begin 
+	if (controlmem_in == 2'b01) begin
+		memwrite_out <= 0;
+		memread_out <= 1;
+	end
+	else if (controlmem_in == 2'b10) begin
+		memwrite_out <= 1;
+		memread_out <= 0;
+	end
+	else 
+	begin
+		memwrite_out <= 0;
+		memread_out <= 0;
+	end
 	memread_out <= controlmem_in[0];
 	memwrite_out <= controlmem_in[1];
 	controlwb_out <= controlwb_in;
