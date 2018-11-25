@@ -49,14 +49,10 @@ begin
 		else
 			status = status + 1;
 		lastPC[15:0] <= pc;
+		Instruction[15:0] <= memPool[status];
 	end
 	else
 		;
-end
-
-always @(*)
-begin
-	Instruction[15:0] <= memPool[status];
 end
 
 endmodule
