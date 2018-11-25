@@ -107,6 +107,7 @@ if_id _if_id(
 );
 
 ID _ID(
+  .rst(rst),
 	.instr(idInstruction),
 	.writeBackReg(wb_wreg),
 	.writeBackData(wb_writeback),

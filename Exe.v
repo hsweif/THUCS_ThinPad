@@ -44,7 +44,6 @@ reg [15:0] B = 16'b0;
 reg [15:0] ShiftImme = 16'b0;
 reg [15:0] CalPC = 16'b0;
 
-
 always @(*)//mux1
 begin
 	if (ControlB == 2'b00)
@@ -57,38 +56,38 @@ end
 
 always @(*)//muxA
 begin
-	if (ForwardingA == 2'b00)
+	// if (ForwardingA == 2'b00)
 		A = RData1;
-	else if (ForwardingA == 2'b01)
-		A = ALUBack;
-	else if (ForwardingA == 2'b10)
-		A = WriteBackData;
-	else
-	;//未定义
+	// else if (ForwardingA == 2'b01)
+	// 	A = ALUBack;
+	// else if (ForwardingA == 2'b10)
+	// 	A = WriteBackData;
+	// else
+	// ;//未定义
 end
 
 always @(*)//muxB
 begin
-	if (ForwardingB == 2'b00)
+	// if (ForwardingB == 2'b00)
 		B = B0;
-	else if (ForwardingB == 2'b01)
-		B = ALUBack;
-	else if (ForwardingB == 2'b10)
-		B = WriteBackData;
-	else
-	;//未定义
+	// else if (ForwardingB == 2'b01)
+	// 	B = ALUBack;
+	// else if (ForwardingB == 2'b10)
+	// 	B = WriteBackData;
+	// else
+	// ;//未定义
 end
 
 always @(*)//mux2
 begin
-	if (Forward == 2'b00)
+	// if (Forward == 2'b00)
 		WData = RData2;
-	else if (ForwardingB == 2'b01)
-		WData = ALUBack;
-	else if (ForwardingB == 2'b10)
-		WData = WriteBackData;
-	else
-	;//未定义
+	// else if (ForwardingB == 2'b01)
+	// 	WData = ALUBack;
+	// else if (ForwardingB == 2'b10)
+	// 	WData = WriteBackData;
+	// else
+	// ;//未定义
 end
 
 always @(*)//shiftleft

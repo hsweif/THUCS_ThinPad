@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/testPipeLine_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="testPipeLine" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="61" />
+   <wvobject fp_name="/testPipeLine/led" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">led[15:0]</obj_property>
+      <obj_property name="ObjectShortName">led[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/led" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">led[15:0]</obj_property>
+      <obj_property name="ObjectShortName">led[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/pc" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pc[15:0]</obj_property>
+      <obj_property name="ObjectShortName">pc[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/addedPc" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">addedPc[15:0]</obj_property>
+      <obj_property name="ObjectShortName">addedPc[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/instruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">instruction[15:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_ID/readReg1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">readReg1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">readReg1[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_ID/readData2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">readData2[15:0]</obj_property>
+      <obj_property name="ObjectShortName">readData2[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_Exe/B" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">B[15:0]</obj_property>
+      <obj_property name="ObjectShortName">B[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_Exe/ALURes" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ALURes[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ALURes[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_ID/register" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">register[15:0,15:0]</obj_property>
+      <obj_property name="ObjectShortName">register[15:0,15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/controlB" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">controlB[1:0]</obj_property>
+      <obj_property name="ObjectShortName">controlB[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_Exe/A" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">A[15:0]</obj_property>
+      <obj_property name="ObjectShortName">A[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_ID/readData1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">readData1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">readData1[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_dm/fakeMemPool" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">fakeMemPool[0:255,15:0]</obj_property>
+      <obj_property name="ObjectShortName">fakeMemPool[0:255,15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/idPC" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">idPC[15:0]</obj_property>
+      <obj_property name="ObjectShortName">idPC[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/idInstruction" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">idInstruction[15:0]</obj_property>
+      <obj_property name="ObjectShortName">idInstruction[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/ALUOp" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ALUOp[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUOp[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/controlMem" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">controlMem[1:0]</obj_property>
+      <obj_property name="ObjectShortName">controlMem[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/ifJump" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ifJump</obj_property>
+      <obj_property name="ObjectShortName">ifJump</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/immNum" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">immNum[15:0]</obj_property>
+      <obj_property name="ObjectShortName">immNum[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/jorB" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">jorB[1:0]</obj_property>
+      <obj_property name="ObjectShortName">jorB[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/memToReg" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">memToReg</obj_property>
+      <obj_property name="ObjectShortName">memToReg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/readReg1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">readReg1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">readReg1[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/writeReg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">writeReg[3:0]</obj_property>
+      <obj_property name="ObjectShortName">writeReg[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/readReg2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">readReg2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">readReg2[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/readData1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">readData1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">readData1[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/readData2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">readData2[15:0]</obj_property>
+      <obj_property name="ObjectShortName">readData2[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_rdata1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_rdata1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_rdata1[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_rdata2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_rdata2[15:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_rdata2[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_imme" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_imme[15:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_imme[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_wreg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_wreg[3:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_wreg[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_rreg1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_rreg1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_rreg1[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_rreg2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_rreg2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_rreg2[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_pc" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_pc[15:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_pc[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_aluop" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_aluop[3:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_aluop[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_controlb" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_controlb[1:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_controlb[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_ifjump" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_ifjump</obj_property>
+      <obj_property name="ObjectShortName">exe_ifjump</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_jorb" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_jorb[1:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_jorb[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_controlmem" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_controlmem[1:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_controlmem[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_controlwb" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_controlwb</obj_property>
+      <obj_property name="ObjectShortName">exe_controlwb</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_WData" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_WData[15:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_WData[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_ALURes" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_ALURes[15:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_ALURes[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_NewPC" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_NewPC[15:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_NewPC[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_ControlBTB" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_ControlBTB[1:0]</obj_property>
+      <obj_property name="ObjectShortName">exe_ControlBTB[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_forward" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_forward</obj_property>
+      <obj_property name="ObjectShortName">exe_forward</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_forwardA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_forwardA</obj_property>
+      <obj_property name="ObjectShortName">exe_forwardA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/exe_forwardB" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">exe_forwardB</obj_property>
+      <obj_property name="ObjectShortName">exe_forwardB</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/mem_write" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_write</obj_property>
+      <obj_property name="ObjectShortName">mem_write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/mem_read" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_read</obj_property>
+      <obj_property name="ObjectShortName">mem_read</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/mem_address" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_address[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_address[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/mem_wdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_wdata[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_wdata[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/mem_readdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_readdata[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_readdata[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/mem_controlwb" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_controlwb</obj_property>
+      <obj_property name="ObjectShortName">mem_controlwb</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/mem_wreg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem_wreg[3:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_wreg[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/wb_memtoreg" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_memtoreg</obj_property>
+      <obj_property name="ObjectShortName">wb_memtoreg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/wb_memdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_memdata[15:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_memdata[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/wb_aludata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_aludata[15:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_aludata[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/wb_wreg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_wreg[3:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_wreg[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/wb_writeback" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wb_writeback[15:0]</obj_property>
+      <obj_property name="ObjectShortName">wb_writeback[15:0]</obj_property>
+   </wvobject>
+</wave_config>
