@@ -21,7 +21,7 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/InstructionMemory.v";
+static const char *ng0 = "D:/workspace/THUCS_ThinPad/InstructionMemory.v";
 static unsigned int ng1[] = {18453U, 0U};
 static int ng2[] = {0, 0};
 static unsigned int ng3[] = {18701U, 0U};
@@ -69,7 +69,7 @@ static unsigned int ng44[] = {55332U, 0U};
 static int ng45[] = {22, 0};
 static unsigned int ng46[] = {53252U, 0U};
 static int ng47[] = {23, 0};
-static unsigned int ng48[] = {27573U, 0U};
+static unsigned int ng48[] = {27317U, 0U};
 static int ng49[] = {24, 0};
 static unsigned int ng50[] = {27499U, 0U};
 static int ng51[] = {25, 0};
@@ -1435,7 +1435,7 @@ LAB5:    xsi_set_current_line(82, ng0);
     t7 = *((char **)t6);
     memset(t8, 0, 8);
     xsi_vlog_unsigned_minus(t8, 32, t5, 16, t7, 16);
-    t9 = ((char*)((ng41)));
+    t9 = ((char*)((ng10)));
     memset(t10, 0, 8);
     t11 = (t8 + 4);
     t12 = (t9 + 4);

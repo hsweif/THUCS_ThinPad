@@ -79,7 +79,7 @@ end
 
 always @(negedge clk)
 begin
-	if(pc - lastPC == 20 || lastPC == 16'b0)
+	if(pc - lastPC == 4 || lastPC == 16'b0)
 	begin
 		if(status == 39)
 			status <= 0;

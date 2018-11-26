@@ -21,12 +21,11 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/FakeDM.v";
-static int ng1[] = {0, 0};
+static const char *ng0 = "D:/workspace/THUCS_ThinPad/FakeDM.v";
+static int ng1[] = {1, 0};
 static const char *ng2 = "FakeMemPool.mem";
-static int ng3[] = {1, 0};
-static int ng4[] = {255, 0};
-static int ng5[] = {2, 0};
+static int ng3[] = {255, 0};
+static int ng4[] = {2, 0};
 
 
 
@@ -140,7 +139,7 @@ LAB11:    xsi_set_current_line(41, ng0);
 LAB13:    xsi_set_current_line(42, ng0);
     t2 = (t0 + 1368U);
     t3 = *((char **)t2);
-    t2 = ((char*)((ng3)));
+    t2 = ((char*)((ng1)));
     memset(t6, 0, 8);
     t4 = (t3 + 4);
     t5 = (t2 + 4);
@@ -176,7 +175,7 @@ LAB17:    t8 = (t6 + 4);
 LAB19:    xsi_set_current_line(44, ng0);
     t2 = (t0 + 1528U);
     t3 = *((char **)t2);
-    t2 = ((char*)((ng3)));
+    t2 = ((char*)((ng1)));
     memset(t6, 0, 8);
     t4 = (t3 + 4);
     t5 = (t2 + 4);
@@ -212,7 +211,7 @@ LAB24:    t8 = (t6 + 4);
 LAB26:
 LAB27:
 LAB20:    xsi_set_current_line(48, ng0);
-    t2 = ((char*)((ng3)));
+    t2 = ((char*)((ng1)));
     t3 = (t0 + 2408);
     xsi_vlogvar_wait_assign_value(t3, t2, 0, 0, 1, 0LL);
 
@@ -332,11 +331,11 @@ LAB2:    xsi_set_current_line(52, ng0);
 LAB1:    return;
 LAB4:    xsi_set_current_line(53, ng0);
 
-LAB5:    xsi_set_current_line(54, ng0);
-    t4 = ((char*)((ng4)));
+LAB5:    xsi_set_current_line(55, ng0);
+    t4 = ((char*)((ng3)));
     t5 = (t0 + 1048U);
     t6 = *((char **)t5);
-    t5 = ((char*)((ng5)));
+    t5 = ((char*)((ng4)));
     memset(t7, 0, 8);
     xsi_vlog_unsigned_rshift(t7, 32, t6, 16, t5, 32);
     memset(t8, 0, 8);
@@ -371,10 +370,10 @@ LAB7:    t11 = (t8 + 4);
 LAB8:    *((unsigned int *)t8) = 1;
     goto LAB9;
 
-LAB11:    xsi_set_current_line(55, ng0);
+LAB11:    xsi_set_current_line(56, ng0);
     t18 = (t0 + 1048U);
     t19 = *((char **)t18);
-    t18 = ((char*)((ng5)));
+    t18 = ((char*)((ng4)));
     memset(t20, 0, 8);
     xsi_vlog_unsigned_rshift(t20, 32, t19, 16, t18, 32);
     t21 = (t0 + 2888);

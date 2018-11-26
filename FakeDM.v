@@ -30,17 +30,17 @@ module FakeDM(
     );
 
 reg[15:0] fakeMemPool[0:255];
-reg[15:0] content;
+reg[15:0] content = 16'b0;
 integer pos = 0;
 
-always @(negedge clk or negedge rst)
+always @(posedge clk or posedge rst)
 begin
-	if(rst == 0)
+	if(rst == 1)
 		$readmemb("FakeMemPool.mem", fakeMemPool);
 	else
 	begin
 		if(MemRead == 1)
-			ReadData <= fakeMemPool[pos];
+			ReadData[15:0] <= fakeMemPool[pos];
 		else if(MemWrite == 1)
 			fakeMemPool[pos] = WriteData;
 		else
