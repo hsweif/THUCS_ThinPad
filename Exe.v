@@ -56,38 +56,38 @@ end
 
 always @(*)//muxA
 begin
-	// if (ForwardingA == 2'b00)
+	 if (ForwardingA == 2'b00)
 		A = RData1;
-	// else if (ForwardingA == 2'b01)
-	// 	A = ALUBack;
-	// else if (ForwardingA == 2'b10)
-	// 	A = WriteBackData;
-	// else
-	// ;//未定义
+	 else if (ForwardingA == 2'b01)
+	 	A = ALUBack;
+	 else if (ForwardingA == 2'b10)
+	 	A = WriteBackData;
+	 else
+	 ;//未定义
 end
 
 always @(*)//muxB
 begin
-	// if (ForwardingB == 2'b00)
+	 if (ForwardingB == 2'b00)
 		B = B0;
-	// else if (ForwardingB == 2'b01)
-	// 	B = ALUBack;
-	// else if (ForwardingB == 2'b10)
-	// 	B = WriteBackData;
-	// else
-	// ;//未定义
+	 else if (ForwardingB == 2'b01)
+	 	B = ALUBack;
+	 else if (ForwardingB == 2'b10)
+	 	B = WriteBackData;
+	 else
+	 ;//未定义
 end
 
 always @(*)//mux2
 begin
-	// if (Forward == 2'b00)
+	 if (Forward == 2'b00)
 		WData = RData2;
-	// else if (ForwardingB == 2'b01)
-	// 	WData = ALUBack;
-	// else if (ForwardingB == 2'b10)
-	// 	WData = WriteBackData;
-	// else
-	// ;//未定义
+	 else if (Forward == 2'b01)
+	 	WData = ALUBack;
+	 else if (Forward == 2'b10)
+	 	WData = WriteBackData;
+	 else
+	 ;//未定义
 end
 
 always @(*)//shiftleft
@@ -118,9 +118,9 @@ begin
 		begin
 			ALURes = A | B;
 		end
-	else if(ALUOp == 4'b0100) 
+	else if(ALUOp == 4'b0100) //neg
 		begin
-			ALURes = A ^ B;
+			ALURes = 0 - A;
 		end
 	else if(ALUOp == 4'b0101) 
 		begin
@@ -137,6 +137,20 @@ begin
 	else if(ALUOp == 4'b1000) 
 		begin
 			ALURes = A >>> B;
+		end
+	else if(ALUOp == 4'b1001)
+		begin
+			if (A < B)
+				ALURes = 1;
+			else
+				ALURes = 0;
+		end
+	else if(ALUOp == 4'b1010)
+		begin
+			if (A == B)
+				ALURes = 0;
+			else
+				ALURes = 1;
 		end
 	else
 		begin

@@ -1,5 +1,5 @@
 ISim log file
-Running: D:\workspace\THUCS_ThinPad\testPipeLine_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb D:/workspace/THUCS_ThinPad/testPipeLine_isim_beh.wdb 
+Running: D:\ISE_Project\THUCS_ThinPad\testPipeLine_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb D:/ISE_Project/THUCS_ThinPad/testPipeLine_isim_beh.wdb 
 ISim P.20131013 (signature 0x7708f090)
 ----------------------------------------------------------------------
 WARNING:Security:42 - Your software subscription period has lapsed. Your current version of Xilinx tools will continue to function, but you no longer qualify for Xilinx software updates or new releases.
@@ -8,12 +8,6 @@ WARNING:Security:42 - Your software subscription period has lapsed. Your current
 ----------------------------------------------------------------------
 This is a Full version of ISim.
 WARNING:  For instance uut/_if_id/, width 1 of formal port ifkeep is not equal to width 32 of actual constant.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 66.  For instance uut/_Exe/, width 2 of formal port Forward is not equal to width 1 of actual signal exe_forward.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 67.  For instance uut/_Exe/, width 2 of formal port ForwardingA is not equal to width 1 of actual signal exe_forwardA.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 68.  For instance uut/_Exe/, width 2 of formal port ForwardingB is not equal to width 1 of actual signal exe_forwardB.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 66.  For instance uut/_forward/, width 2 of formal port Forward is not equal to width 1 of actual signal exe_forward.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 67.  For instance uut/_forward/, width 2 of formal port ForwardingA is not equal to width 1 of actual signal exe_forwardA.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 68.  For instance uut/_forward/, width 2 of formal port ForwardingB is not equal to width 1 of actual signal exe_forwardB.
 Time resolution is 1 ps
 # onerror resume
 # wave add /
@@ -28,12 +22,8 @@ WARNING:Security:42 - Your software subscription period has lapsed. Your current
 ----------------------------------------------------------------------
 This is a Full version of ISim.
 WARNING:  For instance uut/_if_id/, width 1 of formal port ifkeep is not equal to width 32 of actual constant.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 66.  For instance uut/_Exe/, width 2 of formal port Forward is not equal to width 1 of actual signal exe_forward.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 67.  For instance uut/_Exe/, width 2 of formal port ForwardingA is not equal to width 1 of actual signal exe_forwardA.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 68.  For instance uut/_Exe/, width 2 of formal port ForwardingB is not equal to width 1 of actual signal exe_forwardB.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 66.  For instance uut/_forward/, width 2 of formal port Forward is not equal to width 1 of actual signal exe_forward.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 67.  For instance uut/_forward/, width 2 of formal port ForwardingA is not equal to width 1 of actual signal exe_forwardA.
-WARNING: File "D:/workspace/THUCS_ThinPad/PipeLine.v" Line 68.  For instance uut/_forward/, width 2 of formal port ForwardingB is not equal to width 1 of actual signal exe_forwardB.
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
+# run all
+# run all

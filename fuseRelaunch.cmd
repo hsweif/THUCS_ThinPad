@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "D:/workspace/THUCS_ThinPad/testPipeLine_isim_beh.exe" -prj "D:/workspace/THUCS_ThinPad/testPipeLine_beh.prj" "work.testPipeLine" "work.glbl" 
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "D:/ISE_Project/THUCS_ThinPad/testPipeLine_isim_beh.exe" -prj "D:/ISE_Project/THUCS_ThinPad/testPipeLine_beh.prj" "testPipeLine" "work.glbl" 

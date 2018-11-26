@@ -5,79 +5,64 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 63: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 71: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 65: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 73: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 68: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 76: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 133: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 141: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 163: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 171: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 165: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 173: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 169: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 177: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/workspace/THUCS_ThinPad/PipeLine.v" Line 86: Port <arg fmt="%s" index="1">PCKeep</arg> is not connected to this instance
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/PipeLine.v" Line 86: Port <arg fmt="%s" index="1">PCKeep</arg> is not connected to this instance
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/workspace/THUCS_ThinPad/PipeLine.v" Line 93: Port <arg fmt="%s" index="1">MemConflict</arg> is not connected to this instance
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/PipeLine.v" Line 93: Port <arg fmt="%s" index="1">MemConflict</arg> is not connected to this instance
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/workspace/THUCS_ThinPad/PipeLine.v" Line 159: Port <arg fmt="%s" index="1">ControlBTB</arg> is not connected to this instance
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/PipeLine.v" Line 159: Port <arg fmt="%s" index="1">ControlBTB</arg> is not connected to this instance
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/workspace/THUCS_ThinPad/PipeLine.v" Line 210: Port <arg fmt="%s" index="1">AddressSrc</arg> is not connected to this instance
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/PipeLine.v" Line 210: Port <arg fmt="%s" index="1">AddressSrc</arg> is not connected to this instance
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"D:/workspace/THUCS_ThinPad/PipeLine.v" Line 102: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">ifkeep</arg>&gt;. Formal port size is <arg fmt="%d" index="2">1</arg>-bit while actual signal size is <arg fmt="%d" index="1">32</arg>-bit.
+<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/PipeLine.v" Line 102: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">ifkeep</arg>&gt;. Formal port size is <arg fmt="%d" index="2">1</arg>-bit while actual signal size is <arg fmt="%d" index="1">32</arg>-bit.
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 63: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 71: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 65: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 73: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 68: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 76: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 133: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 141: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 163: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 171: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 165: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 173: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/workspace/THUCS_ThinPad/ID.v" Line 169: Concatenation with unsized literal; will interpret as 32 bits
+<msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"D:/ISE_Project/THUCS_ThinPad/ID.v" Line 177: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"D:/workspace/THUCS_ThinPad/PipeLine.v" Line 174: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">Forward</arg>&gt;. Formal port size is <arg fmt="%d" index="2">2</arg>-bit while actual signal size is <arg fmt="%d" index="1">1</arg>-bit.
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"D:/workspace/THUCS_ThinPad/PipeLine.v" Line 175: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">ForwardingA</arg>&gt;. Formal port size is <arg fmt="%d" index="2">2</arg>-bit while actual signal size is <arg fmt="%d" index="1">1</arg>-bit.
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"D:/workspace/THUCS_ThinPad/PipeLine.v" Line 176: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">ForwardingB</arg>&gt;. Formal port size is <arg fmt="%d" index="2">2</arg>-bit while actual signal size is <arg fmt="%d" index="1">1</arg>-bit.
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"D:/workspace/THUCS_ThinPad/PipeLine.v" Line 188: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">Forward</arg>&gt;. Formal port size is <arg fmt="%d" index="2">2</arg>-bit while actual signal size is <arg fmt="%d" index="1">1</arg>-bit.
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"D:/workspace/THUCS_ThinPad/PipeLine.v" Line 189: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">ForwardingA</arg>&gt;. Formal port size is <arg fmt="%d" index="2">2</arg>-bit while actual signal size is <arg fmt="%d" index="1">1</arg>-bit.
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="189" delta="unknown" >"D:/workspace/THUCS_ThinPad/PipeLine.v" Line 190: Size mismatch in connection of port &lt;<arg fmt="%s" index="3">ForwardingB</arg>&gt;. Formal port size is <arg fmt="%d" index="2">2</arg>-bit while actual signal size is <arg fmt="%d" index="1">1</arg>-bit.
+<msg type="warning" file="Simulator" num="0" delta="unknown" >Unable to copy libPortabilityNOSH.dll to the simulation executable directory: <arg fmt="%s" index="1">boost::filesystem::copy_file: ￏﾵￍﾳￕￒﾲﾻﾵﾽￖﾸﾶﾨﾵￄￂﾷﾾﾶﾡﾣ, &quot;isim\testPipeLine_isim_beh.exe.sim\libPortability.dll&quot;</arg>.
 </msg>
 
 </messages>

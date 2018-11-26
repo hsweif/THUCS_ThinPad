@@ -42,6 +42,13 @@ isim/
 *_summary.xml
 *_usage.xml
 *_xst.xrpt
+*.isim
+*.wcfg
+*.log
+*.xmsgs
+*.cmd
+*.exe
+*.wdb
 
 # iMPACT generated files
 _impactbatch.log

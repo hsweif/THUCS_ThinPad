@@ -21,7 +21,7 @@
 #include <malloc.h>
 #define alloca _alloca
 #endif
-static const char *ng0 = "D:/workspace/THUCS_ThinPad/FakeDM.v";
+static const char *ng0 = "D:/ISE_Project/THUCS_ThinPad/FakeDM.v";
 static int ng1[] = {1, 0};
 static const char *ng2 = "FakeMemPool.mem";
 static int ng3[] = {255, 0};
@@ -331,7 +331,7 @@ LAB2:    xsi_set_current_line(52, ng0);
 LAB1:    return;
 LAB4:    xsi_set_current_line(53, ng0);
 
-LAB5:    xsi_set_current_line(55, ng0);
+LAB5:    xsi_set_current_line(54, ng0);
     t4 = ((char*)((ng3)));
     t5 = (t0 + 1048U);
     t6 = *((char **)t5);
@@ -370,7 +370,7 @@ LAB7:    t11 = (t8 + 4);
 LAB8:    *((unsigned int *)t8) = 1;
     goto LAB9;
 
-LAB11:    xsi_set_current_line(56, ng0);
+LAB11:    xsi_set_current_line(55, ng0);
     t18 = (t0 + 1048U);
     t19 = *((char **)t18);
     t18 = ((char*)((ng4)));

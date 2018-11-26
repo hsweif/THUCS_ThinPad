@@ -53,7 +53,15 @@ module ID(
 		end
 	end
 
-    always @(instr) begin  
+	always @(*) begin
+		if(readReg1 == 4'b1111)	readData1 = 0;
+		else 					readData1 = register[readReg1];
+		
+		if(readReg2 == 4'b1111)	readData2 = 0;
+		else 					readData2 = register[readReg2];
+	end
+
+    always @(*) begin  
     	//readReg1
         if(instr[15:8] == 8'b01100011)                                      					readReg1 = 4'b1000;//SP
         else if(instr[15:11] == 5'b10010 || instr[15:11] == 5'b11010)                           readReg1 = 4'b1000;//SP
@@ -77,12 +85,12 @@ module ID(
 		else 																readReg2 = 4'b1111;
 
 		//ALUop
-        if(instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11101 && instr[4:0] == 5'b01010) || (instr[15:11] == 5'b11100 && instr[1:0] == 2'b11) || instr[15:11] == 5'b01011)
+        if(instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11100 && instr[1:0] == 2'b11))
             ALUOp = 4'b0001; //SUB
         else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01100)
             ALUOp = 4'b0010; //AND
         else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01011)
-            ALUOp = 4'b0001; //NEG
+            ALUOp = 4'b0100; //NEG
         else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01111)
             ALUOp = 4'b0101; //NOT
         else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01101)
@@ -163,7 +171,7 @@ module ID(
             writeReg = {0, instr[4:2]};
         else if(instr[15:11] == 5'b10011 || instr[15:11] == 5'b01000)
             writeReg = {0, instr[7:5]};
-        else if(instr[15:11] == 5'b00010 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000) || instr[15:0] == 16'b0000100000000000 || instr[15:11] == 5'b11011 || instr[15:11] == 5'b11010)
+        else if(instr[15:11] == 5'b00010 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000) || instr[15:0] == 16'b00000000000 || instr[15:11] == 5'b11011 || instr[15:11] == 5'b11010)
             writeReg = 4'b1111; //don't need to write Reg
         else
             writeReg = {0, instr[10:8]};
@@ -172,12 +180,6 @@ module ID(
 		if(instr[15:11] == 5'b00110) begin
 			if(immNum == 0)		immNum = 4'h0008;
 		end
-
-		if(readReg1 == 4'b1111)	readData1 = 0;
-		else 					readData1 = register[readReg1];
-		
-		if(readReg2 == 4'b1111)	readData2 = 0;
-		else 					readData2 = register[readReg2];
 
     end
 
