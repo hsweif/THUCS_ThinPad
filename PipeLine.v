@@ -63,9 +63,9 @@ wire [15:0] exe_WData;
 wire [15:0] exe_ALURes;
 wire [15:0] exe_NewPC;
 wire [1:0] exe_ControlBTB;
-wire exe_forward;
-wire exe_forwardA;
-wire exe_forwardB;
+wire [1:0] exe_forward;
+wire [1:0] exe_forwardA;
+wire [1:0] exe_forwardB;
 
 // output and input of Mem
 wire mem_write;

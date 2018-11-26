@@ -1,6 +1,7 @@
 # intermediate build files
 *.bgn
 *.bit
+isim/
 *.bld
 *.cmd_log
 *.drc
@@ -41,6 +42,13 @@
 *_summary.xml
 *_usage.xml
 *_xst.xrpt
+*.isim
+*.wcfg
+*.log
+*.xmsgs
+*.cmd
+*.exe
+*.wdb
 
 # iMPACT generated files
 _impactbatch.log

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/workspace/THUCS_ThinPad/testPipeLine_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="testPipeLine" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/testPipeLine/led" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">led[15:0]</obj_property>
+      <obj_property name="ObjectShortName">led[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_dm/ReadData" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ReadData[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ReadData[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_dm/Address" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">Address[15:0]</obj_property>
+      <obj_property name="ObjectShortName">Address[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_dm/WriteData" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">WriteData[15:0]</obj_property>
+      <obj_property name="ObjectShortName">WriteData[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_dm/ReadData" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ReadData[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ReadData[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testPipeLine/uut/_dm/pos" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pos[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos[31:0]</obj_property>
+   </wvobject>
+</wave_config>
