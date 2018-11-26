@@ -77,7 +77,7 @@ module ID(
 		else 																readReg2 = 4'b1111;
 
 		//ALUop
-        if(instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11101 && instr[4:0] == 5'b01010) || (instr[15:11] == 5'b11100 && instr[1:0] == 2'b11) || instr[15:11] == 5'b01011)
+        if(instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11100 && instr[1:0] == 2'b11))
             ALUOp = 4'b0001; //SUB
         else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01100)
             ALUOp = 4'b0010; //AND
