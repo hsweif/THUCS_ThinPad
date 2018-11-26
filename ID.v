@@ -91,6 +91,10 @@ module ID(
             ALUOp = 4'b0110; //SLL
         else if(instr[15:11] == 5'b00110 && instr[1:0] == 2'b11)
             ALUOp = 4'b1000; //SRA
+        else if(instr[15:11] == 5'b01011 || (instr[15:11] == 5'b11101 && instr[4:0] == 5'b00010))
+            ALUOp = 4'b1001; //SLT,SLTUI对应
+        else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01010)
+            ALUOp = 4'b1010; //CMP对应
         else
             ALUOp = 4'b0000; //ADD, default value
 
@@ -174,15 +178,6 @@ module ID(
 		
 		if(readReg2 == 4'b1111)	readData2 = 0;
 		else 					readData2 = register[readReg2];
-		/**********************以下部分要删除****************************/
-		if(instr[15:11] == 5'b01011) begin  //需要解决数据冲突，不能这么干，之后删除
-			if(immNum > readData1)	readData1 = 1 + immNum;
-			else 					readData1 = immNum;
-		end
-
-		if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01010) begin //有数据冲突的可能，不能这么干，之后删除
-			if(readData2 != readData1)	readData2 = readData1 - 1;
-		end
 
     end
 
