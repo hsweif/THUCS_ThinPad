@@ -1,0 +1,10 @@
+Command line:
+   testPipeLine_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  11240
+
+Tue Nov 27 00:13:56 2018
+
+
+ Elaboration Time: 0.171875 sec

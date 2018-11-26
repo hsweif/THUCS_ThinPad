@@ -83,7 +83,12 @@ wire [15:0] wb_aludata;
 wire [3:0] wb_wreg;
 wire [15:0] wb_writeback;
 
+wire pcKeep;
+wire ifKeep;
+wire idKeep;
+
 PC_reg _PC_reg(
+  .PCKeep(pcKeep),
 	.clk (clk),
 	.rst (rst),
 	.pc (pc),
@@ -99,18 +104,19 @@ InstructionMemory _IM(
 
 if_id _if_id(
 	.clk (clk),
-	.ifkeep (0),
-   .pc_in (addedPc),
-   .instr_in (instruction),
-   .pc_out (idPC),
-   .instr_out (idInstruction)
+    .ifkeep (ifKeep),
+    .pc_in (addedPc),
+    .instr_in (instruction),
+    .pc_out (idPC),
+    .instr_out (idInstruction)
 );
 
 ID _ID(
-  .rst(rst),
-	.instr(idInstruction),
-	.writeBackReg(wb_wreg),
-	.writeBackData(wb_writeback),
+    .rst(rst),
+    .idKeep(idKeep),
+  	.instr(idInstruction),
+  	.writeBackReg(wb_wreg),
+  	.writeBackData(wb_writeback),
 
     .ALUOp(ALUOp),
     .controlB(controlB),
@@ -127,7 +133,7 @@ ID _ID(
 );
 
 id_exe _id_exe(
-	.clk (clk),
+	 .clk (clk),
    .rdata1_in (readData1),
    .rdata2_in (readData2),
    .imme_in (immNum),
@@ -188,6 +194,16 @@ Forwarding _forward(
 	.Forward (exe_forward),
 	.ForwardingA (exe_forwardA),
 	.ForwardingB (exe_forwardB)
+);
+
+hazard _hazard(
+    .readReg1(readReg1),
+    .readReg2(readReg2),
+    .writeReg(exe_wreg),
+    .controlMem(exe_controlmem),
+    .ifKeep(ifKeep),
+    .pcKeep(pcKeep),
+    .idKeep(idKeep)
 );
 
 exe_mem _ex_m(

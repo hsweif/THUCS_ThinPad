@@ -39,7 +39,7 @@ always @ (*) begin
 end
 
 always @ (negedge clk) begin
-	if (PCKeep == 1) begin
+	if (PCKeep === 1) begin
 	end 
 	else 
 	begin

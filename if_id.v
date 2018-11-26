@@ -28,7 +28,7 @@ module if_id(
     );
 
 always @ (negedge clk) begin
-	if (ifkeep == 0) begin
+	if (ifkeep !== 1) begin
 	pc_out <= pc_in;
 	instr_out <= instr_in;
 	end

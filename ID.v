@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module ID(
 	input wire rst,
+    input wire idKeep,
 	input [15:0] instr,
 	input [3:0] writeBackReg,
 	input [15:0] writeBackData,
@@ -62,124 +63,138 @@ module ID(
 	end
 
     always @(*) begin  
-    	//readReg1
-        if(instr[15:8] == 8'b01100011)                                      					readReg1 = 4'b1000;//SP
-        else if(instr[15:11] == 5'b10010 || instr[15:11] == 5'b11010)                           readReg1 = 4'b1000;//SP
-        else if(instr[15:8] == 8'b01100000)                                 					readReg1 = 4'b1001;//T
-        else if(instr[15:11] == 5'b11110 && instr[4:0] == 0)                					readReg1 = 4'b1010;//IH
-        else if(instr[15:8] == 8'b01100100 
-        	|| instr[15:11] == 5'b00110 || instr[15:11] == 5'b01111)							readReg1 = {0, instr[7:5]};
-        else if(instr[15:11] == 5'b11101 
-        	&& (instr[4:0] == 5'b01111 || instr[4:0] == 5'b01011))								readReg1 = {0, instr[7:5]};
-        else if(instr[15:11] == 5'b00001 || instr[15:11] == 5'b00010 || instr[15:11] == 5'b01101 
-        	|| (instr[15:11] == 5'b11101 && instr[7:0] == 8'b01000000)) 						readReg1 = 4'b1111; //need zero
-        else                                                                					readReg1 = {0, instr[10:8]};
-        
-
-		// readReg2
-		if(instr[15:11] == 5'b11010)										readReg2 = {1'b0, instr[10:8]};
-		else if(instr[15:11] == 5'b11011 || instr[15:11] == 5'b11100 || 
-			(instr[15:11] == 5'b11101 
-				&& (instr[4:0] == 5'b00010 || instr[4:0] == 5'b01101 
-					|| instr[4:0] == 5'b01010 || instr[4:0] == 5'b01100))) 	readReg2 = {1'b0, instr[7:5]};
-		else 																readReg2 = 4'b1111;
-
-		//ALUop
-        if(instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11100 && instr[1:0] == 2'b11))
-            ALUOp = 4'b0001; //SUB
-        else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01100)
-            ALUOp = 4'b0010; //AND
-        else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01011)
-            ALUOp = 4'b0100; //NEG
-        else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01111)
-            ALUOp = 4'b0101; //NOT
-        else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01101)
-            ALUOp = 4'b0011; //OR
-        else if(instr[15:11] == 5'b00110 && instr[1:0] == 2'b00)
-            ALUOp = 4'b0110; //SLL
-        else if(instr[15:11] == 5'b00110 && instr[1:0] == 2'b11)
-            ALUOp = 4'b1000; //SRA
-        else if(instr[15:11] == 5'b01011 || (instr[15:11] == 5'b11101 && instr[4:0] == 5'b00010))
-            ALUOp = 4'b1001; //SLT,SLTUI对应
-        else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01010)
-            ALUOp = 4'b1010; //CMP对应
-        else
-            ALUOp = 4'b0000; //ADD, default value
-
-        //controlB
-        if((instr[15:11] == 5'b11100 && (instr[1:0] == 2'b01 || instr[1:0] == 2'b11)) || (instr[15:11] == 5'b11101 && (instr[4:0] == 5'b01100 || instr[4:0] == 5'b01010 || instr[4:0] == 5'b01011 || instr[4:0] == 5'b01101 || instr[4:0] == 5'b00010)) || (instr[15:11] == 5'b01111 && instr[4:0] == 5'b00000))
-            controlB = 2'b00; //ry
-        else if((instr[15:11] == 5'b00110 && (instr[1:0] == 2'b00 || instr[1:0] == 2'b11)) || instr[15:11] == 5'b01000 || instr[15:11] == 5'b01001 || instr[15:11] == 5'b01011 || instr[15:8] == 8'b01100011 || instr[15:11] == 5'b01101 || instr[15:11] == 5'b10010 || instr[15:11] == 5'b10011 || instr[15:11] == 5'b11010 || instr[15:11] == 5'b11011)
-            controlB = 2'b01; //imm
-        else
-            controlB = 2'b10; // default value, 0
-
-        //controlMem
-        if(instr[15:11] == 5'b10010 || instr[15:11] == 5'b10011)
-            controlMem = 2'b01;     // need memRead
-        else if(instr[15:11] == 5'b11010 || instr[15:11] == 5'b11011)
-            controlMem = 2'b10;     // need memWrite
-        else    
-            controlMem = 2'b11;     // no mem operation
-
-        //ifJump
-        if(instr[15:11] == 5'b00010 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:11] == 5'b01100 || (instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000))
-            ifJump = 0;
-        else
-            ifJump = 1;
-
-        //immNum
-        if(instr[15:11] == 5'b01001 || instr[15:8] == 8'b01100011 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || instr[15:11] == 5'b10010 || instr[15:11] == 5'b11010)
-            immNum = { {8{instr[7]}}, instr[7:0]};
-        else if(instr[15:11] == 5'b01000 && instr[4] == 0)
-            immNum = { {12{instr[3]}}, instr[3:0]};
-        else if(instr[15:11] == 5'b00010)
-            immNum = { {5{instr[10]}}, instr[10:0]};
-        else if(instr[15:11] == 5'b10011 || instr[15:11] == 5'b11011)
-            immNum = { {11{instr[4]}}, instr[4:0]};
-        else if(instr[15:11] == 5'b00110)
-            immNum = { {13{0}}, instr[4:2]};
-        else if(instr[15:11] == 5'b01101 || instr[15:11] == 5'b01011)
-            immNum = { 8'b00000000, instr[7:0]};
-        else
-            immNum = 0;
-
-        //jorB       00:B 01:J 10:B== 11:B!=
-        if(instr[15:11] == 5'b00010)
-            jorB = 2'b00;
-        else if(instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000)
-            jorB = 2'b01;
-        else if(instr[15:11] == 5'b00100 || instr[15:8] == 8'b01100000)
-            jorB = 2'b10;
-        else
+        if(idKeep === 1) begin
+            // readReg1 = 4'b1111;
+            // readReg2 = 4'b1111;
+            writeReg = 4'b1111;
+            memToReg = 1;
             jorB = 2'b11;
+            immNum = 0;
+            ifJump = 1;
+            controlMem = 2'b11;
+            controlB = 2'b01;
+            ALUOp = 4'b1111;
+        end    
+        else begin
+    	   //readReg1
+            if(instr[15:8] == 8'b01100011)                                      					readReg1 = 4'b1000;//SP
+            else if(instr[15:11] == 5'b10010 || instr[15:11] == 5'b11010)                           readReg1 = 4'b1000;//SP
+            else if(instr[15:8] == 8'b01100000)                                 					readReg1 = 4'b1001;//T
+            else if(instr[15:11] == 5'b11110 && instr[4:0] == 0)                					readReg1 = 4'b1010;//IH
+            else if(instr[15:8] == 8'b01100100 
+            	|| instr[15:11] == 5'b00110 || instr[15:11] == 5'b01111)							readReg1 = {0, instr[7:5]};
+            else if(instr[15:11] == 5'b11101 
+            	&& (instr[4:0] == 5'b01111 || instr[4:0] == 5'b01011))								readReg1 = {0, instr[7:5]};
+            else if(instr[15:11] == 5'b00001 || instr[15:11] == 5'b00010 || instr[15:11] == 5'b01101 
+            	|| (instr[15:11] == 5'b11101 && instr[7:0] == 8'b01000000)) 						readReg1 = 4'b1111; //need zero
+            else                                                                					readReg1 = {0, instr[10:8]};
+            
 
-        //memToReg
-        if(instr[15:11] == 5'b10010 || instr[15:11] == 5'b10011)
-            memToReg = 0;   //Mem
-        else
-            memToReg = 1;   // default value, alu result
+    		// readReg2
+    		if(instr[15:11] == 5'b11010)										readReg2 = {1'b0, instr[10:8]};
+    		else if(instr[15:11] == 5'b11011 || instr[15:11] == 5'b11100 || 
+    			(instr[15:11] == 5'b11101 
+    				&& (instr[4:0] == 5'b00010 || instr[4:0] == 5'b01101 
+    					|| instr[4:0] == 5'b01010 || instr[4:0] == 5'b01100))) 	readReg2 = {1'b0, instr[7:5]};
+    		else 																readReg2 = 4'b1111;
 
-        //writeReg
-        if(instr[15:8] == 8'b01100011 || instr[15:8] == 8'b01100100)
-            writeReg = 4'b1000; //SP
-        else if((instr[15:11] == 5'b11101 && (instr[4:0] == 5'b01010 || instr[4:0] == 5'b00010)) || instr[15:11] == 5'b01011)
-            writeReg = 4'b1001; //T
-        else if(instr[15:11] == 5'b11110 && instr[4:0] == 5'b00001)
-            writeReg = 4'b1010; //IH
-        else if(instr[15:11] == 5'b11100 && (instr[1:0] == 2'b01 || instr[1:0] == 2'b11))
-            writeReg = {0, instr[4:2]};
-        else if(instr[15:11] == 5'b10011 || instr[15:11] == 5'b01000)
-            writeReg = {0, instr[7:5]};
-        else if(instr[15:11] == 5'b00010 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000) || instr[15:0] == 16'b00000000000 || instr[15:11] == 5'b11011 || instr[15:11] == 5'b11010)
-            writeReg = 4'b1111; //don't need to write Reg
-        else
-            writeReg = {0, instr[10:8]};
+    		//ALUop
+            if(instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11100 && instr[1:0] == 2'b11))
+                ALUOp = 4'b0001; //SUB
+            else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01100)
+                ALUOp = 4'b0010; //AND
+            else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01011)
+                ALUOp = 4'b0100; //NEG
+            else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01111)
+                ALUOp = 4'b0101; //NOT
+            else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01101)
+                ALUOp = 4'b0011; //OR
+            else if(instr[15:11] == 5'b00110 && instr[1:0] == 2'b00)
+                ALUOp = 4'b0110; //SLL
+            else if(instr[15:11] == 5'b00110 && instr[1:0] == 2'b11)
+                ALUOp = 4'b1000; //SRA
+            else if(instr[15:11] == 5'b01011 || (instr[15:11] == 5'b11101 && instr[4:0] == 5'b00010))
+                ALUOp = 4'b1001; //SLT,SLTUI对应
+            else if(instr[15:11] == 5'b11101 && instr[4:0] == 5'b01010)
+                ALUOp = 4'b1010; //CMP对应
+            else
+                ALUOp = 4'b0000; //ADD, default value
+
+            //controlB
+            if((instr[15:11] == 5'b11100 && (instr[1:0] == 2'b01 || instr[1:0] == 2'b11)) || (instr[15:11] == 5'b11101 && (instr[4:0] == 5'b01100 || instr[4:0] == 5'b01010 || instr[4:0] == 5'b01011 || instr[4:0] == 5'b01101 || instr[4:0] == 5'b00010)) || (instr[15:11] == 5'b01111 && instr[4:0] == 5'b00000))
+                controlB = 2'b00; //ry
+            else if((instr[15:11] == 5'b00110 && (instr[1:0] == 2'b00 || instr[1:0] == 2'b11)) || instr[15:11] == 5'b01000 || instr[15:11] == 5'b01001 || instr[15:11] == 5'b01011 || instr[15:8] == 8'b01100011 || instr[15:11] == 5'b01101 || instr[15:11] == 5'b10010 || instr[15:11] == 5'b10011 || instr[15:11] == 5'b11010 || instr[15:11] == 5'b11011)
+                controlB = 2'b01; //imm
+            else
+                controlB = 2'b10; // default value, 0
+
+            //controlMem
+            if(instr[15:11] == 5'b10010 || instr[15:11] == 5'b10011)
+                controlMem = 2'b01;     // need memRead
+            else if(instr[15:11] == 5'b11010 || instr[15:11] == 5'b11011)
+                controlMem = 2'b10;     // need memWrite
+            else    
+                controlMem = 2'b11;     // no mem operation
+
+            //ifJump
+            if(instr[15:11] == 5'b00010 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:11] == 5'b01100 || (instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000))
+                ifJump = 0;
+            else
+                ifJump = 1;
+
+            //immNum
+            if(instr[15:11] == 5'b01001 || instr[15:8] == 8'b01100011 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || instr[15:11] == 5'b10010 || instr[15:11] == 5'b11010)
+                immNum = { {8{instr[7]}}, instr[7:0]};
+            else if(instr[15:11] == 5'b01000 && instr[4] == 0)
+                immNum = { {12{instr[3]}}, instr[3:0]};
+            else if(instr[15:11] == 5'b00010)
+                immNum = { {5{instr[10]}}, instr[10:0]};
+            else if(instr[15:11] == 5'b10011 || instr[15:11] == 5'b11011)
+                immNum = { {11{instr[4]}}, instr[4:0]};
+            else if(instr[15:11] == 5'b00110)
+                immNum = { {13{0}}, instr[4:2]};
+            else if(instr[15:11] == 5'b01101 || instr[15:11] == 5'b01011)
+                immNum = { 8'b00000000, instr[7:0]};
+            else
+                immNum = 0;
+
+            //jorB       00:B 01:J 10:B== 11:B!=
+            if(instr[15:11] == 5'b00010)
+                jorB = 2'b00;
+            else if(instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000)
+                jorB = 2'b01;
+            else if(instr[15:11] == 5'b00100 || instr[15:8] == 8'b01100000)
+                jorB = 2'b10;
+            else
+                jorB = 2'b11;
+
+            //memToReg
+            if(instr[15:11] == 5'b10010 || instr[15:11] == 5'b10011)
+                memToReg = 0;   //Mem
+            else
+                memToReg = 1;   // default value, alu result
+
+            //writeReg
+            if(instr[15:8] == 8'b01100011 || instr[15:8] == 8'b01100100)
+                writeReg = 4'b1000; //SP
+            else if((instr[15:11] == 5'b11101 && (instr[4:0] == 5'b01010 || instr[4:0] == 5'b00010)) || instr[15:11] == 5'b01011)
+                writeReg = 4'b1001; //T
+            else if(instr[15:11] == 5'b11110 && instr[4:0] == 5'b00001)
+                writeReg = 4'b1010; //IH
+            else if(instr[15:11] == 5'b11100 && (instr[1:0] == 2'b01 || instr[1:0] == 2'b11))
+                writeReg = {0, instr[4:2]};
+            else if(instr[15:11] == 5'b10011 || instr[15:11] == 5'b01000)
+                writeReg = {0, instr[7:5]};
+            else if(instr[15:11] == 5'b00010 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000) || instr[15:0] == 16'b00000000000 || instr[15:11] == 5'b11011 || instr[15:11] == 5'b11010)
+                writeReg = 4'b1111; //don't need to write Reg
+            else
+                writeReg = {0, instr[10:8]};
 
 
-		if(instr[15:11] == 5'b00110) begin
-			if(immNum == 0)		immNum = 4'h0008;
-		end
+    		if(instr[15:11] == 5'b00110) begin
+    			if(immNum == 0)		immNum = 4'h0008;
+    		end
+        end
 
     end
 

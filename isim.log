@@ -1,11 +1,6 @@
 ISim log file
-Running: D:\ISE_Project\THUCS_ThinPad\testPipeLine_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb D:/ISE_Project/THUCS_ThinPad/testPipeLine_isim_beh.wdb 
+Running: C:\Users\jyx\Desktop\learn\Code\git\THUCS_ThinPad\testPipeLine_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/testPipeLine_isim_beh.wdb 
 ISim P.20131013 (signature 0x7708f090)
-----------------------------------------------------------------------
-WARNING:Security:42 - Your software subscription period has lapsed. Your current version of Xilinx tools will continue to function, but you no longer qualify for Xilinx software updates or new releases.
-
-
-----------------------------------------------------------------------
 This is a Full version of ISim.
 WARNING:  For instance uut/_if_id/, width 1 of formal port ifkeep is not equal to width 32 of actual constant.
 Time resolution is 1 ps
@@ -15,15 +10,87 @@ Time resolution is 1 ps
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
 ISim P.20131013 (signature 0x7708f090)
-----------------------------------------------------------------------
-WARNING:Security:42 - Your software subscription period has lapsed. Your current version of Xilinx tools will continue to function, but you no longer qualify for Xilinx software updates or new releases.
-
-
-----------------------------------------------------------------------
 This is a Full version of ISim.
 WARNING:  For instance uut/_if_id/, width 1 of formal port ifkeep is not equal to width 32 of actual constant.
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
 # run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+WARNING:  For instance uut/_if_id/, width 1 of formal port ifkeep is not equal to width 32 of actual constant.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run all
+# run all
+# run all
+# run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run all
+# run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+# run all
+# run all
+ISim P.20131013 (signature 0x7708f090)
+This is a Full version of ISim.
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
 # run all
