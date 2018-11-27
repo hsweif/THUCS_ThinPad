@@ -26,16 +26,16 @@
 <msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 191: Concatenation with unsized literal; will interpret as 32 bits
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 98: Port <arg fmt="%s" index="1">MemConflict</arg> is not connected to this instance
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 100: Port <arg fmt="%s" index="1">MemConflict</arg> is not connected to this instance
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 165: Port <arg fmt="%s" index="1">ControlBTB</arg> is not connected to this instance
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 168: Port <arg fmt="%s" index="1">ControlBTB</arg> is not connected to this instance
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 199: Port <arg fmt="%s" index="1">clk</arg> is not connected to this instance
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 202: Port <arg fmt="%s" index="1">clk</arg> is not connected to this instance
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 226: Port <arg fmt="%s" index="1">AddressSrc</arg> is not connected to this instance
+<msg type="warning" file="HDLCompiler" num="1016" delta="unknown" >"C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 230: Port <arg fmt="%s" index="1">AddressSrc</arg> is not connected to this instance
 </msg>
 
 <msg type="warning" file="HDLCompiler" num="327" delta="unknown" >"C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 85: Concatenation with unsized literal; will interpret as 32 bits

@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module ID(
 	input wire rst,
-    input wire idKeep,
+    // input wire idKeep,
 	input [15:0] instr,
 	input [3:0] writeBackReg,
 	input [15:0] writeBackData,
@@ -63,19 +63,19 @@ module ID(
 	end
 
     always @(*) begin  
-        if(idKeep === 1) begin
-            // readReg1 = 4'b1111;
-            // readReg2 = 4'b1111;
-            writeReg = 4'b1111;
-            memToReg = 1;
-            jorB = 2'b11;
-            immNum = 0;
-            ifJump = 1;
-            controlMem = 2'b11;
-            controlB = 2'b01;
-            ALUOp = 4'b1111;
-        end    
-        else begin
+        // if(idKeep === 1) begin
+        //     // readReg1 = 4'b1111;
+        //     // readReg2 = 4'b1111;
+        //     writeReg = 4'b1111;
+        //     memToReg = 1;
+        //     jorB = 2'b11;
+        //     immNum = 0;
+        //     ifJump = 1;
+        //     controlMem = 2'b11;
+        //     controlB = 2'b01;
+        //     ALUOp = 4'b1111;
+        // end    
+        // else begin
     	   //readReg1
             if(instr[15:8] == 8'b01100011)                                      					readReg1 = 4'b1000;//SP
             else if(instr[15:11] == 5'b10010 || instr[15:11] == 5'b11010)                           readReg1 = 4'b1000;//SP
@@ -185,7 +185,7 @@ module ID(
                 writeReg = {0, instr[4:2]};
             else if(instr[15:11] == 5'b10011 || instr[15:11] == 5'b01000)
                 writeReg = {0, instr[7:5]};
-            else if(instr[15:11] == 5'b00010 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000) || instr[15:0] == 16'b00000000000 || instr[15:11] == 5'b11011 || instr[15:11] == 5'b11010)
+            else if(instr[15:11] == 5'b00001 || instr[15:11] == 5'b00010 || instr[15:11] == 5'b00100 || instr[15:11] == 5'b00101 || instr[15:8] == 8'b01100000 || (instr[15:11] == 5'b11101 && instr[7:0] == 8'b00000000) || instr[15:0] == 16'b00000000000 || instr[15:11] == 5'b11011 || instr[15:11] == 5'b11010)
                 writeReg = 4'b1111; //don't need to write Reg
             else
                 writeReg = {0, instr[10:8]};
@@ -194,7 +194,7 @@ module ID(
     		if(instr[15:11] == 5'b00110) begin
     			if(immNum == 0)		immNum = 4'h0008;
     		end
-        end
+        // end
 
     end
 

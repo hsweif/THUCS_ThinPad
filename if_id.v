@@ -19,8 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module if_id(
-	 input clk,
-	 input ifkeep,
+	input clk,
+	input ifkeep,
     input [15:0] pc_in,
     input [15:0] instr_in,
     output reg [15:0] pc_out,

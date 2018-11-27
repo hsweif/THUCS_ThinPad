@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module id_exe(
     input clk,
+    input idKeep,
     input [15:0] rdata1_in,
     input [15:0] rdata2_in,
     input [15:0] imme_in,
@@ -49,18 +50,26 @@ module id_exe(
     );
 
 always @ (negedge clk) begin
-	rdata1_out <= rdata1_in;
-   rdata2_out <= rdata2_in;
-   imme_out <= imme_in;
-   wreg_out <= wreg_in;
-   rreg1_out <= rreg1_in;
-   rreg2_out <= rreg2_in;
-   pc_out <= pc_in;
-   aluop_out <= aluop_in;
-   controlb_out <= controlb_in;
-   ifjump_out <= ifjump_in;
-   jorb_out <= jorb_in;
-   controlmem_out <= controlmem_in;
-   controlwb_out <= controlwb_in;
+    
+    rreg1_out <= rreg1_in;
+    rreg2_out <= rreg2_in;
+    rdata1_out <= rdata1_in;
+    rdata2_out <= rdata2_in;
+    imme_out <= imme_in;
+    aluop_out <= aluop_in;
+    controlb_out <= controlb_in;
+    ifjump_out <= ifjump_in;
+    jorb_out <= jorb_in;
+    controlwb_out <= controlwb_in;
+    pc_out <= pc_in;
+
+    if(idKeep !== 1) begin
+        wreg_out <= wreg_in;
+        controlmem_out <= controlmem_in;
+    end
+    else begin
+        wreg_out <= 4'b1111;
+        controlmem_out <= 2'b11;      
+    end
 end
 endmodule

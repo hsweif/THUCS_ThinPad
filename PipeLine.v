@@ -88,9 +88,11 @@ wire ifKeep;
 wire idKeep;
 
 PC_reg _PC_reg(
-  .PCKeep(pcKeep),
+    .PCKeep(pcKeep),
 	.clk (clk),
 	.rst (rst),
+    .ifJump(exe_ifjump),
+    .newPC(exe_NewPC),
 	.pc (pc),
 	.AddedPC (addedPc)
 );
@@ -113,7 +115,7 @@ if_id _if_id(
 
 ID _ID(
     .rst(rst),
-    .idKeep(idKeep),
+    // .idKeep(idKeep),
   	.instr(idInstruction),
   	.writeBackReg(wb_wreg),
   	.writeBackData(wb_writeback),
@@ -133,33 +135,34 @@ ID _ID(
 );
 
 id_exe _id_exe(
-	 .clk (clk),
-   .rdata1_in (readData1),
-   .rdata2_in (readData2),
-   .imme_in (immNum),
-   .wreg_in (writeReg),
-   .rreg1_in (readReg1),
-   .rreg2_in (readReg2),
-   .pc_in (idPC),
-   .aluop_in (ALUOp),
-   .controlb_in (controlB),
-   .ifjump_in (ifJump),
-   .jorb_in (jorB),
-   .controlmem_in (controlMem),
-   .controlwb_in (memToReg),
-   .rdata1_out (exe_rdata1),
-   .rdata2_out (exe_rdata2),
-   .imme_out (exe_imme),
-   .wreg_out (exe_wreg),
-   .rreg1_out (exe_rreg1),
-   .rreg2_out (exe_rreg2),
-   .pc_out (exe_pc),
-   .aluop_out (exe_aluop),
-   .controlb_out (exe_controlb),
-   .ifjump_out (exe_ifjump),
-   .jorb_out (exe_jorb),
-   .controlmem_out (exe_controlmem),
-   .controlwb_out (exe_controlwb)
+	.clk (clk),
+    .idKeep(idKeep),
+    .rdata1_in (readData1),
+    .rdata2_in (readData2),
+    .imme_in (immNum),
+    .wreg_in (writeReg),
+    .rreg1_in (readReg1),
+    .rreg2_in (readReg2),
+    .pc_in (idPC),
+    .aluop_in (ALUOp),
+    .controlb_in (controlB),
+    .ifjump_in (ifJump),
+    .jorb_in (jorB),
+    .controlmem_in (controlMem),
+    .controlwb_in (memToReg),
+    .rdata1_out (exe_rdata1),
+    .rdata2_out (exe_rdata2),
+    .imme_out (exe_imme),
+    .wreg_out (exe_wreg),
+    .rreg1_out (exe_rreg1),
+    .rreg2_out (exe_rreg2),
+    .pc_out (exe_pc),
+    .aluop_out (exe_aluop),
+    .controlb_out (exe_controlb),
+    .ifjump_out (exe_ifjump),
+    .jorb_out (exe_jorb),
+    .controlmem_out (exe_controlmem),
+    .controlwb_out (exe_controlwb)
 );
 
 Exe _Exe(
@@ -183,20 +186,21 @@ Exe _Exe(
 );
 
 Forwarding _forward(
-	.rst (rst),
-	.WRegFW1 (mem_wreg),
-   .WRegFW2 (wb_wreg),
-	.R1 (exe_rreg1),
-   .R2 (exe_rreg2),
-	.MemControl (exe_controlmem),
-	.RData1 (exe_rdata1),
-   .RData2 (exe_rdata2),
-	.Forward (exe_forward),
-	.ForwardingA (exe_forwardA),
-	.ForwardingB (exe_forwardB)
+    .rst (rst),
+    .WRegFW1 (mem_wreg),
+    .WRegFW2 (wb_wreg),
+    .R1 (exe_rreg1),
+    .R2 (exe_rreg2),
+    .MemControl (exe_controlmem),
+    .RData1 (exe_rdata1),
+    .RData2 (exe_rdata2),
+    .Forward (exe_forward),
+    .ForwardingA (exe_forwardA),
+    .ForwardingB (exe_forwardB)
 );
 
 hazard _hazard(
+    .ifJump(ifJump),
     .readReg1(readReg1),
     .readReg2(readReg2),
     .writeReg(exe_wreg),
@@ -224,26 +228,26 @@ exe_mem _ex_m(
 
 
 FakeDM _dm(
-	.Address (mem_address),
-   .WriteData (mem_wdata),
-   .MemRead (mem_read),
-   .MemWrite (mem_write),
-	.rst (rst),
-	.clk (clk),
-	.ReadData (mem_readdata)
+    .Address (mem_address),
+    .WriteData (mem_wdata),
+    .MemRead (mem_read),
+    .MemWrite (mem_write),
+    .rst (rst),
+    .clk (clk),
+    .ReadData (mem_readdata)
 	//这是谁传过来的？.AddressSrc //0: Ram1 Address, 1: Ram2 Address
 );
 
 mem_wb _mem_wb(
-	.clk (clk),
-   .controlwb_in (mem_controlwb),
-   .memdata_in (mem_readdata),
-   .alu_in (mem_address),
-	.wreg_in (mem_wreg),
-   .controlwb_out (wb_memtoreg),
-   .memdata_out (wb_memdata),
-   .alu_out (wb_aludata),
-   .wreg_out (wb_wreg)
+    .clk (clk),
+    .controlwb_in (mem_controlwb),
+    .memdata_in (mem_readdata),
+    .alu_in (mem_address),
+    .wreg_in (mem_wreg),
+    .controlwb_out (wb_memtoreg),
+    .memdata_out (wb_memdata),
+    .alu_out (wb_aludata),
+    .wreg_out (wb_wreg)
 );
 
 WriteBack _wb(

@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module hazard(
 	input clk,
+	input ifJump,
 	input [3:0] readReg1,
 	input [3:0] readReg2,
 	input [3:0] writeReg,
@@ -37,6 +38,11 @@ module hazard(
 			ifKeep = 1;
 			pcKeep = 1;
 			idKeep = 1;
+		end
+		else if(ifJump == 0) begin
+			ifKeep = 0;
+			pcKeep = 1;
+			idKeep = 0;
 		end
 		else begin
 			ifKeep = 0;
