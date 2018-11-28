@@ -54,7 +54,7 @@ module ID(
 		end
 	end
 
-	always @(*) begin
+	always @(readReg1, readReg2) begin
 		if(readReg1 == 4'b1111)	readData1 = 0;
 		else 					readData1 = register[readReg1];
 		
