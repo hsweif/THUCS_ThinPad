@@ -44,6 +44,7 @@ reg [15:0] B = 16'b0;
 reg [15:0] ShiftImme = 16'b0;
 reg [15:0] CalPC = 16'b0;
 
+
 always @(*)//mux1
 begin
 	if (ControlB == 2'b00)
@@ -162,22 +163,22 @@ end
 always @(*)//mux3
 begin
 	if (JorB == 2'b00)
-		NewPC = CalPC;
+		NewPC = CalPC + 4'h4;
 	else if (JorB == 2'b01)
 		NewPC = A;
 	else if (JorB == 2'b10)
 	begin
 		if (A == 16'b0)
-			NewPC = CalPC;
+			NewPC = CalPC + 4'h4;
 		else
-			NewPC = PCSrc;
+			NewPC = PCSrc + 4'h4;
 	end
 	else
 	begin
 		if (A == 16'b0)
-			NewPC = PCSrc;
+			NewPC = PCSrc + 4'h4;
 		else
-			NewPC = CalPC;
+			NewPC = CalPC + 4'h4;
 	end
 end
 
