@@ -47,6 +47,13 @@ reg status = 0;
 assign Ram1Data = link_data1 ? ram1_data : 16'bz;
 assign Ram2Data = link_data2 ? ram2_data : 16'bz;
 
+`define RAM1_UPPER 16'b0111111111111111 //0x7FFF
+`define COM1_DATA 16'b1011111100000000 //0xBF00
+`define COM1_COMMAND 16'b1011111100000001 //0xBF01
+`define COM2_DATA 16'b1011111100000010 //0xBF02
+`define COM2_COMMAND 16'b1011111100000011 //0xBF03
+// Should I predefined preserverd ports, such as 0xBF0f?
+
 //clock fequency in memory reading is half main frequency.
 always @(negedge clk)
 begin
@@ -56,7 +63,7 @@ begin
 	begin
 		status <= 1;
 		RamAddr[15:0] <= Address[15:0];
-		if(Address < 16'b1000000000000000)
+		if(Address < `RAM1_UPPER)
 		begin
 			AddressSrc <= 0;
 			link_data2 <= 0;
@@ -64,6 +71,15 @@ begin
 				link_data1 <= 0;
 			else
 				link_data1 <= 1;
+		end
+		else if(Address == `COM1_DATA || Address == `COM1_COMMAND) //Port 1
+		begin
+			// TODO: IO data to port 1
+			
+		end		
+		else if(Address == `COM2_DATA || Address == `COM2_COMMAND) //Port 2
+		begin
+			// TODO: IO data to port 1
 		end
 		else
 		begin
