@@ -86,6 +86,20 @@ wire [15:0] wb_writeback;
 wire pcKeep;
 wire ifKeep;
 wire idKeep;
+wire error;
+wire [15:0] prePC;
+
+BTB _BTB(
+    .rst(rst),
+    .clk(clk),
+    .curPC(pc),
+    .prePC(prePC),
+    .ifJump_id(ifJump),
+    .jFromPC(exe_pc),
+    .jToPC(exe_NewPC),
+    .ifJump(exe_ifjump),
+    .error(error)
+);
 
 PC_reg _PC_reg(
     .PCKeep(pcKeep),
@@ -93,7 +107,9 @@ PC_reg _PC_reg(
 	.rst (rst),
     .ifJump(exe_ifjump),
     .newPC(exe_NewPC),
-	.pc (pc),
+	.pc(pc),
+    .error(error),
+    .prePC(prePC),
 	.AddedPC (addedPc)
 );
 
@@ -115,7 +131,6 @@ if_id _if_id(
 
 ID _ID(
     .rst(rst),
-    // .idKeep(idKeep),
   	.instr(idInstruction),
   	.writeBackReg(wb_wreg),
   	.writeBackData(wb_writeback),
@@ -200,7 +215,8 @@ Forwarding _forward(
 );
 
 hazard _hazard(
-    .ifJump(ifJump),
+    // .ifJump(ifJump),
+    .error(error),
     .readReg1(readReg1),
     .readReg2(readReg2),
     .writeReg(exe_wreg),

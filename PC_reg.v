@@ -24,6 +24,8 @@ module PC_reg(
 	 input rst,
 	 input [15:0] newPC,
 	 input ifJump,
+	 input error,
+	 input [15:0] prePC,
 	 output reg [15:0] pc,
 	 output reg [15:0] AddedPC
     );
@@ -55,23 +57,23 @@ always @ (*) begin
 	end
 end*/
 
-always @ (*) begin
- 	AddedPC = pc + 4'h4;
-end
+// always @ (*) begin
+//  	AddedPC = pc + 4'h4;
+// end
 
-always @ (negedge clk) begin
+always @ (negedge clk or posedge rst) begin
+	AddedPC <= pc + 4'h4;
 	if (rst == 1)
 		pc <= origin;
 	else begin
 		if (PCKeep === 1) begin
-			;
 		end
-		else if(ifJump == 0) begin
-			pc <= newPC;
+		else if(ifJump === 0 && error == 1) begin 
+			pc <= newPC; //预测错误，恢复
 		end
 		else
 		begin
-			pc <= AddedPC;
+			pc <= prePC;
 		end
 	end
 end

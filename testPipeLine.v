@@ -45,10 +45,7 @@ module testPipeLine;
 
 		// Wait 100 ns for global reset to finish
 		#20;
-		clk = 1;
 		rst = 1;
-		#20;
-		clk = 0;
 		#20;
 		rst = 0;
 		#20;

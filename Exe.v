@@ -29,13 +29,13 @@ module Exe(
     output reg [15:0] ALURes,
     output reg [15:0] NewPC,
     output reg [1:0] ControlBTB,
-	 input [1:0] JorB,
-	 input [15:0] ALUBack,
-	 input [15:0] WriteBackData,
-	 input [1:0] Forward,
-	 input [1:0] ForwardingA,
-	 input [1:0] ForwardingB,
-	 input clk
+	input [1:0] JorB,
+	input [15:0] ALUBack,
+	input [15:0] WriteBackData,
+	input [1:0] Forward,
+	input [1:0] ForwardingA,
+	input [1:0] ForwardingB,
+	input clk
     );
 
 reg [15:0] B0 = 16'b0;
