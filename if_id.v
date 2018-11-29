@@ -33,7 +33,7 @@ always @ (negedge clk) begin
 	instr_out <= instr_in;
 	end
 	else
-	;
+	instr_out <= 16'b0000100000000000;
 end
 
 endmodule
