@@ -34,7 +34,6 @@ module BTB(
 reg [15:0] toPC [15:0];		//value
 integer origin = 1;
 integer i;
-integer j;
 always @(posedge clk or posedge rst) begin  	//å†™è¡¨
 	if (rst == 1) begin
 		error <= 0;
@@ -45,25 +44,23 @@ always @(posedge clk or posedge rst) begin  	//å†™è¡¨
 	else if (ifJump === 0) begin //å¦‚æžœæ˜¯è·³è½¬æŒ‡ä»
 		if(toPC[(jFromPC>>2)%16] !== jToPC) begin
 			error <= 1;
-			// toPC[1] <= 3;
 			toPC[(jFromPC>>2)%16] <= jToPC;
 		end
 		else begin
 			error <= 0;
-			// toPC[1] <= 2;
 		end
 	end
 	else begin
-		// toPC[1] <= 4;
-		error <= 2;
+		error <= 0;
 	end
 end
 
 always @(*) begin 	//æŸ¥è¡¨ï¼ŒèŽ·å¾—ä¸‹ä¸€è·³åœ°å€
-	if(ifJump_id == 0 && toPC[((curPC-4)>>2)%16] != origin) //curPC为延时槽的PC
-			prePC = toPC[((curPC-4)>>2)%16];
+	if(ifJump_id == 0 && toPC[(curPC>>2)%16] != origin) //curPC为延时槽的PC
+			prePC = toPC[(curPC>>2)%16];
 	else 	prePC = curPC + 4;
-	i = ((curPC-4)>>2)%16;
+	i = (curPC>>2)%16;
+	// j = toPC[(curPC>>2)%16];
 end
 
 endmodule

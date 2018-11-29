@@ -109,8 +109,8 @@ PC_reg _PC_reg(
     .newPC(exe_NewPC),
 	.pc(pc),
     .error(error),
-    .prePC(prePC),
-	.AddedPC (addedPc)
+    .prePC(prePC)
+	// .AddedPC (addedPc)
 );
 
 InstructionMemory _IM(
@@ -123,7 +123,7 @@ InstructionMemory _IM(
 if_id _if_id(
 	.clk (clk),
     .ifkeep (ifKeep),
-    .pc_in (addedPc),
+    .pc_in (pc),
     .instr_in (instruction),
     .pc_out (idPC),
     .instr_out (idInstruction)

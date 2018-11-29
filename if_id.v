@@ -29,11 +29,13 @@ module if_id(
 
 always @ (negedge clk) begin
 	if (ifkeep !== 1) begin
-	pc_out <= pc_in;
+	pc_out <= pc_in + 4;
 	instr_out <= instr_in;
 	end
-	else
+	else begin
+	pc_out <= 0;
 	instr_out <= 16'b0000100000000000;
+	end
 end
 
 endmodule
