@@ -19,15 +19,24 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module PipeLine(
-	input clk,
+	input clk, // TODO: need to be checked
 	input rst,
 	output [15:0] led
     );
+
+// output and input for PLL
+wire clk2x;
+wire CLKIN_IBUFG_OUT;
+wire CLK0_OUT; 
+wire CLK2X_OUT; 
+wire LOCKED_OUT;
+
 
 // output and input of IF
 wire [15:0] pc;
 wire [15:0] addedPc;
 wire [15:0] instruction;
+
 
 // output and input of ID
 wire [15:0] idPC;
@@ -86,6 +95,15 @@ wire [15:0] wb_writeback;
 wire pcKeep;
 wire ifKeep;
 wire idKeep;
+
+pll_controller _pll (
+    .CLKIN_IN(clk), 
+    .RST_IN(rst), 
+    .CLKIN_IBUFG_OUT(CLKIN_IBUFG_OUT), 
+    .CLK0_OUT(CLK0_OUT), 
+    .CLK2X_OUT(CLK2X_OUT), 
+    .LOCKED_OUT(LOCKED_OUT)
+    );
 
 PC_reg _PC_reg(
     .PCKeep(pcKeep),

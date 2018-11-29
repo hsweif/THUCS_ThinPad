@@ -18,12 +18,17 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
+`include "define.v"
+
 module DataMemory(
     input [15:0] Address,
     input [15:0] WriteData,
     input MemRead,
     input MemWrite,
+    input tbre,
+    input tsre,
 	 input clk,
+    input data_ready,
     inout [15:0] Ram1Data,
 	 inout [15:0] Ram2Data,
 	 output reg [15:0] ReadData,
@@ -35,8 +40,8 @@ module DataMemory(
 	 output reg Ram2OE,
     output reg Ram2WE,
     output reg Ram2EN,
-	 output reg rdn,
-	 output reg wrn
+    output reg rdn,
+    output reg wrn
     );
 
 reg [15:0] ram1_data = 16'b0;
@@ -46,13 +51,6 @@ reg link_data2 = 1;
 reg status = 0;
 assign Ram1Data = link_data1 ? ram1_data : 16'bz;
 assign Ram2Data = link_data2 ? ram2_data : 16'bz;
-
-`define RAM1_UPPER 16'b0111111111111111 //0x7FFF
-`define COM1_DATA 16'b1011111100000000 //0xBF00
-`define COM1_COMMAND 16'b1011111100000001 //0xBF01
-`define COM2_DATA 16'b1011111100000010 //0xBF02
-`define COM2_COMMAND 16'b1011111100000011 //0xBF03
-// Should I predefined preserverd ports, such as 0xBF0f?
 
 //clock fequency in memory reading is half main frequency.
 always @(negedge clk)
@@ -75,7 +73,6 @@ begin
 		else if(Address == `COM1_DATA || Address == `COM1_COMMAND) //Port 1
 		begin
 			// TODO: IO data to port 1
-			
 		end		
 		else if(Address == `COM2_DATA || Address == `COM2_COMMAND) //Port 2
 		begin
