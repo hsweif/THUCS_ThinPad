@@ -135,6 +135,7 @@ if_id _if_id(
 ID _ID(
 	.ledA(ledA),
 	.ledB(ledB),
+    .clk(clk),
     .rst(rst),
   	.instr(idInstruction),
   	.writeBackReg(wb_wreg),
