@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<symbol version="7" name="DataMemory">
+    <symboltype>BLOCK</symboltype>
+    <timestamp>2018-11-28T13:22:50</timestamp>
+    <attr value="DataMemory" name="VeriModel" />
+    <pin polarity="Input" x="0" y="-800" name="MemRead" />
+    <pin polarity="Input" x="0" y="-608" name="MemWrite" />
+    <pin polarity="Input" x="0" y="-416" name="clk" />
+    <pin polarity="Input" x="0" y="-224" name="Address(15:0)" />
+    <pin polarity="Input" x="0" y="-32" name="WriteData(15:0)" />
+    <pin polarity="Output" x="480" y="-800" name="AddressSrc" />
+    <pin polarity="Output" x="480" y="-736" name="Ram1OE" />
+    <pin polarity="Output" x="480" y="-672" name="Ram1WE" />
+    <pin polarity="Output" x="480" y="-608" name="Ram1EN" />
+    <pin polarity="Output" x="480" y="-544" name="Ram2OE" />
+    <pin polarity="Output" x="480" y="-480" name="Ram2WE" />
+    <pin polarity="Output" x="480" y="-416" name="Ram2EN" />
+    <pin polarity="Output" x="480" y="-352" name="rdn" />
+    <pin polarity="Output" x="480" y="-288" name="wrn" />
+    <pin polarity="Output" x="480" y="-224" name="ReadData(15:0)" />
+    <pin polarity="Output" x="480" y="-160" name="RamAddr(15:0)" />
+    <pin polarity="BiDirectional" x="480" y="-96" name="Ram1Data(15:0)" />
+    <pin polarity="BiDirectional" x="480" y="-32" name="Ram2Data(15:0)" />
+    <graph>
+        <rect width="352" x="64" y="-832" height="832" />
+        <attrtext style="alignment:BCENTER;fontsize:56;fontname:Arial" attrname="SymbolName" x="240" y="-840" type="symbol" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-800" type="pin MemRead" />
+        <line x2="0" y1="-800" y2="-800" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-608" type="pin MemWrite" />
+        <line x2="0" y1="-608" y2="-608" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-416" type="pin clk" />
+        <line x2="0" y1="-416" y2="-416" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-224" type="pin Address(15:0)" />
+        <rect width="64" x="0" y="-236" height="24" />
+        <line x2="0" y1="-224" y2="-224" x1="64" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="72" y="-32" type="pin WriteData(15:0)" />
+        <rect width="64" x="0" y="-44" height="24" />
+        <line x2="0" y1="-32" y2="-32" x1="64" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-800" type="pin AddressSrc" />
+        <line x2="480" y1="-800" y2="-800" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-736" type="pin Ram1OE" />
+        <line x2="480" y1="-736" y2="-736" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-672" type="pin Ram1WE" />
+        <line x2="480" y1="-672" y2="-672" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-608" type="pin Ram1EN" />
+        <line x2="480" y1="-608" y2="-608" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-544" type="pin Ram2OE" />
+        <line x2="480" y1="-544" y2="-544" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-480" type="pin Ram2WE" />
+        <line x2="480" y1="-480" y2="-480" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-416" type="pin Ram2EN" />
+        <line x2="480" y1="-416" y2="-416" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-352" type="pin rdn" />
+        <line x2="480" y1="-352" y2="-352" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-288" type="pin wrn" />
+        <line x2="480" y1="-288" y2="-288" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-224" type="pin ReadData(15:0)" />
+        <rect width="64" x="416" y="-236" height="24" />
+        <line x2="480" y1="-224" y2="-224" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-160" type="pin RamAddr(15:0)" />
+        <rect width="64" x="416" y="-172" height="24" />
+        <line x2="480" y1="-160" y2="-160" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-96" type="pin Ram1Data(15:0)" />
+        <rect width="64" x="416" y="-108" height="24" />
+        <line x2="480" y1="-96" y2="-96" x1="416" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="408" y="-32" type="pin Ram2Data(15:0)" />
+        <rect width="64" x="416" y="-44" height="24" />
+        <line x2="480" y1="-32" y2="-32" x1="416" />
+    </graph>
+</symbol>
