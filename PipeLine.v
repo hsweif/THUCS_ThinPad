@@ -22,14 +22,28 @@ module PipeLine(
 	input clk, // TODO: need to be checked
 	input rst,
 	output [7:0] ledA,
-	output [7:0] ledB
+	output [7:0] ledB,
+	output reg ram1_oe,
+	output reg ram1_en,
+	output reg ram1_we,
+	output reg ram2_oe,
+	output reg ram2_en,
+	output reg ram2_we,
+	inout [15:0] ram1_data,
+	inout [15:0] ram2_data,
+	output reg [17:0] ram1_addr,
+	output reg [17:0] ram2_addr,
+	// data_ready,
+	input tbre,
+	input tsre,
+	output reg rdn,
+	output reg wrn
     );
 
 // output and input for PLL
 wire clk2x;
 wire CLKIN_IBUFG_OUT;
-wire CLK0_OUT; 
-wire CLK2X_OUT; 
+wire CLK0_OUT;  
 wire LOCKED_OUT;
 
 
@@ -38,6 +52,8 @@ wire [15:0] pc;
 wire [15:0] addedPc;
 wire [15:0] instruction;
 
+// output and input of Instruction Memory
+wire mem_conflict;
 
 // output and input of ID
 wire [15:0] idPC;
@@ -117,27 +133,36 @@ pll_controller _pll (
     .RST_IN(rst), 
     .CLKIN_IBUFG_OUT(CLKIN_IBUFG_OUT), 
     .CLK0_OUT(CLK0_OUT), 
-    .CLK2X_OUT(CLK2X_OUT), 
+    .CLK2X_OUT(clk2x), 
     .LOCKED_OUT(LOCKED_OUT)
     );
 
+InstructMemory _im(
+	 .clk(clk2x),
+    .rst(rst),
+	 .MemRead(mem_read),
+	 .MemWrite(mem_write),
+    .pc(pc),
+	 .DM_Address(mem_address),
+	 .Ram1Data(ram1_data), //Read from the main bus.
+	 .Ram1Addr(ram1_addr),
+	 .Instruct(instruction),
+	 .MemConflict(mem_conflict),
+    .Ram1OE(ram1_oe),
+    .Ram1WE(ram1_we),
+    .Ram1EN(ram1_en)
+    );
+	 
 PC_reg _PC_reg(
     .PCKeep(pcKeep),
-	.clk (clk),
-	.rst (rst),
-    .ifJump(exe_ifjump),
+	 .clk (clk),
+	 .rst (rst),
+	 .ifJump(exe_ifjump),
     .newPC(exe_NewPC),
-	.pc(pc),
+	 .pc(pc),
     .error(error),
     .prePC(prePC)
 	// .AddedPC (addedPc)
-);
-
-InstructionMemory _IM(
-	.clk (clk),
-	.rst (rst),
-	.pc (pc),
-	.Instruction (instruction)
 );
 
 if_id _if_id(
@@ -266,17 +291,28 @@ exe_mem _ex_m(
 	.wreg_out (mem_wreg)
 );
 
-
-
-FakeDM _dm(
-    .Address (mem_address),
-    .WriteData (mem_wdata),
-    .MemRead (mem_read),
-    .MemWrite (mem_write),
-    .rst (rst),
-    .clk (clk),
-    .ReadData (mem_readdata)
-	//这是谁传过来的？.AddressSrc //0: Ram1 Address, 1: Ram2 Address
+DataMemory _dm(
+	.Address(mem_address),
+	.WriteData(mem_wdata),
+	.MemRead(mem_read),
+	.MemWrite(mem_write),
+	.tbre(tbre),
+	.tsre(tsre),
+	.clk(clk2x),
+	.data_ready(data_ready),
+	.Ram1Data(ram1_data),
+	.Ram2Data(ram2_data),
+	.ReadData(mem_readdata),
+	.Ram1Addr(ram1_addr),
+	.Ram2Addr(ram2_addr),
+	.Ram1OE(ram1_oe),
+	.Ram1WE(ram1_we),
+	.Ram1EN(ram1_en),
+	.Ram2OE(ram2_oe),
+	.Ram2WE(ram2_we),
+	.Ram2EN(ram2_en),
+	.rdn(rbn),
+	.wrn(wrn)
 );
 
 mem_wb _mem_wb(
