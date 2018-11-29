@@ -85,7 +85,8 @@ wire [15:0] wb_writeback;
 
 wire pcKeep;
 wire ifKeep;
-wire idKeep;
+wire ifClear;
+wire idClear;
 wire error;
 wire [15:0] prePC;
 
@@ -123,6 +124,7 @@ InstructionMemory _IM(
 if_id _if_id(
 	.clk (clk),
     .ifkeep (ifKeep),
+    .ifClear(ifClear),
     .pc_in (pc),
     .instr_in (instruction),
     .pc_out (idPC),
@@ -151,7 +153,7 @@ ID _ID(
 
 id_exe _id_exe(
 	.clk (clk),
-    .idKeep(idKeep),
+    .idClear(idClear),
     .rdata1_in (readData1),
     .rdata2_in (readData2),
     .imme_in (immNum),
@@ -222,8 +224,9 @@ hazard _hazard(
     .writeReg(exe_wreg),
     .controlMem(exe_controlmem),
     .ifKeep(ifKeep),
+    .ifClear(ifClear),
     .pcKeep(pcKeep),
-    .idKeep(idKeep)
+    .idClear(idClear)
 );
 
 exe_mem _ex_m(

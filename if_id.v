@@ -21,6 +21,7 @@
 module if_id(
 	input clk,
 	input ifkeep,
+	input ifClear,
     input [15:0] pc_in,
     input [15:0] instr_in,
     output reg [15:0] pc_out,
@@ -28,13 +29,15 @@ module if_id(
     );
 
 always @ (negedge clk) begin
-	if (ifkeep !== 1) begin
-	pc_out <= pc_in + 4;
-	instr_out <= instr_in;
+	if(ifkeep === 1) begin
 	end
-	else begin
+	else if(ifClear === 1) begin
 	pc_out <= 0;
 	instr_out <= 16'b0000100000000000;
+	end
+	else begin
+	pc_out <= pc_in + 4;
+	instr_out <= instr_in;
 	end
 end
 

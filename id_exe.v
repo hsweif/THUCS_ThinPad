@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module id_exe(
     input clk,
-    input idKeep,
+    input idClear,
     input [15:0] rdata1_in,
     input [15:0] rdata2_in,
     input [15:0] imme_in,
@@ -63,7 +63,7 @@ always @ (negedge clk) begin
     controlwb_out <= controlwb_in;
     pc_out <= pc_in;
 
-    if(idKeep !== 1) begin
+    if(idClear !== 1) begin
         wreg_out <= wreg_in;
         controlmem_out <= controlmem_in;
     end

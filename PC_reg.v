@@ -27,7 +27,6 @@ module PC_reg(
 	 input error,
 	 input [15:0] prePC,
 	 output reg [15:0] pc
-	 // output reg [15:0] AddedPC
     );
 
 reg [15:0] origin = 16'b0;
@@ -62,7 +61,6 @@ end*/
 // end
 
 always @ (negedge clk or posedge rst) begin
-	// AddedPC <= pc + 4'h4;
 	if (rst == 1)
 		pc <= origin;
 	else begin

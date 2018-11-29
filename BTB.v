@@ -55,12 +55,10 @@ always @(posedge clk or posedge rst) begin  	//å†™è¡¨
 	end
 end
 
-always @(*) begin 	//æŸ¥è¡¨ï¼ŒèŽ·å¾—ä¸‹ä¸€è·³åœ°å€
+always @(ifJump_id or curPC) begin
 	if(ifJump_id == 0 && toPC[(curPC>>2)%16] != origin) //curPC为延时槽的PC
 			prePC = toPC[(curPC>>2)%16];
 	else 	prePC = curPC + 4;
-	i = (curPC>>2)%16;
-	// j = toPC[(curPC>>2)%16];
 end
 
 endmodule
