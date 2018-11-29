@@ -29,9 +29,9 @@ module if_id(
     );
 
 always @ (negedge clk) begin
-	if(ifkeep === 1) begin
+	if(ifkeep == 1) begin //if(ifkeep === 1) begin
 	end
-	else if(ifClear === 1) begin
+	else if(ifClear == 1) begin //else if(ifClear === 1) begin
 	pc_out <= 0;
 	instr_out <= 16'b0000100000000000;
 	end

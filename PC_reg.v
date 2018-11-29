@@ -31,43 +31,14 @@ module PC_reg(
 
 reg [15:0] origin = 16'b0;
 
-/*always @ (negedge clk) begin
-	if (rst == 1)
-		AddedPC <= origin;
-	else
-		AddedPC <= pc + 4'h4;
-end
-
-always @ (*) begin
-	if (rst == 1) begin
-		pc = origin;
-	end
-	else begin
-		if (PCKeep === 1) begin
-			pc = AddedPC - 4;
-		end 
-		else if(ifJump == 0) begin
-			pc = (newPC >> 2) << 2;
-		end
-		else
-		begin
-			pc = AddedPC;
-		end
-	end
-end*/
-
-// always @ (*) begin
-//  	AddedPC = pc + 4'h4;
-// end
-
-always @ (negedge clk or posedge rst) begin
-	if (rst == 1)
+always @ (negedge clk or negedge rst) begin
+	if (rst == 0)
 		pc <= origin;
 	else begin
-		if (PCKeep === 1) begin
+		if (PCKeep == 1) begin//if (PCKeep === 1) begin
 		end
-		else if(ifJump === 0 && error == 1) begin 
-			pc <= newPC; //预测错误，恢复
+		else if(ifJump == 0 && error == 1) begin //else if(ifJump === 0 && error == 1) begin 
+			pc <= newPC; //预测错误，恢�
 		end
 		else
 		begin

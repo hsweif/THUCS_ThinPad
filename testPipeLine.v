@@ -34,20 +34,19 @@ module testPipeLine;
 	// Instantiate the Unit Under Test (UUT)
 	PipeLine uut (
 		.clk(clk), 
-		.rst(rst), 
-		.led(led)
+		.rst(rst)
 	);
 
 	initial begin
 		// Initialize Inputs
 		clk = 0;
-		rst = 0;
+		rst = 1;
 
 		// Wait 100 ns for global reset to finish
 		#20;
-		rst = 1;
-		#20;
 		rst = 0;
+		#20;
+		rst = 1;
 		#10;
 		clk = 1;
 		#10;

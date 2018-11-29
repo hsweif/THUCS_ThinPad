@@ -32,18 +32,30 @@ module BTB(
     );
 
 reg [15:0] toPC [15:0];		//value
-integer origin = 1;
 integer i;
-always @(posedge clk or posedge rst) begin  	//å†™è¡¨
-	if (rst == 1) begin
+always @(posedge clk or negedge rst) begin  	//å†™è¡¨
+	if (rst == 0) begin
 		error <= 0;
-		for(i = 0; i < 16; i=i+1) begin
-			toPC[i] <= origin;
-		end
+		toPC[0] <= 1;
+		toPC[1] <= 1;
+		toPC[2] <= 1;
+		toPC[3] <= 1;
+		toPC[4] <= 1;
+		toPC[5] <= 1;
+		toPC[6] <= 1;
+		toPC[7] <= 1;
+		toPC[8] <= 1;
+		toPC[9] <= 1;
+		toPC[10] <= 1;
+		toPC[11] <= 1;
+		toPC[12] <= 1;
+		toPC[13] <= 1;
+		toPC[14] <= 1;
+		toPC[15] <= 1;
 	end
-	else if (ifJump === 0) begin //å¦‚æžœæ˜¯è·³è½¬æŒ‡ä�
-		if(toPC[(jFromPC>>2)%16] !== jToPC) begin
-			if(jToPC == jFromPC+4)
+	else if (ifJump == 0) begin //å¦‚æžœæ˜¯è·³è½¬æŒ‡�
+		if(toPC[(jFromPC>>2)%16] != jToPC) begin
+			if(jToPC == jFromPC+4 && toPC[(jFromPC>>2)%16] == 1)
 				error <= 0;
 			else
 				error <= 1;
@@ -58,8 +70,8 @@ always @(posedge clk or posedge rst) begin  	//å†™è¡¨
 	end
 end
 
-always @(ifJump_id or curPC) begin
-	if(ifJump_id == 0 && toPC[(curPC>>2)%16] != origin) //curPC为延时槽的PC
+always @(ifJump_id or curPC) begin 	//curPCΪ��ǰPC��ϣ�����Ԥ��PCΪprePC
+	if(ifJump_id == 0 && toPC[(curPC>>2)%16] != 1) //toPCΪԤ���
 			prePC = toPC[(curPC>>2)%16];
 	else 	prePC = curPC + 4;
 end

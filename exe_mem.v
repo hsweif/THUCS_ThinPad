@@ -47,8 +47,6 @@ always @ (negedge clk) begin
 		memwrite_out <= 0;
 		memread_out <= 0;
 	end
-	memread_out <= controlmem_in[0];
-	memwrite_out <= controlmem_in[1];
 	controlwb_out <= controlwb_in;
 	alu_out <= alu_in;
 	wdata_out <= wdata_in;

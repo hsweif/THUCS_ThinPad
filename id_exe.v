@@ -63,7 +63,7 @@ always @ (negedge clk) begin
     controlwb_out <= controlwb_in;
     pc_out <= pc_in;
 
-    if(idClear !== 1) begin
+    if(idClear != 1) begin//if(idClear !== 1) begin
         wreg_out <= wreg_in;
         controlmem_out <= controlmem_in;
     end
