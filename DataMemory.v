@@ -33,6 +33,8 @@ module DataMemory(
 	 inout [15:0] Ram2Data,
 	 output reg [15:0] ReadData,
 	 output reg [15:0] RamAddr,
+	 output reg [17:0] Ram1Addr,
+	 output reg [17:0] Ram2Addr,
 	 output reg AddressSrc, //0: Ram1 Address, 1: Ram2 Address
 	 output reg Ram1OE,
     output reg Ram1WE,
@@ -49,100 +51,132 @@ reg [15:0] ram2_data = 16'b0;
 reg link_data1 = 1;
 reg link_data2 = 1;
 reg status = 0;
-assign Ram1Data = link_data1 ? ram1_data : 16'bz;
-assign Ram2Data = link_data2 ? ram2_data : 16'bz;
+assign Ram1Data[15:0] = link_data1 ? ram1_data : 16'bz;
+assign Ram2Data[15:0] = link_data2 ? ram2_data : 16'bz;
 
 //clock fequency in memory reading is half main frequency.
 always @(negedge clk)
 begin
-	rdn <= 1;
-	wrn <= 1;
-	if(status == 0)
-	begin
+	Ram1Addr[17:16] <= 2'b0;
+	Ram2Addr[17:16] <= 2'b0;
+	if(status == 0) begin
 		status <= 1;
-		RamAddr[15:0] <= Address[15:0];
-		if(Address < `RAM1_UPPER)
-		begin
+		if(Address < `RAM1_UPPER) begin
+			rdn <= 1;
+			wrn <= 1;
+			// Ram2 is not available now
+			Ram2EN <= 1;
+			Ram2OE <= 1;
+			Ram2WE <= 1;
 			AddressSrc <= 0;
 			link_data2 <= 0;
-			if(MemWrite == 1)
-				link_data1 <= 0;
-			else
+			Ram1Addr[15:0] <= Address;
+			if(MemWrite == 1) begin
 				link_data1 <= 1;
-		end
-		else if(Address == `COM1_DATA || Address == `COM1_COMMAND) //Port 1
-		begin
-			// TODO: IO data to port 1
-		end		
-		else if(Address == `COM2_DATA || Address == `COM2_COMMAND) //Port 2
-		begin
-			// TODO: IO data to port 1
-		end
-		else
-		begin
-			AddressSrc <= 1;
-			link_data1 <= 0;
-			if(MemWrite == 1)
-				link_data2 <= 1;
-			else
-				link_data2 <= 0;
-		end
-	end
-	else
-	begin
-		status <= 0;
-		if(MemRead == 1)
-		begin
-			if(AddressSrc == 0) //Address is from Ram1
-			begin
-				Ram1EN <= 0;
-				Ram1OE <= 0;
-				Ram1WE <= 1;
-				// Ram2 is not available now
-				Ram2EN <= 1;
-				Ram2OE <= 1;
-				Ram2WE <= 1;
-				ReadData[15:0] <= Ram1Data[15:0];
-			end
-			else // Address is from Ram2
-			begin
-				Ram2EN <= 0;
-				Ram2OE <= 0;
-				Ram2WE <= 1;
-				// Ram1 is not available now
-				Ram1EN <= 1;
-				Ram1OE <= 1;
-				Ram1WE <= 1;
-				ReadData[15:0] <= Ram2Data[15:0];
-			end
-		end
-		else if(MemWrite == 1)
-		begin
-			if(AddressSrc == 0)
-			begin
 				Ram1EN <= 0;
 				Ram1OE <= 1;
 				Ram1WE <= 0;
-				// Ram2 is not available now
-				Ram2EN <= 1;
-				Ram2OE <= 1;
-				Ram2WE <= 1;
-				ram1_data[15:0] <= WriteData[15:0];
+			end
+			else if(MemRead == 1) begin
+				link_data1 <= 0;
+				Ram1EN <= 0;
+				Ram1OE <= 0;
+				Ram1WE <= 1;
 			end
 			else
-			begin
-				Ram1EN <= 1;
-				Ram1OE <= 1;
-				Ram1WE <= 1;
-				// Ram1 is not available now
-				Ram2EN <= 0;
-				Ram2OE <= 1;
-				Ram2WE <= 0;
-				ram2_data[15:0] <= WriteData[15:0];
+				;
+		end
+		else begin
+			// Ram1 is not available now
+			Ram1EN <= 1;
+			Ram1OE <= 1;
+			Ram1WE <= 1;
+			if(Address == `COM1_DATA || Address == `COM1_COMMAND) begin
+				// TODO: IO data to port 1
+			end		
+			else if(Address == `COM2_DATA || Address == `COM2_COMMAND) begin
+				// TODO: IO data to port 2
+			end
+			else begin
+			// Ram2
+				rdn <= 1;
+				wrn <= 1;
+				AddressSrc <= 1;
+				link_data1 <= 0;
+				Ram2Addr[15:0] <= Address;
+				if(MemWrite == 1) begin
+					link_data2 <= 1;
+					Ram2EN <= 0;
+					Ram2OE <= 1;
+					Ram2WE <= 0;
+				end
+				else if(MemRead == 1) begin
+					link_data2 <= 0; // Before read, the bus need to be set to zz
+					Ram2EN <= 0;
+					Ram2OE <= 0;
+					Ram2WE <= 1;
+				end
+				else
+					; // Do nothing.
 			end
 		end
-		else
-			;
+	end
+	else begin
+		// status == 1
+		status <= 0;
+		if(Address < `RAM1_UPPER) begin
+			rdn <= 1;
+			wrn <= 1;
+			// Ram2 is not available now
+			Ram2EN <= 1;
+			Ram2OE <= 1;
+			Ram2WE <= 1;
+			if(MemRead == 1) begin
+				Ram1EN <= 0;
+				Ram1OE <= 0;
+				Ram1WE <= 1;
+				ReadData[15:0] <= Ram1Data;
+			end
+			else if(MemWrite == 1) begin
+				Ram1EN <= 0;
+				Ram1OE <= 1;
+				Ram1WE <= 0;
+				ram1_data[15:0] <= WriteData;
+			end
+			else
+				; //Do nothing
+		end
+		else  begin // Ram2
+			// Ram1 is not available now
+			Ram1EN <= 1;
+			Ram1OE <= 1;
+			Ram1WE <= 1;
+			if(Address == `COM1_DATA || Address == `COM1_COMMAND) begin
+				// TODO: IO data to port 1
+			end		
+			else if(Address == `COM2_DATA || Address == `COM2_COMMAND) begin
+				// TODO: IO data to port 2
+			end
+			else begin
+			// Normal Ram2 Address
+				rdn <= 1;
+				wrn <= 1;
+				if(MemWrite == 1) begin
+					Ram2EN <= 0;
+					Ram2OE <= 1;
+					Ram2WE <= 0;
+					ram2_data[15:0] <= WriteData;
+				end
+				else if(MemRead == 1) begin
+					Ram2EN <= 0;
+					Ram2OE <= 0;
+					Ram2WE <= 1;
+					ReadData[15:0] <= Ram2Data;
+				end
+				else
+					;
+			end
+		end
 	end
 end
 
