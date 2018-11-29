@@ -19,29 +19,30 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module PipeLine(
-	input clk, // TODO: need to be checked
+	input clk_orig, // TODO: need to be checked
 	input rst,
 	output [7:0] ledA,
 	output [7:0] ledB,
-	output reg ram1_oe,
-	output reg ram1_en,
-	output reg ram1_we,
-	output reg ram2_oe,
-	output reg ram2_en,
-	output reg ram2_we,
+	output ram1_oe,
+	output ram1_en,
+	output ram1_we,
+	output ram2_oe,
+	output ram2_en,
+	output ram2_we,
 	inout [15:0] ram1_data,
 	inout [15:0] ram2_data,
-	output reg [17:0] ram1_addr,
-	output reg [17:0] ram2_addr,
+	output [17:0] ram1_addr,
+	output [17:0] ram2_addr,
 	// data_ready,
 	input tbre,
 	input tsre,
-	output reg rdn,
-	output reg wrn
+	output rdn,
+	output wrn
     );
 
 // output and input for PLL
 wire clk2x;
+wire clk;
 wire CLKIN_IBUFG_OUT;
 wire CLK0_OUT;  
 wire LOCKED_OUT;
@@ -129,9 +130,9 @@ BTB _BTB(
 );
 
 pll_controller _pll (
-    .CLKIN_IN(clk), 
+    .CLKIN_IN(clk_orig), 
     .RST_IN(rst), 
-    .CLKIN_IBUFG_OUT(CLKIN_IBUFG_OUT), 
+    .CLKIN_IBUFG_OUT(clk), 
     .CLK0_OUT(CLK0_OUT), 
     .CLK2X_OUT(clk2x), 
     .LOCKED_OUT(LOCKED_OUT)
