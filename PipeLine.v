@@ -21,7 +21,8 @@
 module PipeLine(
 	input clk,
 	input rst,
-	output [15:0] led
+	output [7:0] ledA,
+	output [7:0] ledB
     );
 
 // output and input of IF
@@ -132,6 +133,8 @@ if_id _if_id(
 );
 
 ID _ID(
+	.ledA(ledA),
+	.ledB(ledB),
     .rst(rst),
   	.instr(idInstruction),
   	.writeBackReg(wb_wreg),

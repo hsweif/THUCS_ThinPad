@@ -64,18 +64,19 @@ reg[15:0] lastPC;
 // 	16'b11010 rx imm(8)			//SW_SP		M[SP+imm] <- ry
 always @(negedge rst)
 begin
-	memPool[0] = 16'b0100100000000100; 	//R0 addiu 21
-	memPool[1] = 16'b0111100100000000; 	//MOVE R1 <- R0
-	memPool[2] = 16'b0100101000000001; 	//Reg2 addiu 1 	
-	memPool[3] = 16'b0100001001100001;  //ADDIU3 	r3 <- r2+1
-	memPool[4] = 16'b1001111110001111;	//LW 		r4 <- M[r7+imm] 
-	memPool[5] = 16'b1110010010110101;	//ADDU   	r5 <- r4+r5 
-	memPool[6] = 16'b0100100111111111; 	//R1-=1;
-	memPool[7] = 16'b0010100111111010; 	//BEQZ 		r1==0 ? pc+imm : pc	
-	memPool[8] = 16'b0000100000000000; 	//nop
-	memPool[9] = 16'b0100100011111111; 	//R0-=1;
-	memPool[10] = 16'b0010100011110110; //BEQZ 		r0==0 ? pc+imm : pc
-	memPool[11] = 16'b0000100000000000; //nop;
+	memPool[0] = 16'b0100100100000111; //Reg1 addiu 7
+	memPool[1] = 16'b0001000000000011; //B pc+3
+	memPool[2] = 16'b0100111100000001; //Reg7 addiu 1
+	//16'b0100110000000001;//nop
+	memPool[3] = 16'b0100101000000001; //Reg2 addiu 1
+	memPool[4] = 16'b1110000111100111; //R1=r1-r7
+	memPool[5] = 16'b0010100011111101; //BNEZ r0!=0 ? pc-3 : pc
+	memPool[6] = 16'b0000100000000000;//nop
+	memPool[7] = 16'b0100111000000001; //Reg6 addiu 1
+	memPool[8] = 16'b0010000000000010; //BEQZ r0->pc+8
+	memPool[9] = 16'b0000100000000000;//nop
+	memPool[10] = 16'b0100111100000001; //Reg7 addiu 1
+	memPool[11] = 16'b0110000000000010; //BTEQZ pc+8
 	memPool[12] = 16'b0100111011111111; //ADDIU R4 FF
 
 	memPool[13] = 16'b0110110100000001; //LI r5 1

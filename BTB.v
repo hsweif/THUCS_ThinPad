@@ -41,9 +41,12 @@ always @(posedge clk or posedge rst) begin  	//å†™è¡¨
 			toPC[i] <= origin;
 		end
 	end
-	else if (ifJump === 0) begin //å¦‚æžœæ˜¯è·³è½¬æŒ‡ä»
+	else if (ifJump === 0) begin //å¦‚æžœæ˜¯è·³è½¬æŒ‡ä�
 		if(toPC[(jFromPC>>2)%16] !== jToPC) begin
-			error <= 1;
+			if(jToPC == jFromPC+4)
+				error <= 0;
+			else
+				error <= 1;
 			toPC[(jFromPC>>2)%16] <= jToPC;
 		end
 		else begin

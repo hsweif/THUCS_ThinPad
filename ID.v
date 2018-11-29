@@ -19,6 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module ID(
+	output reg [7:0] ledA,
+	output reg [7:0] ledB,
 	input wire rst,
     // input wire idKeep,
 	input [15:0] instr,
@@ -40,9 +42,12 @@ module ID(
     output reg [15:0] readData2
 
     );
-	
 	reg[15:0] register [15:0];
 	integer i;
+	always @(writeBackReg or instr) begin
+		ledA = instr[15:8];
+		ledB = register[writeBackReg][7:0];
+	end
 	always @(writeBackReg or writeBackData or rst) begin		
 		// writeBack into regPool
 		// error may be right here, fix me
