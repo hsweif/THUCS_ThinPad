@@ -1,42 +1,42 @@
-Running: fuse.exe -relaunch -intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/testPipeLine_isim_beh.exe" -prj "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/testPipeLine_beh.prj" "work.testPipeLine" "work.glbl" 
+Running: fuse.exe -relaunch -intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -o "D:/ISE_Project/THUCS_ThinPad/testPipeLine_isim_beh.exe" -prj "D:/ISE_Project/THUCS_ThinPad/testPipeLine_beh.prj" "work.testPipeLine" "work.glbl" 
 ISim P.20131013 (signature 0x7708f090)
 Number of CPUs detected in this system: 4
 Turning on mult-threading, number of parallel sub-compilation jobs: 8 
 Determining compilation order of HDL files
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/WriteBack.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PC_reg.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/mem_wb.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/InstructionMemory.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/if_id.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/id_exe.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" into library work
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 85: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 87: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 90: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 155: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 185: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 187: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 191: Concatenation with unsized literal; will interpret as 32 bits
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/hazard.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/Forwarding.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/FakeDM.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/exe_mem.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/Exe.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" into library work
-Analyzing Verilog file "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/testPipeLine.v" into library work
-Analyzing Verilog file "C:/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/WriteBack.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/PC_reg.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/mem_wb.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/InstructionMemory.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/if_id.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/id_exe.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/ID.v" into library work
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 85: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 87: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 90: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 155: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 185: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 187: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 191: Concatenation with unsized literal; will interpret as 32 bits
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/hazard.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/Forwarding.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/FakeDM.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/exe_mem.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/Exe.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/PipeLine.v" into library work
+Analyzing Verilog file "D:/ISE_Project/THUCS_ThinPad/testPipeLine.v" into library work
+Analyzing Verilog file "D:/ise/14.7/ISE_DS/ISE//verilog/src/glbl.v" into library work
 Starting static elaboration
-WARNING:HDLCompiler:1016 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 100: Port MemConflict is not connected to this instance
-WARNING:HDLCompiler:1016 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 168: Port ControlBTB is not connected to this instance
-WARNING:HDLCompiler:1016 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 202: Port clk is not connected to this instance
-WARNING:HDLCompiler:1016 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/PipeLine.v" Line 230: Port AddressSrc is not connected to this instance
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 85: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 87: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 90: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 155: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 185: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 187: Concatenation with unsized literal; will interpret as 32 bits
-WARNING:HDLCompiler:327 - "C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/ID.v" Line 191: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:1016 - "D:/ISE_Project/THUCS_ThinPad/PipeLine.v" Line 100: Port MemConflict is not connected to this instance
+WARNING:HDLCompiler:1016 - "D:/ISE_Project/THUCS_ThinPad/PipeLine.v" Line 168: Port ControlBTB is not connected to this instance
+WARNING:HDLCompiler:1016 - "D:/ISE_Project/THUCS_ThinPad/PipeLine.v" Line 202: Port clk is not connected to this instance
+WARNING:HDLCompiler:1016 - "D:/ISE_Project/THUCS_ThinPad/PipeLine.v" Line 230: Port AddressSrc is not connected to this instance
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 85: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 87: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 90: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 155: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 185: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 187: Concatenation with unsized literal; will interpret as 32 bits
+WARNING:HDLCompiler:327 - "D:/ISE_Project/THUCS_ThinPad/ID.v" Line 191: Concatenation with unsized literal; will interpret as 32 bits
 Completed static elaboration
 Compiling module PC_reg
 Compiling module InstructionMemory
@@ -54,8 +54,9 @@ Compiling module PipeLine
 Compiling module testPipeLine
 Compiling module glbl
 Time Resolution for simulation is 1ps.
-Waiting for 4 sub-compilation(s) to finish...
+Waiting for 3 sub-compilation(s) to finish...
+WARNING:Simulator - Unable to copy libPortabilityNOSH.dll to the simulation executable directory: boost::filesystem::copy_file: 系统找不到指定的路径。, "isim\testPipeLine_isim_beh.exe.sim\libPortability.dll".
 Compiled 15 Verilog Units
-Built simulation executable C:/Users/jyx/Desktop/learn/Code/git/THUCS_ThinPad/testPipeLine_isim_beh.exe
-Fuse Memory Usage: 31368 KB
-Fuse CPU Usage: 952 ms
+Built simulation executable D:/ISE_Project/THUCS_ThinPad/testPipeLine_isim_beh.exe
+Fuse Memory Usage: 31296 KB
+Fuse CPU Usage: 686 ms

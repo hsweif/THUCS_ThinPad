@@ -64,7 +64,6 @@ always @ (negedge clk) begin
 		pc <= origin;
 	else begin
 		if (PCKeep === 1) begin
-			;
 		end
 		else if(ifJump == 0) begin
 			pc <= newPC;

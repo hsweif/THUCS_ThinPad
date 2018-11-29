@@ -163,13 +163,13 @@ end
 always @(*)//mux3
 begin
 	if (JorB == 2'b00)
-		NewPC = CalPC + 4'h4;
+		NewPC = CalPC;
 	else if (JorB == 2'b01)
 		NewPC = A;
 	else if (JorB == 2'b10)
 	begin
 		if (A == 16'b0)
-			NewPC = CalPC + 4'h4;
+			NewPC = CalPC;
 		else
 			NewPC = PCSrc + 4'h4;
 	end
@@ -178,7 +178,7 @@ begin
 		if (A == 16'b0)
 			NewPC = PCSrc + 4'h4;
 		else
-			NewPC = CalPC + 4'h4;
+			NewPC = CalPC;
 	end
 end
 
