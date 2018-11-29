@@ -19,29 +19,30 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module PipeLine(
-	input clk, // TODO: need to be checked
+	input clk_orig, // TODO: need to be checked
 	input rst,
 	output [7:0] ledA,
 	output [7:0] ledB,
-	output reg ram1_oe,
-	output reg ram1_en,
-	output reg ram1_we,
-	output reg ram2_oe,
-	output reg ram2_en,
-	output reg ram2_we,
+	output ram1_oe,
+	output ram1_en,
+	output ram1_we,
+	output ram2_oe,
+	output ram2_en,
+	output ram2_we,
 	inout [15:0] ram1_data,
 	inout [15:0] ram2_data,
-	output reg [17:0] ram1_addr,
-	output reg [17:0] ram2_addr,
+	output [17:0] ram1_addr,
+	output [17:0] ram2_addr,
 	// data_ready,
 	input tbre,
 	input tsre,
-	output reg rdn,
-	output reg wrn
+	output rdn,
+	output wrn
     );
 
 // output and input for PLL
 wire clk2x;
+wire clk;
 wire CLKIN_IBUFG_OUT;
 wire CLK0_OUT;  
 wire LOCKED_OUT;
@@ -129,28 +130,12 @@ BTB _BTB(
 );
 
 pll_controller _pll (
-    .CLKIN_IN(clk), 
+    .CLKIN_IN(clk_orig), 
     .RST_IN(rst), 
-    .CLKIN_IBUFG_OUT(CLKIN_IBUFG_OUT), 
+    .CLKIN_IBUFG_OUT(clk), 
     .CLK0_OUT(CLK0_OUT), 
     .CLK2X_OUT(clk2x), 
     .LOCKED_OUT(LOCKED_OUT)
-    );
-
-InstructMemory _im(
-	 .clk(clk2x),
-    .rst(rst),
-	 .MemRead(mem_read),
-	 .MemWrite(mem_write),
-    .pc(pc),
-	 .DM_Address(mem_address),
-	 .Ram1Data(ram1_data), //Read from the main bus.
-	 .Ram1Addr(ram1_addr),
-	 .Instruct(instruction),
-	 .MemConflict(mem_conflict),
-    .Ram1OE(ram1_oe),
-    .Ram1WE(ram1_we),
-    .Ram1EN(ram1_en)
     );
 	 
 PC_reg _PC_reg(
@@ -163,6 +148,33 @@ PC_reg _PC_reg(
     .error(error),
     .prePC(prePC)
 	// .AddedPC (addedPc)
+);
+
+MemoryModule _mem(
+	.clk(clk2x),
+    .rst(rst),
+    .pc(pc),
+    .MemConflict(mem_conflict),
+	.Address(mem_address),
+	.WriteData(mem_wdata),
+	.MemRead(mem_read),
+	.MemWrite(mem_write),
+	.ReadData(mem_readdata),
+    .Instruct(Instruction), // FIXME: is here right?
+	.Ram1Data(ram1_data),
+	.Ram1Addr(ram1_addr),
+	.Ram1OE(ram1_oe),
+	.Ram1WE(ram1_we),
+	.Ram1EN(ram1_en),
+	.Ram2Data(ram2_data),
+	.Ram2Addr(ram2_addr),
+	.Ram2OE(ram2_oe),
+	.Ram2WE(ram2_we),
+	.Ram2EN(ram2_en),
+	.tbre(tbre),
+	.tsre(tsre),
+	.rdn(rbn),
+	.wrn(wrn)
 );
 
 if_id _if_id(
@@ -291,29 +303,7 @@ exe_mem _ex_m(
 	.wreg_out (mem_wreg)
 );
 
-DataMemory _dm(
-	.Address(mem_address),
-	.WriteData(mem_wdata),
-	.MemRead(mem_read),
-	.MemWrite(mem_write),
-	.tbre(tbre),
-	.tsre(tsre),
-	.clk(clk2x),
-	.data_ready(data_ready),
-	.Ram1Data(ram1_data),
-	.Ram2Data(ram2_data),
-	.ReadData(mem_readdata),
-	.Ram1Addr(ram1_addr),
-	.Ram2Addr(ram2_addr),
-	.Ram1OE(ram1_oe),
-	.Ram1WE(ram1_we),
-	.Ram1EN(ram1_en),
-	.Ram2OE(ram2_oe),
-	.Ram2WE(ram2_we),
-	.Ram2EN(ram2_en),
-	.rdn(rbn),
-	.wrn(wrn)
-);
+
 
 mem_wb _mem_wb(
     .clk (clk),

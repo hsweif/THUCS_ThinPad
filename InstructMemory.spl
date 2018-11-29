@@ -1,9 +1,0 @@
-[Inputs]
-clk
-rst
-MemConflict
-[Outputs]
-[BiDir]
-[ATTRIBUTES]
-VeriModel InstructMemory
-
