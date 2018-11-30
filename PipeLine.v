@@ -137,22 +137,6 @@ pll_controller _pll (
     .CLK2X_OUT(clk2x), 
     .LOCKED_OUT(LOCKED_OUT)
     );
-
-InstructMemory _im(
-	 .clk(clk2x),
-    .rst(rst),
-	 .MemRead(mem_read),
-	 .MemWrite(mem_write),
-    .pc(pc),
-	 .DM_Address(mem_address),
-	 .Ram1Data(ram1_data), //Read from the main bus.
-	 .Ram1Addr(ram1_addr),
-	 .Instruct(instruction),
-	 .MemConflict(mem_conflict),
-    .Ram1OE(ram1_oe),
-    .Ram1WE(ram1_we),
-    .Ram1EN(ram1_en)
-    );
 	 
 PC_reg _PC_reg(
     .PCKeep(pcKeep),
@@ -164,6 +148,33 @@ PC_reg _PC_reg(
     .error(error),
     .prePC(prePC)
 	// .AddedPC (addedPc)
+);
+
+MemoryModule _mem(
+	.clk(clk2x),
+    .rst(rst),
+    .pc(pc),
+    .MemConflict(mem_conflict),
+	.Address(mem_address),
+	.WriteData(mem_wdata),
+	.MemRead(mem_read),
+	.MemWrite(mem_write),
+	.ReadData(mem_readdata),
+    .Instruct(Instruction), // FIXME: is here right?
+	.Ram1Data(ram1_data),
+	.Ram1Addr(ram1_addr),
+	.Ram1OE(ram1_oe),
+	.Ram1WE(ram1_we),
+	.Ram1EN(ram1_en),
+	.Ram2Data(ram2_data),
+	.Ram2Addr(ram2_addr),
+	.Ram2OE(ram2_oe),
+	.Ram2WE(ram2_we),
+	.Ram2EN(ram2_en),
+	.tbre(tbre),
+	.tsre(tsre),
+	.rdn(rbn),
+	.wrn(wrn)
 );
 
 if_id _if_id(
@@ -292,29 +303,7 @@ exe_mem _ex_m(
 	.wreg_out (mem_wreg)
 );
 
-DataMemory _dm(
-	.Address(mem_address),
-	.WriteData(mem_wdata),
-	.MemRead(mem_read),
-	.MemWrite(mem_write),
-	.tbre(tbre),
-	.tsre(tsre),
-	.clk(clk2x),
-	.data_ready(data_ready),
-	.Ram1Data(ram1_data),
-	.Ram2Data(ram2_data),
-	.ReadData(mem_readdata),
-	.Ram1Addr(ram1_addr),
-	.Ram2Addr(ram2_addr),
-	.Ram1OE(ram1_oe),
-	.Ram1WE(ram1_we),
-	.Ram1EN(ram1_en),
-	.Ram2OE(ram2_oe),
-	.Ram2WE(ram2_we),
-	.Ram2EN(ram2_en),
-	.rdn(rbn),
-	.wrn(wrn)
-);
+
 
 mem_wb _mem_wb(
     .clk (clk),
