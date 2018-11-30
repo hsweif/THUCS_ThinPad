@@ -21,7 +21,7 @@
 module PipeLine(
 	input clk_orig, // TODO: need to be checked
 	input rst,
-	input clk,
+
 	output [7:0] ledA,
 	output [7:0] ledB,
 	output ram1_oe,
@@ -40,14 +40,9 @@ module PipeLine(
 	output rdn,
 	output wrn
     );
-
+wire clk;
 // output and input for PLL
 wire clk2x;
-wire CLKDV_OUT;
-wire CLKIN_IBUFG_OUT;
-wire CLK0_OUT;  
-wire LOCKED_OUT;
-wire clk_out;
 
 // output and input of IF
 wire [15:0] pc;
@@ -118,6 +113,7 @@ wire idClear;
 wire error;
 wire [15:0] prePC;
 
+wire clk_out;
 
 BTB _BTB(
     .rst(rst),
@@ -134,28 +130,22 @@ BTB _BTB(
 /*fenpin _fenpin(
 	.clk (clk_out),
 	.clk_out (clk)
-);
+);*/
 
-fenpin _fenpin2x(
+/*fenpin _fenpin2x(
 	.clk (clk2x),
 	.clk_out (clk2x_o)
 );*/
-
-// Test only
-/*always @(*) begin
-	test_clk1 <= clk;
-	test_clk2 <= clk2x;
-	test_clk2_o <= clk2x_o;
-end*/
-
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
-    .RST_IN(rst), 
-    .CLKIN_IBUFG_OUT(clk_out), 
-    .CLK0_OUT(CLK0_OUT), 
-    .CLK2X_OUT(clk2x),
-	 .CLKDV_OUT(CLKDV_OUT),
-    .LOCKED_OUT(LOCKED_OUT)
+    .RST_IN(~rst),
+	 .CLKDV_OUT(clk)
+    );
+
+dcm_pll instance_name (
+    .CLKIN_IN(clk), 
+    .RST_IN(~rst),  
+    .CLK2X_OUT(clk2x)
     );
 	 
 PC_reg _PC_reg(
@@ -175,16 +165,16 @@ PC_reg _PC_reg(
 InstructionMemory _IM(
 	
 	//.ledB(ledB),
-	.clk(CLKDV_OUT),
+	.clk(clk2x),
 	.rst (rst),
    .pc (pc),
    .Instruction (instruction)
 );
 
 MemoryModule _mem(
-.ledA(ledA),
-	.ledB(ledB),
-	.clk(CLKDV_OUT),
+//.ledA(ledA),
+	//.ledB(ledB),
+	.clk(clk2x),
     .rst(rst),
     //.pc(pc),
     .MemConflict(mem_conflict),
@@ -225,8 +215,8 @@ if_id _if_id(
 );
 
 ID _ID(
-	//.ledA(ledA),
-	//.ledB(ledB),
+	.ledA(ledA),
+	.ledB(ledB),
     .clk(clk),
     .rst(rst),
   	.instr(idInstruction),

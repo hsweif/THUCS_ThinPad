@@ -1,0 +1,13 @@
+
+
+
+// Instantiate the module
+dcm_pll instance_name (
+    .CLKIN_IN(CLKIN_IN), 
+    .RST_IN(RST_IN), 
+    .CLK0_OUT(CLK0_OUT), 
+    .CLK2X_OUT(CLK2X_OUT), 
+    .LOCKED_OUT(LOCKED_OUT)
+    );
+
+

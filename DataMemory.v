@@ -21,8 +21,8 @@
 `include "define.v"
 
 module MemoryModule(
-output reg [7:0] ledA,
-	output reg [7:0] ledB,
+//output reg [7:0] ledA,
+	//output reg [7:0] ledB,
 	 input clk,
 	 input rst,
 	 // Used for instruction module
@@ -59,7 +59,9 @@ output reg [7:0] ledA,
 function Ram1Conflict;
 input _MemRead, _MemWrite, _ram1Address;
 begin
+/*
 	if((_MemRead | _MemWrite) == 1)begin
+
 		if(_ram1Address < `RAM1_UPPER)begin
 			Ram1Conflict = 1;
 		end
@@ -76,6 +78,8 @@ begin
 	else begin
 		Ram1Conflict = 0;
 	end
+	*/
+	Ram1Conflict = 0;
 end
 endfunction
 
@@ -89,37 +93,50 @@ assign conflict = Ram1Conflict(MemRead, MemWrite, Address);
 assign Ram1Data[15:0] = link_data1 ? ram1_data : 16'bz;
 assign Ram2Data[15:0] = link_data2 ? ram2_data : 16'bz;
 
-always@(*) begin 
+/*always@(*) begin 
 ledA[4] <= MemWrite;
 ledA[3] <= MemRead;
-ledA[2] <= clk;
 if (MemRead == 1)begin
-ledB = ReadData[7:0];
+ledB[7:0] = ReadData[7:0];
 end
 else if (MemWrite == 1)
 begin
-ledB = WriteData[7:0];
+ledB[7:0] = WriteData[7:0];
 end
 else
-ledA[7] <= 1'b1;
-end
+;
+end*/
 
 //clock fequency in memory reading is half main frequency.
 always @(negedge clk or negedge rst)
 begin
+	/*if(MemWrite == 1) begin
+		ledB[7] <= 1'b1;
+		ledA[7] <= 1'b1;
+	end
+	if(MemRead == 1) begin
+		ledB[7] <= 1'b1;
+		ledB[6] <= 1'b1;
+	end*/
 	if(rst == 0) begin
 		// TODO: What does reset mean in ram module?
 		status <= 0;
-				rdn <= 1;
-				wrn <= 1;
+		rdn <= 1;
+		wrn <= 1;
+		Ram1EN <= 1;
+		Ram1OE <= 1;
+		Ram1WE <= 1;
+		Ram2EN <= 1;
+		Ram2OE <= 1;
+		Ram2WE <= 1;
 	end
 	else begin
+
 	// sensitive to clk signal.
 		Ram1Addr[17:16] <= 2'b0;
 		Ram2Addr[17:16] <= 2'b0;
-		ledA[6] <= status;
 		if(status == 0) begin
-			status <= 1;
+			//ledA[6] <= 1;
 			// Instruction Module
 			/*if(conflict) begin
 				MemConflict <= 1;
@@ -137,7 +154,6 @@ begin
 
 			// Data Memory module
 			if(Address < `RAM1_UPPER) begin
-				ledA[5] <= 1;
 				rdn <= 1;
 				wrn <= 1;
 				// Ram2 is not available now
@@ -145,24 +161,30 @@ begin
 				Ram2OE <= 1;
 				Ram2WE <= 1;
 				link_data2 <= 0;
-				Ram1Addr[15:0] <= Address;
 				if(MemWrite == 1) begin
+					Ram1Addr[15:0] <= Address;
 					link_data1 <= 1;
 					Ram1EN <= 0;
 					Ram1OE <= 1;
 					Ram1WE <= 0;
+					ram1_data[15:0] <= WriteData;	
+					status <= 1;					
 				end
 				else if(MemRead == 1) begin
+					Ram1Addr[15:0] <= Address;
 					link_data1 <= 0;
 					Ram1EN <= 0;
 					Ram1OE <= 0;
 					Ram1WE <= 1;
+					status <= 1;
 				end
-				else
-					;
+				else begin
+					Ram1EN <= 1;
+					Ram1OE <= 1;
+					Ram1WE <= 1;
+				end
 			end
 			else begin
-				ledA[5] <= 0;
 				// Ram1 is not available now
 				Ram1EN <= 1;
 				Ram1OE <= 1;
@@ -173,14 +195,18 @@ begin
 					 	wrn <= 1;
 						rdn <= 0;
 						link_data1 <= 0;
+						status <= 1;
 					end
 					else if(MemWrite == 1) begin
 					 	wrn <= 0;
 						rdn <= 1;
 						link_data1 <= 1;
+						status <= 1;
 					end
-					else
-						;
+					else begin
+						wrn <= 1;
+						rdn <= 1;
+					end
 				end		
 				else if(Address == `COM2_DATA || Address == `COM2_COMMAND) begin
 					// TODO: IO data to port 2
@@ -190,21 +216,28 @@ begin
 					rdn <= 1;
 					wrn <= 1;
 					link_data1 <= 0;
-					Ram2Addr[15:0] <= Address;
 					if(MemWrite == 1) begin
 						link_data2 <= 1;
+						Ram2Addr[15:0] <= Address;
 						Ram2EN <= 0;
 						Ram2OE <= 1;
 						Ram2WE <= 0;
+						ram2_data[15:0] <= WriteData;
+						status <= 1;
 					end
 					else if(MemRead == 1) begin
 						link_data2 <= 0; // Before read, the bus need to be set to zz
+						Ram2Addr[15:0] <= Address;
 						Ram2EN <= 0;
 						Ram2OE <= 0;
 						Ram2WE <= 1;
+						status <= 1;
 					end
-					else
-						; // Do nothing.
+					else begin
+						Ram2EN <= 1;
+						Ram2OE <= 1;
+						Ram2WE <= 1;
+					end
 				end
 			end
 		end
@@ -221,7 +254,6 @@ begin
 
 			// Data memory module.
 			if(Address < `RAM1_UPPER) begin
-				ledA[5] <= 1;
 				rdn <= 1;
 				wrn <= 1;
 				// Ram2 is not available now
@@ -235,17 +267,21 @@ begin
 					ReadData[15:0] <= Ram1Data;
 				end
 				else if(MemWrite == 1) begin
+					//ledA[1] <= 1;
 					Ram1EN <= 0;
 					Ram1OE <= 1;
-					Ram1WE <= 0;
-					ram1_data[15:0] <= WriteData;
+					Ram1WE <= 1;
 				end
-				else
-					; //Do nothing
+				else begin
+			//	ledA[1] <= 0;
+					Ram1EN <= 1;
+					Ram1OE <= 1;
+					Ram1WE <= 1;
+				end
 			end
 			else  begin // Ram2
 				// Ram1 is not available now
-				ledA[5] <= 0;
+				//ledA[5] <= 0;
 				Ram1EN <= 1;
 				Ram1OE <= 1;
 				Ram1WE <= 1;
@@ -278,8 +314,7 @@ begin
 					if(MemWrite == 1) begin
 						Ram2EN <= 0;
 						Ram2OE <= 1;
-						Ram2WE <= 0;
-						ram2_data[15:0] <= WriteData;
+						Ram2WE <= 1;
 					end
 					else if(MemRead == 1) begin
 						Ram2EN <= 0;
@@ -287,8 +322,11 @@ begin
 						Ram2WE <= 1;
 						ReadData[15:0] <= Ram2Data;
 					end
-					else
-						;
+					else begin
+						Ram2EN <= 1;
+						Ram2OE <= 1;
+						Ram2WE <= 1;
+					end
 				end
 			end
 		end

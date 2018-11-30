@@ -39,7 +39,7 @@ if (rst == 0) begin
 	memwrite_out <= 0;
 	memread_out <= 0;
 	wreg_out <= 4'b1111;
-	
+	alu_out <= 16'b0;//000000000011111;
 end 
 else begin
 	if (controlmem_in == 2'b01) begin

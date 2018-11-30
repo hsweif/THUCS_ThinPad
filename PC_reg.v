@@ -40,10 +40,10 @@ always @ (negedge clk or negedge rst) begin
 	end
 	else if (start == 1) 
 	begin
-		if (PCKeep == 1) begin//if (PCKeep === 1) begin
-		end
-		else if(ifJump == 0 && error == 1) begin //else if(ifJump === 0 && error == 1) begin 
+		if(ifJump == 0 && error == 1) begin //else if(ifJump === 0 && error == 1) begin 
 			pc <= newPC; //预测错误，恢�
+		end
+		else if (PCKeep == 1) begin//if (PCKeep === 1) begin
 		end
 		else
 		begin
