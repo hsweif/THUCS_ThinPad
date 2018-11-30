@@ -24,6 +24,8 @@ module InstructionMemory(
 	 input rst,
     input [15:0] pc,
     output reg[15:0] Instruction
+	 //output reg [7:0] ledB,
+	 //output reg [7:0] ledA
     );
  
 // The size of fake memory
@@ -65,12 +67,12 @@ reg[15:0] lastPC;
 always @(negedge rst)
 begin
 	memPool[0]  <= 16'b0100100100000111; //Reg1 addiu 7
-	memPool[1]  <= 16'b0001000000000011; //B pc+3
-	memPool[2]  <= 16'b0100111100000001; //Reg7 addiu 1
-	memPool[3]  <= 16'b0100101000000001; //Reg2 addiu 1
-	memPool[4]  <= 16'b1110000111100111; //R1=r1-r7
-	memPool[5]  <= 16'b0010100011111101; //BNEZ r0!=0 ? pc-3 : pc
-	memPool[6]  <= 16'b0000100000000000;//nop
+	memPool[1]  <= 16'b1101100000101111; //SW FFFF <- 7
+	memPool[2]  <= 16'b1001100001001111; //LW r2 <- M[0+FFFF] 
+	memPool[3]  <= 16'b0100001001101001;  	//ADDIU3 	r3 <- r2-7  
+	memPool[4]  <= 16'b0010001100000010; //BEQZ r0->pc+8
+	memPool[5]  <= 16'b0000100000000000; //nop
+	memPool[6]  <= 16'b0100111011111111; //ADDIU R4 FF
 	memPool[7]  <= 16'b0100111000000001; //Reg6 addiu 1
 	memPool[8]  <= 16'b0010000000000010; //BEQZ r0->pc+8
 	memPool[9]  <= 16'b0000100000000000;	//nop
@@ -104,7 +106,7 @@ begin
 	memPool[37] <= 16'b1111001000000000; //MFIH R2 <- IH
 	memPool[38] <= 16'b1001101000000100; //LW R0 <- M[R2+4]
 	memPool[39] <= 16'b1001001100000100; //LW_SP R3 <- M[SP+4]
-	
+	//ledA[0] = 1;
 	status <= 0;
 end
 
@@ -113,7 +115,12 @@ always @(*) begin
 end
 
 always @(pc) begin
+	//ledB[7:0] = pc[9:2];
+	if ((pc >> 2) < 4)
 	Instruction[15:0] = memPool[(pc >> 2) % 32];
+	else
+	Instruction[15:0] = 16'b0000100000000000; //nop
+	//ledA[7:0] = Instruction[15:8];
 end
 
 endmodule

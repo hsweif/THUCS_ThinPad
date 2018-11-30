@@ -19,6 +19,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module exe_mem(
+input rst,
 	 input clk,
 	 input [1:0] controlmem_in,
 	 input controlwb_in,
@@ -33,7 +34,14 @@ module exe_mem(
 	 output reg [3:0] wreg_out
     );
 
-always @ (negedge clk) begin 
+always @ (negedge rst or negedge clk) begin
+if (rst == 0) begin
+	memwrite_out <= 0;
+	memread_out <= 0;
+	wreg_out <= 4'b1111;
+	
+end 
+else begin
 	if (controlmem_in == 2'b01) begin
 		memwrite_out <= 0;
 		memread_out <= 1;
@@ -51,6 +59,7 @@ always @ (negedge clk) begin
 	alu_out <= alu_in;
 	wdata_out <= wdata_in;
 	wreg_out <= wreg_in;
+	end
 end
 
 endmodule

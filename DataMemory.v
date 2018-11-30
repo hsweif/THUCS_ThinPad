@@ -21,10 +21,12 @@
 `include "define.v"
 
 module MemoryModule(
+output reg [7:0] ledA,
+	output reg [7:0] ledB,
 	 input clk,
 	 input rst,
 	 // Used for instruction module
-    input [15:0] pc,
+    // input [15:0] pc,
 	 output reg MemConflict,
 	 // Used for memory conflict
     input [15:0] Address,
@@ -32,7 +34,7 @@ module MemoryModule(
     input MemRead,
     input MemWrite,
 	 output reg [15:0] ReadData,
-	 output reg [15:0] Instruct,
+	 // output reg [15:0] Instruct,
 	 // Used for RAM1, in both instruction and data module 
     inout [15:0] Ram1Data,
 	 output reg [17:0] Ram1Addr,
@@ -51,7 +53,8 @@ module MemoryModule(
     output reg rdn,
     output reg wrn
     );
-
+//assign ledA[7:0] = Address[15:8];
+//assign ledB[7:0] = Address[7:0];
 // This function is used to detect ram1 conflict.
 function Ram1Conflict;
 input _MemRead, _MemWrite, _ram1Address;
@@ -86,20 +89,39 @@ assign conflict = Ram1Conflict(MemRead, MemWrite, Address);
 assign Ram1Data[15:0] = link_data1 ? ram1_data : 16'bz;
 assign Ram2Data[15:0] = link_data2 ? ram2_data : 16'bz;
 
+always@(*) begin 
+ledA[4] <= MemWrite;
+ledA[3] <= MemRead;
+ledA[2] <= clk;
+if (MemRead == 1)begin
+ledB = ReadData[7:0];
+end
+else if (MemWrite == 1)
+begin
+ledB = WriteData[7:0];
+end
+else
+ledA[7] <= 1'b1;
+end
+
 //clock fequency in memory reading is half main frequency.
 always @(negedge clk or negedge rst)
 begin
 	if(rst == 0) begin
 		// TODO: What does reset mean in ram module?
+		status <= 0;
+				rdn <= 1;
+				wrn <= 1;
 	end
 	else begin
 	// sensitive to clk signal.
 		Ram1Addr[17:16] <= 2'b0;
 		Ram2Addr[17:16] <= 2'b0;
+		ledA[6] <= status;
 		if(status == 0) begin
 			status <= 1;
 			// Instruction Module
-			if(conflict) begin
+			/*if(conflict) begin
 				MemConflict <= 1;
 				Instruct[15:0] <= `NOP_INSTRUCT;
 			end
@@ -111,10 +133,11 @@ begin
 				Ram1Addr[17:16] <= 2'b00;
 				Ram1Addr[15:0] <= pc;
 				MemConflict <= 0;
-			end
+			end*/
 
 			// Data Memory module
 			if(Address < `RAM1_UPPER) begin
+				ledA[5] <= 1;
 				rdn <= 1;
 				wrn <= 1;
 				// Ram2 is not available now
@@ -139,6 +162,7 @@ begin
 					;
 			end
 			else begin
+				ledA[5] <= 0;
 				// Ram1 is not available now
 				Ram1EN <= 1;
 				Ram1OE <= 1;
@@ -188,15 +212,16 @@ begin
 			// status == 1
 			status <= 0;
 			// Instruction Module
-			if(MemConflict == 1) begin
+			/*if(MemConflict == 1) begin
 				Instruct[15:0] <= `NOP_INSTRUCT;
 			end
 			else begin
 				Instruct[15:0] <= Ram1Data;
-			end
+			end*/
 
 			// Data memory module.
 			if(Address < `RAM1_UPPER) begin
+				ledA[5] <= 1;
 				rdn <= 1;
 				wrn <= 1;
 				// Ram2 is not available now
@@ -220,6 +245,7 @@ begin
 			end
 			else  begin // Ram2
 				// Ram1 is not available now
+				ledA[5] <= 0;
 				Ram1EN <= 1;
 				Ram1OE <= 1;
 				Ram1WE <= 1;

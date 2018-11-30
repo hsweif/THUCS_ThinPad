@@ -7,7 +7,7 @@
 // \   \   \/     Version : 14.7
 //  \   \         Application : xaw2verilog
 //  /   /         Filename : pll_controller.v
-// /___/   /\     Timestamp : 11/29/2018 23:53:09
+// /___/   /\     Timestamp : 11/30/2018 21:05:17
 // \   \  /  \ 
 //  \___\/\___\ 
 //
@@ -22,20 +22,21 @@
 
 module pll_controller(CLKIN_IN, 
                       RST_IN, 
+                      CLKDV_OUT, 
                       CLKIN_IBUFG_OUT, 
                       CLK0_OUT, 
                       CLK2X_OUT, 
-                      CLK2X_OUT1, 
                       LOCKED_OUT);
 
     input CLKIN_IN;
     input RST_IN;
+   output CLKDV_OUT;
    output CLKIN_IBUFG_OUT;
    output CLK0_OUT;
    output CLK2X_OUT;
-   output CLK2X_OUT1;
    output LOCKED_OUT;
    
+   wire CLKDV_BUF;
    wire CLKFB_IN;
    wire CLKIN_IBUFG;
    wire CLK0_BUF;
@@ -45,14 +46,14 @@ module pll_controller(CLKIN_IN,
    assign GND_BIT = 0;
    assign CLKIN_IBUFG_OUT = CLKIN_IBUFG;
    assign CLK2X_OUT = CLKFB_IN;
+   BUFG  CLKDV_BUFG_INST (.I(CLKDV_BUF), 
+                         .O(CLKDV_OUT));
    IBUFG  CLKIN_IBUFG_INST (.I(CLKIN_IN), 
                            .O(CLKIN_IBUFG));
    BUFG  CLK0_BUFG_INST (.I(CLK0_BUF), 
                         .O(CLK0_OUT));
    BUFG  CLK2X_BUFG_INST (.I(CLK2X_BUF), 
                          .O(CLKFB_IN));
-   BUFG  CLK2X_BUFG_INST1 (.I(CLK2X_BUF), 
-                          .O(CLK2X_OUT1));
    DCM_SP #( .CLK_FEEDBACK("2X"), .CLKDV_DIVIDE(2.0), .CLKFX_DIVIDE(1), 
          .CLKFX_MULTIPLY(4), .CLKIN_DIVIDE_BY_2("FALSE"), 
          .CLKIN_PERIOD(20.000), .CLKOUT_PHASE_SHIFT("FIXED"), 
@@ -66,7 +67,7 @@ module pll_controller(CLKIN_IN,
                        .PSEN(GND_BIT), 
                        .PSINCDEC(GND_BIT), 
                        .RST(RST_IN), 
-                       .CLKDV(), 
+                       .CLKDV(CLKDV_BUF), 
                        .CLKFX(), 
                        .CLKFX180(), 
                        .CLK0(CLK0_BUF), 

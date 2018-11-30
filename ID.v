@@ -19,8 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module ID(
-	output reg [7:0] ledA,
-	output reg [7:0] ledB,
+	//output reg [7:0] ledA,
+	//output reg [7:0] ledB,
 	input wire rst,
     input wire clk,
 	input [15:0] instr,
@@ -45,10 +45,14 @@ module ID(
 	reg[15:0] register [15:0];
 	integer i;
 	always @(writeBackReg or instr) begin
-		ledA = instr[15:8];
-		ledB = register[writeBackReg][7:0];
+		//ledA[7:4] = register[1][3:0];
+		//ledA[3:0] = register[2][3:0];
+		//ledB[7:4] = register[2][4:0];//register[writeBackReg][7:0];
+		//ledB[3:0] = register[1][4:0];
 	end
-
+	//always @(*) begin
+		//ledB[7:0] = instr[15:8];
+	//end
 	always @(negedge clk or negedge rst) begin		
 			if(rst == 0) begin
 				register[0] <= 0;

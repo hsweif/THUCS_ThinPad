@@ -21,6 +21,7 @@
 module PipeLine(
 	input clk_orig, // TODO: need to be checked
 	input rst,
+	input clk,
 	output [7:0] ledA,
 	output [7:0] ledB,
 	output ram1_oe,
@@ -42,11 +43,11 @@ module PipeLine(
 
 // output and input for PLL
 wire clk2x;
-wire clk;
+wire CLKDV_OUT;
 wire CLKIN_IBUFG_OUT;
 wire CLK0_OUT;  
 wire LOCKED_OUT;
-
+wire clk_out;
 
 // output and input of IF
 wire [15:0] pc;
@@ -117,6 +118,7 @@ wire idClear;
 wire error;
 wire [15:0] prePC;
 
+
 BTB _BTB(
     .rst(rst),
     .clk(clk),
@@ -129,16 +131,35 @@ BTB _BTB(
     .error(error)
 );
 
+/*fenpin _fenpin(
+	.clk (clk_out),
+	.clk_out (clk)
+);
+
+fenpin _fenpin2x(
+	.clk (clk2x),
+	.clk_out (clk2x_o)
+);*/
+
+// Test only
+/*always @(*) begin
+	test_clk1 <= clk;
+	test_clk2 <= clk2x;
+	test_clk2_o <= clk2x_o;
+end*/
+
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
     .RST_IN(rst), 
-    .CLKIN_IBUFG_OUT(clk), 
+    .CLKIN_IBUFG_OUT(clk_out), 
     .CLK0_OUT(CLK0_OUT), 
-    .CLK2X_OUT(clk2x), 
+    .CLK2X_OUT(clk2x),
+	 .CLKDV_OUT(CLKDV_OUT),
     .LOCKED_OUT(LOCKED_OUT)
     );
 	 
 PC_reg _PC_reg(
+	//.ledA(ledA),
     .PCKeep(pcKeep),
 	 .clk (clk),
 	 .rst (rst),
@@ -147,20 +168,32 @@ PC_reg _PC_reg(
 	 .pc(pc),
     .error(error),
     .prePC(prePC)
+	 //.clk_out (clk_out)
 	// .AddedPC (addedPc)
 );
 
+InstructionMemory _IM(
+	
+	//.ledB(ledB),
+	.clk(CLKDV_OUT),
+	.rst (rst),
+   .pc (pc),
+   .Instruction (instruction)
+);
+
 MemoryModule _mem(
-	.clk(clk2x),
+.ledA(ledA),
+	.ledB(ledB),
+	.clk(CLKDV_OUT),
     .rst(rst),
-    .pc(pc),
+    //.pc(pc),
     .MemConflict(mem_conflict),
 	.Address(mem_address),
 	.WriteData(mem_wdata),
 	.MemRead(mem_read),
 	.MemWrite(mem_write),
 	.ReadData(mem_readdata),
-    .Instruct(Instruction), // FIXME: is here right?
+    //.Instruct(Instruction), // FIXME: is here right?
 	.Ram1Data(ram1_data),
 	.Ram1Addr(ram1_addr),
 	.Ram1OE(ram1_oe),
@@ -173,12 +206,16 @@ MemoryModule _mem(
 	.Ram2EN(ram2_en),
 	.tbre(tbre),
 	.tsre(tsre),
-	.rdn(rbn),
+	.rdn(rdn),
 	.wrn(wrn)
 );
 
+
 if_id _if_id(
+//.ledA(ledA),
+.rst(rst),
 	.clk (clk),
+	//.ledB(ledB),
     .ifkeep (ifKeep),
     .ifClear(ifClear),
     .pc_in (pc),
@@ -188,8 +225,8 @@ if_id _if_id(
 );
 
 ID _ID(
-	.ledA(ledA),
-	.ledB(ledB),
+	//.ledA(ledA),
+	//.ledB(ledB),
     .clk(clk),
     .rst(rst),
   	.instr(idInstruction),
@@ -211,6 +248,7 @@ ID _ID(
 );
 
 id_exe _id_exe(
+.rst(rst),
 	.clk (clk),
     .idClear(idClear),
     .rdata1_in (readData1),
@@ -289,6 +327,7 @@ hazard _hazard(
 );
 
 exe_mem _ex_m(
+.rst(rst),
 	.clk (clk),
 	.controlmem_in (exe_controlmem),
 	.controlwb_in (exe_controlwb),
@@ -306,6 +345,7 @@ exe_mem _ex_m(
 
 
 mem_wb _mem_wb(
+.rst(rst),
     .clk (clk),
     .controlwb_in (mem_controlwb),
     .memdata_in (mem_readdata),
@@ -324,5 +364,4 @@ WriteBack _wb(
 	.alu (wb_aludata),
 	.MemToReg (wb_memtoreg)
 );
-
 endmodule

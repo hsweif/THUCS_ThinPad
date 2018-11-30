@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module mem_wb(
     input clk,
+	 input rst,
     input controlwb_in,
     input [15:0] memdata_in,
     input [15:0] alu_in,
@@ -30,11 +31,16 @@ module mem_wb(
     output reg [3:0] wreg_out
     );
 
-always @ (negedge clk) begin
+always @ (negedge rst or negedge clk) begin
+if (rst == 0) begin
+	wreg_out <= 4'b1111;
+end
+else begin 
 	controlwb_out <= controlwb_in;
 	memdata_out <= memdata_in;
 	alu_out <= alu_in;
 	wreg_out <= wreg_in;
+	end
 end
 
 endmodule
