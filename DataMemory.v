@@ -21,12 +21,10 @@
 `include "define.v"
 
 module MemoryModule(
-//output reg [7:0] ledA,
-	//output reg [7:0] ledB,
 	 input clk,
 	 input rst,
 	 // Used for instruction module
-    // input [15:0] pc,
+     input [15:0] pc,
 	 output reg MemConflict,
 	 // Used for memory conflict
     input [15:0] Address,
@@ -34,7 +32,7 @@ module MemoryModule(
     input MemRead,
     input MemWrite,
 	 output reg [15:0] ReadData,
-	 // output reg [15:0] Instruct,
+	 output reg [15:0] Instruct,
 	 // Used for RAM1, in both instruction and data module 
     inout [15:0] Ram1Data,
 	 output reg [17:0] Ram1Addr,
@@ -55,83 +53,46 @@ module MemoryModule(
     output reg rdn,
     output reg wrn
     );
-// This function is used to detect ram1 conflict.
-function Ram1Conflict;
-input _MemRead, _MemWrite, _ram1Address;
-begin
-
-	if((_MemRead | _MemWrite) == 1)begin
-
-		if(_ram1Address < `RAM1_UPPER)begin
-			Ram1Conflict = 1;
-		end
-		else if(_ram1Address == `COM1_DATA || _ram1Address == `COM1_COMMAND)begin
-			Ram1Conflict = 1;
-		end
-		else if(_ram1Address == `COM2_DATA || _ram1Address == `COM2_COMMAND)begin
-			Ram1Conflict = 1;
-		end
-		else begin
-			Ram1Conflict = 0;
-		end
-	end
-	else begin
-		Ram1Conflict = 0;
-	end
-	
-	//Ram1Conflict = 0;
-end
-endfunction
-
-function IsUartPort;
-input _address;
-begin
-	if(`COM1_DATA <= _address && _address <= `COM2_COMMAND)
-		IsUartPort = 1;
-	else
-		IsUartPort = 0;
-end
-endfunction
 
 reg [15:0] ram1_data = 16'b0;
 reg [15:0] ram2_data = 16'b0;
 reg link_data1 = 1;
 reg link_data2 = 1;
 integer status = 0;
-wire conflict;
-wire isUart;
-assign isUart = IsUartPort(Address);
-assign conflict = Ram1Conflict(MemRead, MemWrite, Address);
+reg isUart = 0;
 assign Ram1Data[15:0] = link_data1 ? ram1_data : 16'bz;
 assign Ram2Data[15:0] = link_data2 ? ram2_data : 16'bz;
 
-/*always@(*) begin 
-ledA[4] <= MemWrite;
-ledA[3] <= MemRead;
-if (MemRead == 1)begin
-ledB[7:0] = ReadData[7:0];
+always @(*) begin
+	// To detect ram1 conflict.
+	if(MemRead == 1|| MemWrite == 1) begin
+		if(Ram1Addr < `RAM1_UPPER) begin
+			MemConflict <= 1;
+			isUart <= 0;
+		end
+		else if(Ram1Addr == `COM1_DATA || Ram1Addr == `COM1_COMMAND)begin
+			MemConflict <= 1;
+			isUart <= 1;
+		end
+		else if(Ram1Addr == `COM2_DATA || Ram1Addr == `COM2_COMMAND)begin
+			MemConflict <= 1;
+			isUart <= 1;
+		end
+		else begin
+			MemConflict <= 0;
+			isUart <= 0;
+		end
+	end
+	else begin
+		MemConflict <= 0;
+		isUart <= 0;
+	end
 end
-else if (MemWrite == 1)
-begin
-ledB[7:0] = WriteData[7:0];
-end
-else
-;
-end*/
 
 //clock fequency in memory reading is half main frequency.
 always @(negedge clk or negedge rst)
 begin
-	/*if(MemWrite == 1) begin
-		ledB[7] <= 1'b1;
-		ledA[7] <= 1'b1;
-	end
-	if(MemRead == 1) begin
-		ledB[7] <= 1'b1;
-		ledB[6] <= 1'b1;
-	end*/
 	if(rst == 0) begin
-		// TODO: What does reset mean in ram module?
 		status <= 0;
 		rdn <= 1;
 		wrn <= 1;
@@ -147,12 +108,11 @@ begin
 		ram2_data <= 16'b0;
 	end
 	else begin
-
 	// sensitive to clk signal.
 		Ram1Addr[17:16] <= 2'b0;
 		Ram2Addr[17:16] <= 2'b0;
 		if(status == 0) begin
-			if(isUart) begin
+			if(isUart == 1) begin
 				noStop <= 0;  
 			end			
 			else begin
@@ -160,8 +120,7 @@ begin
 			end
 			//ledA[6] <= 1;
 			// Instruction Module
-			/*if(conflict) begin
-				MemConflict <= 1;
+			if(MemConflict) begin
 				Instruct[15:0] <= `NOP_INSTRUCT;
 			end
 			else begin
@@ -171,8 +130,7 @@ begin
 				Ram1WE <= 1;
 				Ram1Addr[17:16] <= 2'b00;
 				Ram1Addr[15:0] <= pc;
-				MemConflict <= 0;
-			end*/
+			end
 
 			// Data Memory module
 			if(Address < `RAM1_UPPER) begin
@@ -211,7 +169,7 @@ begin
 				Ram1EN <= 1;
 				Ram1OE <= 1;
 				Ram1WE <= 1;
-				if(Address == `COM1_DATA || Address == `COM1_COMMAND) begin
+				if(isUart == 1) begin
 					// TODO: IO data to port 1
 					if(MemRead == 1) begin
 					 	wrn <= 1;
@@ -223,15 +181,13 @@ begin
 					 	wrn <= 0;
 						rdn <= 1;
 						link_data1 <= 1;
+						ram1_data[7:0] <= WriteData[7:0];
 						status <= 1;
 					end
 					else begin
 						wrn <= 1;
 						rdn <= 1;
 					end
-				end		
-				else if(Address == `COM2_DATA || Address == `COM2_COMMAND) begin
-					// TODO: IO data to port 2
 				end
 				else begin
 				// Ram2
@@ -265,7 +221,7 @@ begin
 		end
 		else if(status == 1) begin
 			// status == 1
-			if(isUart) begin
+			if(isUart == 1) begin
 				noStop <= 0;  
 			end			
 			else begin
@@ -273,13 +229,12 @@ begin
 				noStop <= 1;  
 			end
 			// Instruction Module
-			/*if(MemConflict == 1) begin
+			if(MemConflict == 1) begin
 				Instruct[15:0] <= `NOP_INSTRUCT;
 			end
 			else begin
 				Instruct[15:0] <= Ram1Data;
-			end*/
-
+			end
 			// Data memory module.
 			if(Address < `RAM1_UPPER) begin
 				rdn <= 1;
@@ -295,13 +250,11 @@ begin
 					ReadData[15:0] <= Ram1Data;
 				end
 				else if(MemWrite == 1) begin
-					//ledA[1] <= 1;
 					Ram1EN <= 0;
 					Ram1OE <= 1;
 					Ram1WE <= 1;
 				end
 				else begin
-			//	ledA[1] <= 0;
 					Ram1EN <= 1;
 					Ram1OE <= 1;
 					Ram1WE <= 1;
@@ -309,14 +262,11 @@ begin
 			end
 			else  begin // Ram2
 				// Ram1 is not available now
-				//ledA[5] <= 0;
 				Ram1EN <= 1;
 				Ram1OE <= 1;
 				Ram1WE <= 1;
-				if(Address == `COM1_DATA || Address == `COM1_COMMAND) begin
-					// TODO: IO data to port 1
+				if(isUart == 1) begin
 					if(MemRead == 1) begin
-						// FIXME: Check if rdn <= 1 and read in same edge is ok or not.
 					 	wrn <= 1;
 						rdn <= 0;
 						link_data1 <= 0;
@@ -331,14 +281,14 @@ begin
 					 	wrn <= 1;
 						rdn <= 1;
 						link_data1 <= 1;
-						ram1_data[7:0] <= WriteData[7:0]; 
+						if(tbre == 1)
+							status <= 2;
+						else
+							status <= 1;
 					end
 					else
 						;
 				end		
-				else if(Address == `COM2_DATA || Address == `COM2_COMMAND) begin
-					// TODO: IO data to port 2
-				end
 				else begin
 				// Normal Ram2 Address
 					rdn <= 1;
@@ -363,18 +313,25 @@ begin
 			end
 		end
 		else if(status == 2)begin
-			if(isUart) begin
-				if(Address == `COM1_DATA || Address == `COM1_COMMAND) begin
+			if(isUart == 1) begin
+				if(MemRead == 1) begin
 					rdn <= 1;
 					ReadData[7:0] <= Ram1Data[7:0];
 					ReadData[15:8] <= 8'b0;
+					noStop <= 1;
+					status <= 0;
 				end
-				else begin
-					// TODO
+				else if(MemWrite == 1) begin
+					if(tsre == 1) begin
+						status <= 0;
+						noStop <= 1;
+					end
+					else begin
+						status <= 2;
+						noStop <= 0;
+					end
 				end
-				noStop <= 1;
-				status <= 0;
-			end			
+			end
 			else begin
 				noStop <= 1;
 				status <= 0;
