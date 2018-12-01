@@ -48,14 +48,12 @@ module MemoryModule(
     output reg Ram2WE,
     output reg Ram2EN,
 	 // UART control signal
-    output reg stop,
+    output reg noStop,
 	 input tbre,
     input tsre,
     output reg rdn,
     output reg wrn
     );
-//assign ledA[7:0] = Address[15:8];
-//assign ledB[7:0] = Address[7:0];
 // This function is used to detect ram1 conflict.
 function Ram1Conflict;
 input _MemRead, _MemWrite, _ram1Address;
@@ -84,12 +82,24 @@ begin
 end
 endfunction
 
+function IsUartPort;
+input _address;
+begin
+	if(`COM1_DATA <= _address && _address <= `COM2_COMMAND)
+		IsUartPort = 1;
+	else
+		IsUartPort = 0;
+end
+endfunction
+
 reg [15:0] ram1_data = 16'b0;
 reg [15:0] ram2_data = 16'b0;
 reg link_data1 = 1;
 reg link_data2 = 1;
 reg status = 0;
 wire conflict;
+wire isUart;
+assign isUart = IsUartPort(Address);
 assign conflict = Ram1Conflict(MemRead, MemWrite, Address);
 assign Ram1Data[15:0] = link_data1 ? ram1_data : 16'bz;
 assign Ram2Data[15:0] = link_data2 ? ram2_data : 16'bz;
@@ -141,6 +151,12 @@ begin
 		Ram1Addr[17:16] <= 2'b0;
 		Ram2Addr[17:16] <= 2'b0;
 		if(status == 0) begin
+			if(isUart) begin
+				noStop <= 0;  
+			end			
+			else begin
+				noStop <= 1;  
+			end
 			//ledA[6] <= 1;
 			// Instruction Module
 			/*if(conflict) begin
@@ -198,7 +214,7 @@ begin
 					// TODO: IO data to port 1
 					if(MemRead == 1) begin
 					 	wrn <= 1;
-						rdn <= 0;
+						rdn <= 1;
 						link_data1 <= 0;
 						status <= 1;
 					end
@@ -248,7 +264,13 @@ begin
 		end
 		else if(status == 1) begin
 			// status == 1
-			status <= 0;
+			if(isUart) begin
+				noStop <= 0;  
+			end			
+			else begin
+				status <= 0;
+				noStop <= 1;  
+			end
 			// Instruction Module
 			/*if(MemConflict == 1) begin
 				Instruct[15:0] <= `NOP_INSTRUCT;
@@ -295,10 +317,9 @@ begin
 					if(MemRead == 1) begin
 						// FIXME: Check if rdn <= 1 and read in same edge is ok or not.
 					 	wrn <= 1;
-						rdn <= 1;
+						rdn <= 0;
 						link_data1 <= 0;
-						ReadData[7:0] <= Ram1Data[7:0];
-						ReadData[15:8] <= 8'b0;
+						status <= 2;
 					end
 					else if(MemWrite == 1) begin
 					 	wrn <= 1;
@@ -336,9 +357,36 @@ begin
 			end
 		end
 		else if(status == 2)begin
-			
+			if(isUart) begin
+				if(Address == `COM1_DATA || Address == `COM1_COMMAND) begin
+					// Just a bubble here.
+				end
+				else begin
+				end
+				status <= 3;
+				noStop <= 0;
+			end			
+			else begin
+				noStop <= 1;
+				status <= 0;
+			end
 		end
 		else if(status == 3)begin
+			if(isUart) begin
+				if(Address == `COM1_DATA || Address == `COM1_COMMAND) begin
+					rdn <= 1;
+					ReadData[7:0] <= Ram1Data[7:0];
+					ReadData[15:8] <= 8'b0;
+				end
+				else begin
+				end
+				noStop <= 1;
+				status <= 0;
+			end			
+			else begin
+				noStop <= 1;
+				status <= 0;
+			end
 		end
 	end
 end

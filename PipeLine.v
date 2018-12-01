@@ -43,7 +43,8 @@ module PipeLine(
 
 // output and input for PLL
 wire clk2x;
-wire clk;
+reg clk;
+wire clk_o;
 // output and input of IF
 wire [15:0] pc;
 wire [15:0] addedPc;
@@ -93,6 +94,7 @@ wire [1:0] exe_forwardB;
 // output and input of Mem
 wire mem_write;
 wire mem_read;
+wire no_stop;
 wire [15:0] mem_address;
 wire [15:0] mem_wdata;
 wire [15:0] mem_readdata;
@@ -138,14 +140,19 @@ BTB _BTB(
 );*/
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
-	 .CLKDV_OUT(clk)
+	 .CLKDV_OUT(clk_o)
     );
 
 dcm_pll instance_name (
-    .CLKIN_IN(clk), 
+    .CLKIN_IN(clk_o), 
     .CLK2X_OUT(clk2x)
     );
 	 
+always @(*)
+begin
+    clk <= clk_o & no_stop;
+end
+
 PC_reg _PC_reg(
     .PCKeep(pcKeep),
 	 .clk (clk),
@@ -191,6 +198,7 @@ MemoryModule _mem(
 	.Ram2OE(ram2_oe),
 	.Ram2WE(ram2_we),
 	.Ram2EN(ram2_en),
+    .noStop(no_stop),
 	.tbre(tbre),
 	.tsre(tsre),
 	.rdn(rdn),
