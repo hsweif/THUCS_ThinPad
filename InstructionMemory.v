@@ -67,12 +67,16 @@ reg[15:0] lastPC;
 always @(negedge rst)
 begin
 	memPool[0]  <= 16'b0000100000000000;
-	memPool[1]  <= 16'b0100111100000010; //Reg7 addiu 2
+	memPool[1]  <= 16'b0110100110111111; //LI r1 BF
+	//16'b0100111100000010; //Reg7 addiu 2
 	//16'b0100111000000001; //Reg6 addiu 1
-	memPool[2]  <= 16'b1101100011101111; //SW 1111 <- r7
+	memPool[2]  <= 16'b0011000100100000;//SLL r1<<8
+	//16'b1101100011101111; //SW 1111 <- r7
 	//16'b0100111011111111; //ADDIU R6 FF
 	//16'b0100101100000111; //Reg3 addiu 7
-	memPool[3]  <= 16'b1001100001001111; //LW r2 <- M[0+1111] 
+	// memPool[3]  <= 16'b1001100001001111; //LW r2 <- M[0+1111]
+	memPool[3]  <= 16'b1001100101000000; //LW r2 = M[R1+0]
+	// memPool[3]  <= 16'b1101100101000000; //LW r2 = M[R1+0]
 	//16'b0100111011111111; //ADDIU R6 FF
 	memPool[4]  <= 16'b1110001000101111;	//SUBU		r3 <- r2-r1
 	//16'b0100111000000001; //Reg6 addiu 1
@@ -120,7 +124,7 @@ always @(*) begin
 end
 
 always @(pc) begin
-	if ((pc >> 2) < 28)
+	if ((pc >> 2) < 4)
 		Instruction[15:0] = memPool[(pc >> 2) % 32];
 	else
 		Instruction[15:0] = 16'b0000100000000000; //nop

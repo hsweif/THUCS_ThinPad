@@ -48,7 +48,8 @@ module MemoryModule(
     output reg Ram2WE,
     output reg Ram2EN,
 	 // UART control signal
-    input tbre,
+    output reg stop,
+	 input tbre,
     input tsre,
     output reg rdn,
     output reg wrn
@@ -245,7 +246,7 @@ begin
 				end
 			end
 		end
-		else begin
+		else if(status == 1) begin
 			// status == 1
 			status <= 0;
 			// Instruction Module
@@ -333,6 +334,11 @@ begin
 					end
 				end
 			end
+		end
+		else if(status == 2)begin
+			
+		end
+		else if(status == 3)begin
 		end
 	end
 end

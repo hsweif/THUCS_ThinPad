@@ -45,12 +45,12 @@ module ID(
 	reg[15:0] register [15:0];
 	integer i;
 	always @(writeBackReg or instr) begin
-		//ledA[7:4] = register[1][3:0];
-		//ledA[3:0] = register[2][3:0];
-		ledA[7:4] = register[6][3:0];
-		ledA[3:0] = register[3][3:0];
-		ledB[7:4] = register[4][3:0];//register[writeBackReg][7:0];
-		ledB[3:0] = register[1][3:0];
+		ledA[7:0] = register[1][15:8];
+		ledB[7:0] = register[2][7:0];
+		//ledA[7:4] = register[6][3:0];
+		//ledA[3:0] = register[3][3:0];
+		//ledB[7:4] = register[4][3:0];//register[writeBackReg][7:0];
+		//ledB[3:0] = register[1][3:0];
 	end
 	/*always @(*) begin
 		ledA[7:0] = instr[15:8];
