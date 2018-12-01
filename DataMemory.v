@@ -48,6 +48,7 @@ module MemoryModule(
     output reg Ram2WE,
     output reg Ram2EN,
 	 // UART control signal
+	 input data_ready,
     output reg noStop,
 	 input tbre,
     input tsre,
@@ -96,7 +97,7 @@ reg [15:0] ram1_data = 16'b0;
 reg [15:0] ram2_data = 16'b0;
 reg link_data1 = 1;
 reg link_data2 = 1;
-reg status = 0;
+integer status = 0;
 wire conflict;
 wire isUart;
 assign isUart = IsUartPort(Address);
@@ -319,7 +320,12 @@ begin
 					 	wrn <= 1;
 						rdn <= 0;
 						link_data1 <= 0;
-						status <= 2;
+						if(data_ready == 1) begin
+							status <= 2;
+						end
+						else begin
+							status <= 0;
+						end
 					end
 					else if(MemWrite == 1) begin
 					 	wrn <= 1;
@@ -359,26 +365,12 @@ begin
 		else if(status == 2)begin
 			if(isUart) begin
 				if(Address == `COM1_DATA || Address == `COM1_COMMAND) begin
-					// Just a bubble here.
-				end
-				else begin
-				end
-				status <= 3;
-				noStop <= 0;
-			end			
-			else begin
-				noStop <= 1;
-				status <= 0;
-			end
-		end
-		else if(status == 3)begin
-			if(isUart) begin
-				if(Address == `COM1_DATA || Address == `COM1_COMMAND) begin
 					rdn <= 1;
 					ReadData[7:0] <= Ram1Data[7:0];
 					ReadData[15:8] <= 8'b0;
 				end
 				else begin
+					// TODO
 				end
 				noStop <= 1;
 				status <= 0;
