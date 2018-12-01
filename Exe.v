@@ -28,15 +28,13 @@ module Exe(
     input [1:0] ControlB,//00 01 10 11
     output reg [15:0] ALURes,
     output reg [15:0] NewPC,
-    output reg [1:0] ControlBTB,
 	input [1:0] JorB,
 	input [15:0] ALUBack,
 	input [15:0] WriteBackData,
 	input [1:0] Forward,
 	input [1:0] ForwardingA,
-	input [1:0] ForwardingB,
-	input clk
-    );
+	input [1:0] ForwardingB
+);
 
 reg [15:0] B0 = 16'b0;
 reg [15:0] A = 16'b0;
@@ -44,51 +42,43 @@ reg [15:0] B = 16'b0;
 reg [15:0] ShiftImme = 16'b0;
 reg [15:0] CalPC = 16'b0;
 
-
 always @(*)//mux1
 begin
-	if (ControlB == 2'b00)
-		B0 = RData2;
-	else if (ControlB == 2'b01)
-		B0 = Imme;
-	else
-		B0 = 16'b0;
+	case(ControlB)
+		2'b00: B0 = RData2;
+		2'b01: B0 = Imme;
+		default: B0 = 16'b0;
+	endcase
 end
 
 always @(*)//muxA
 begin
-	 if (ForwardingA == 2'b00)
-		A = RData1;
-	 else if (ForwardingA == 2'b01)
-	 	A = ALUBack;
-	 else if (ForwardingA == 2'b10)
-	 	A = WriteBackData;
-	 else
-	 ;//未定义
+	case(ForwardingA)
+		2'b00: A = RData1;
+		2'b01: A = ALUBack;
+		2'b10: A = WriteBackData;
+		default: A = 0;
+	endcase
 end
 
 always @(*)//muxB
 begin
-	 if (ForwardingB == 2'b00)
-		B = B0;
-	 else if (ForwardingB == 2'b01)
-	 	B = ALUBack;
-	 else if (ForwardingB == 2'b10)
-	 	B = WriteBackData;
-	 else
-	 ;//未定义
+	case(ForwardingB)
+		2'b00: B = B0;
+		2'b01: B = ALUBack;
+		2'b10: B = WriteBackData;
+		default: B = 0;
+	endcase
 end
 
 always @(*)//mux2
 begin
-	 if (Forward == 2'b00)
-		WData = RData2;
-	 else if (Forward == 2'b01)
-	 	WData = ALUBack;
-	 else if (Forward == 2'b10)
-	 	WData = WriteBackData;
-	 else
-	 ;//未定义
+	case(Forward)
+		2'b00: WData = RData2;
+		2'b01: WData = ALUBack;
+		2'b10: WData = WriteBackData;
+		default: WData = 0;
+	endcase
 end
 
 always @(*)//shiftleft
@@ -103,83 +93,32 @@ end
 
 always @(*)//ALU
 begin
-	if (ALUOp == 4'b0000) 
-		begin
-			ALURes = A + B;
-		end
-	else if(ALUOp == 4'b0001) 
-		begin
-			ALURes = A - B;
-		end
-	else if(ALUOp == 4'b0010) 
-		begin
-			ALURes = A & B;
-		end
-	else if(ALUOp == 4'b0011) 
-		begin
-			ALURes = A | B;
-		end
-	else if(ALUOp == 4'b0100) //neg
-		begin
-			ALURes = 0 - A;
-		end
-	else if(ALUOp == 4'b0101) 
-		begin
-			ALURes = ~A;
-			end
-	else if(ALUOp == 4'b0110) 
-		begin
-			ALURes = A << B;		
-		end
-	else if(ALUOp == 4'b0111) 
-		begin
-			ALURes = A >> B;
-		end
-	else if(ALUOp == 4'b1000) 
-		begin
-			ALURes = A >>> B;
-		end
-	else if(ALUOp == 4'b1001)
-		begin
-			if (A < B)
-				ALURes = 1;
-			else
-				ALURes = 0;
-		end
-	else if(ALUOp == 4'b1010)
-		begin
-			if (A == B)
-				ALURes = 0;
-			else
-				ALURes = 1;
-		end
-	else
-		begin
-			ALURes = 16'b0;
-		end
+	case(ALUOp)
+		4'b0000: ALURes = A + B;		
+		4'b0001: ALURes = A - B;
+		4'b0010: ALURes = A & B;
+		4'b0011: ALURes = A | B;
+		4'b0100: ALURes = 0 - A;
+		4'b0101: ALURes = ~A;
+		4'b0110: ALURes = A << B;
+		4'b0111: ALURes = A >> B;
+		4'b1000: ALURes = A >>> B;
+		4'b1001: ALURes = (A < B) ? 1 : 0;
+		4'b1010: ALURes = (A == B) ? 0 : 1;
+		4'b1011: ALURes = PCSrc;
+		default: ALURes = 0;
+	endcase
 end
 
 //00:B 01:J 10:B== 11：B！=
 always @(*)//mux3
 begin
-	if (JorB == 2'b00)
-		NewPC = CalPC;
-	else if (JorB == 2'b01)
-		NewPC = A;
-	else if (JorB == 2'b10)
-	begin
-		if (A == 16'b0)
-			NewPC = CalPC;
-		else
-			NewPC = PCSrc + 4'h4;
-	end
-	else
-	begin
-		if (A == 16'b0)
-			NewPC = PCSrc + 4'h4;
-		else
-			NewPC = CalPC;
-	end
+	case(JorB)
+		2'b00: NewPC = CalPC;
+		2'b01: NewPC = A;
+		2'b10: NewPC = (A == 0) ? CalPC : (PCSrc+4);
+		default: NewPC = (A == 0) ? (PCSrc+4) : CalPC;
+	endcase
 end
 
 endmodule

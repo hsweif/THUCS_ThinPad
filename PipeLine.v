@@ -136,12 +136,18 @@ BTB _BTB(
 	.clk (clk2x),
 	.clk_out (clk2x_o)
 );*/
+
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
-	 .CLKDV_OUT(clk)
+	 .CLKDV_OUT(clk_out)
     );
-
-dcm_pll instance_name (
+	 
+dcm_pll _dcm1 (
+    .CLKIN_IN(clk_out),  
+    .CLK2X_OUT(clk)
+    );
+	 
+dcm2 _dcm2 (
     .CLKIN_IN(clk), 
     .CLK2X_OUT(clk2x)
     );
@@ -266,7 +272,6 @@ id_exe _id_exe(
 );
 
 Exe _Exe(
-	.clk (clk),
 	.RData1 (exe_rdata1),
    .RData2 (exe_rdata2),
    .Imme (exe_imme),

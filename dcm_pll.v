@@ -7,7 +7,7 @@
 // \   \   \/     Version : 14.7
 //  \   \         Application : xaw2verilog
 //  /   /         Filename : dcm_pll.v
-// /___/   /\     Timestamp : 12/01/2018 00:40:29
+// /___/   /\     Timestamp : 12/01/2018 23:28:32
 // \   \  /  \ 
 //  \___\/\___\ 
 //
@@ -45,10 +45,10 @@ module dcm_pll(CLKIN_IN,
                          .O(CLKFB_IN));
    DCM_SP #( .CLK_FEEDBACK("2X"), .CLKDV_DIVIDE(2.0), .CLKFX_DIVIDE(1), 
          .CLKFX_MULTIPLY(4), .CLKIN_DIVIDE_BY_2("FALSE"), 
-         .CLKIN_PERIOD(100.000), .CLKOUT_PHASE_SHIFT("FIXED"), 
+         .CLKIN_PERIOD(40.000), .CLKOUT_PHASE_SHIFT("NONE"), 
          .DESKEW_ADJUST("SYSTEM_SYNCHRONOUS"), .DFS_FREQUENCY_MODE("LOW"), 
          .DLL_FREQUENCY_MODE("LOW"), .DUTY_CYCLE_CORRECTION("TRUE"), 
-         .FACTORY_JF(16'hC080), .PHASE_SHIFT(32), .STARTUP_WAIT("FALSE") ) 
+         .FACTORY_JF(16'hC080), .PHASE_SHIFT(0), .STARTUP_WAIT("FALSE") ) 
          DCM_SP_INST (.CLKFB(CLKFB_IN), 
                        .CLKIN(CLKIN_IN), 
                        .DSSEN(GND_BIT), 
