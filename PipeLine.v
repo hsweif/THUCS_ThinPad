@@ -43,7 +43,7 @@ module PipeLine(
 
 // output and input for PLL
 wire clk2x;
-reg clk;
+wire clk;
 wire clk_o;
 // output and input of IF
 wire [15:0] pc;
@@ -140,18 +140,20 @@ BTB _BTB(
 );*/
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
-	 .CLKDV_OUT(clk_o)
+	 .CLKDV_OUT(clk)
     );
 
 dcm_pll instance_name (
-    .CLKIN_IN(clk_o), 
+    .CLKIN_IN(clk), 
     .CLK2X_OUT(clk2x)
     );
 	 
+/* FIXME
 always @(*)
 begin
     clk <= clk_o & no_stop;
 end
+*/
 
 PC_reg _PC_reg(
     .PCKeep(pcKeep),

@@ -66,15 +66,15 @@ assign Ram2Data[15:0] = link_data2 ? ram2_data : 16'bz;
 always @(*) begin
 	// To detect ram1 conflict.
 	if(MemRead == 1|| MemWrite == 1) begin
-		if(Ram1Addr < `RAM1_UPPER) begin
+		if(Address < `RAM1_UPPER) begin
 			MemConflict <= 1;
 			isUart <= 0;
 		end
-		else if(Ram1Addr == `COM1_DATA || Ram1Addr == `COM1_COMMAND)begin
+		else if(Address == `COM1_DATA || Address == `COM1_COMMAND)begin
 			MemConflict <= 1;
 			isUart <= 1;
 		end
-		else if(Ram1Addr == `COM2_DATA || Ram1Addr == `COM2_COMMAND)begin
+		else if(Address == `COM2_DATA || Address == `COM2_COMMAND)begin
 			MemConflict <= 1;
 			isUart <= 1;
 		end
