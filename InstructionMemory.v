@@ -66,25 +66,31 @@ reg[15:0] lastPC;
 // 	16'b11010 rx imm(8)			//SW_SP		M[SP+imm] <- ry
 always @(negedge rst)
 begin
-	memPool[0]  <= 16'b0100100100000111; //Reg1 addiu 7
-	memPool[1]  <= 16'b0000100000000000; //nop;//16'b1101100000101111; //SW FFFF <- 7
-	memPool[2]  <= 16'b0000100000000000; //nop;//16'b1001100001001111; //LW r2 <- M[0+FFFF] 
-	memPool[3]  <= 16'b0100001001101001;  	//ADDIU3 	r3 <- r2-7  
-	memPool[4]  <= 16'b0010001100000010; //BEQZ r0->pc+8
+	memPool[0]  <= 16'b0000100000000000;
+	memPool[1]  <= 16'b0100111100000010; //Reg7 addiu 2
+	//16'b0100111000000001; //Reg6 addiu 1
+	memPool[2]  <= 16'b1101100011101111; //SW 1111 <- r7
+	//16'b0100111011111111; //ADDIU R6 FF
+	//16'b0100101100000111; //Reg3 addiu 7
+	memPool[3]  <= 16'b1001100001001111; //LW r2 <- M[0+1111] 
+	//16'b0100111011111111; //ADDIU R6 FF
+	memPool[4]  <= 16'b1110001000101111;	//SUBU		r3 <- r2-r1
+	//16'b0100111000000001; //Reg6 addiu 1
 	memPool[5]  <= 16'b0000100000000000; //nop
-	memPool[6]  <= 16'b0100111011111111; //ADDIU R4 FF
+	memPool[6]  <= 16'b0100111011111111; //ADDIU R6 FF
 	memPool[7]  <= 16'b0100111000000001; //Reg6 addiu 1
 	memPool[8]  <= 16'b0010000000000010; //BEQZ r0->pc+8
 	memPool[9]  <= 16'b0000100000000000;	//nop
 	memPool[10] <= 16'b0100111100000001; //Reg7 addiu 1
 	memPool[11] <= 16'b0110000000000001; //BTEQZ pc+4
-	memPool[12] <= 16'b0100111011111111; //ADDIU R4 FF
+	memPool[12] <= 16'b0100111011111111; //ADDIU R6 FF
 	memPool[13] <= 16'b0100100000000100; //R0 addiu 4
 	memPool[14] <= 16'b0111100100000000; //MOVE R1 <- R0
 	memPool[15] <= 16'b0100111000000001; //Reg6 addiu 1 	
-	memPool[16] <= 16'b0100001001100001; //ADDIU3 	r3 <- r2+1
-	memPool[17] <= 16'b0000100000000000; //nop;//16'b1001110110001111;	//LW 		r4 <- M[r5+imm] 
-	memPool[18] <= 16'b1110010001101101;	//ADDU   	r3 <- r4+r3 
+	memPool[16] <= 16'b0000100000000000;	//nop
+	memPool[17] <= 16'b0100110000000001; //Reg4 addiu 1
+	//16'b1001110110001111;	//LW 		r4 <- M[r5+imm] 
+	memPool[18] <= 16'b0000100000000000;	//nop
 	memPool[19] <= 16'b0100100111111111; //R1-=1;
 	memPool[20] <= 16'b0010100111111010; //BEQZ 		r1==0 ? pc+imm : pc	
 	memPool[21] <= 16'b0000100000000000; //nop
@@ -93,9 +99,9 @@ begin
 	memPool[24] <= 16'b0000100000000000; //nop;
 	memPool[25] <= 16'b0100111011111111; //ADDIU R6 FF
 	memPool[26] <= 16'b0110110100000001; //LI r5 1
-	memPool[27] <= 16'b0000100000000000; //nop
+	memPool[27] <= 16'b1110110110001010; //CMP(R4, R5) T <- 1
 	memPool[28] <= 16'b0000100000000000; //nop
- 	memPool[29] <= 16'b1110110110001010; //CMP(R4, R5) T <- 1
+ 	memPool[29] <= 16'b0000100000000000; //nop
 	memPool[30] <= 16'b1110111001000000; //MFPC R6 <- PC
 	memPool[31] <= 16'b1110111111001011; //NEG R7 <- 0 - R6
 	memPool[32] <= 16'b1110100011101111; //NOT R0 <- ~R7
@@ -106,7 +112,6 @@ begin
 	memPool[37] <= 16'b1111001000000000; //MFIH R2 <- IH
 	memPool[38] <= 16'b1001101000000100; //LW R0 <- M[R2+4]
 	memPool[39] <= 16'b1001001100000100; //LW_SP R3 <- M[SP+4]
-	//ledA[0] = 1;
 	status <= 0;
 end
 
@@ -115,12 +120,10 @@ always @(*) begin
 end
 
 always @(pc) begin
-	//ledB[7:0] = pc[9:2];
 	if ((pc >> 2) < 28)
-	Instruction[15:0] = memPool[(pc >> 2) % 32];
+		Instruction[15:0] = memPool[(pc >> 2) % 32];
 	else
-	Instruction[15:0] = 16'b0000100000000000; //nop
-	//ledA[7:0] = Instruction[15:8];
+		Instruction[15:0] = 16'b0000100000000000; //nop
 end
 
 endmodule

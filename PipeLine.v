@@ -21,7 +21,7 @@
 module PipeLine(
 	input clk_orig, // TODO: need to be checked
 	input rst,
-
+//input clk,
 	output [7:0] ledA,
 	output [7:0] ledB,
 	output ram1_oe,
@@ -40,10 +40,10 @@ module PipeLine(
 	output rdn,
 	output wrn
     );
-wire clk;
+
 // output and input for PLL
 wire clk2x;
-
+wire clk;
 // output and input of IF
 wire [15:0] pc;
 wire [15:0] addedPc;
@@ -128,7 +128,7 @@ BTB _BTB(
 );
 
 /*fenpin _fenpin(
-	.clk (clk_out),
+	.clk (clk_orig),
 	.clk_out (clk)
 );*/
 
@@ -138,18 +138,15 @@ BTB _BTB(
 );*/
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
-    .RST_IN(~rst),
 	 .CLKDV_OUT(clk)
     );
 
 dcm_pll instance_name (
     .CLKIN_IN(clk), 
-    .RST_IN(~rst),  
     .CLK2X_OUT(clk2x)
     );
 	 
 PC_reg _PC_reg(
-	//.ledA(ledA),
     .PCKeep(pcKeep),
 	 .clk (clk),
 	 .rst (rst),
@@ -165,7 +162,7 @@ PC_reg _PC_reg(
 InstructionMemory _IM(
 	
 	//.ledB(ledB),
-	.clk(clk2x),
+	.clk(clk),
 	.rst (rst),
    .pc (pc),
    .Instruction (instruction)
@@ -202,7 +199,6 @@ MemoryModule _mem(
 
 
 if_id _if_id(
-//.ledA(ledA),
 .rst(rst),
 	.clk (clk),
 	//.ledB(ledB),

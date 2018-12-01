@@ -48,8 +48,8 @@ module ID(
 		//ledA[7:4] = register[1][3:0];
 		//ledA[3:0] = register[2][3:0];
 		ledA[7:4] = register[6][3:0];
-		ledA[3:0] = register[5][3:0];
-		ledB[7:4] = register[2][3:0];//register[writeBackReg][7:0];
+		ledA[3:0] = register[3][3:0];
+		ledB[7:4] = register[4][3:0];//register[writeBackReg][7:0];
 		ledB[3:0] = register[1][3:0];
 	end
 	/*always @(*) begin

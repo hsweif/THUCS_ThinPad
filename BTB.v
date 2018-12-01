@@ -53,7 +53,7 @@ always @(posedge clk or negedge rst) begin  	//å†™è¡¨
 		toPC[14] <= 1;
 		toPC[15] <= 1;
 	end
-	else if (ifJump == 0) begin //å¦‚æžœæ˜¯è·³è½¬æŒ‡�
+	else if (ifJump === 0) begin //å¦‚æžœæ˜¯è·³è½¬æŒ‡�
 		if(toPC[(jFromPC>>2)%16] != jToPC) begin
 			if(jToPC == jFromPC+4 && toPC[(jFromPC>>2)%16] == 1)
 				error <= 0;
@@ -69,9 +69,11 @@ always @(posedge clk or negedge rst) begin  	//å†™è¡¨
 		error <= 0;
 	end
 end
-
-always @(ifJump_id or curPC) begin 	//curPCΪ��ǰPC��ϣ�����Ԥ��PCΪprePC
-	if(ifJump_id == 0 && toPC[(curPC>>2)%16] != 1) //toPCΪԤ���
+always @(ifJump_id or curPC or rst) begin 	//curPCΪ��ǰPC��ϣ�����Ԥ��PCΪprePC
+	if(rst == 0)  begin
+		prePC = 0;
+	end
+	else if(ifJump_id === 0 && toPC[(curPC>>2)%16] != 1) //toPCΪԤ���
 			prePC = toPC[(curPC>>2)%16];
 	else 	prePC = curPC + 4;
 end

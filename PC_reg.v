@@ -27,9 +27,8 @@ module PC_reg(
 	 input error,
 	 input [15:0] prePC,
 	 output reg [15:0] pc
-	// output reg [7:0] ledA
+	 //output reg [7:0] ledA
     );
-
 reg [15:0] origin = 16'b0;
 reg start = 0;
 always @ (negedge clk or negedge rst) begin
@@ -43,7 +42,8 @@ always @ (negedge clk or negedge rst) begin
 		if(ifJump == 0 && error == 1) begin //else if(ifJump === 0 && error == 1) begin 
 			pc <= newPC; //预测错误，恢�
 		end
-		else if (PCKeep == 1) begin//if (PCKeep === 1) begin
+		else if (PCKeep == 1 || pc > 16'b0000000001111100) begin//if (PCKeep === 1) begin
+			
 		end
 		else
 		begin
@@ -56,6 +56,5 @@ always @ (negedge clk or negedge rst) begin
 	else
 		ledB[7] = 1;*/
 end
-
 endmodule
 

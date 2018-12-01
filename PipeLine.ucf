@@ -16,10 +16,10 @@ NET "ledB[3]" LOC = B11;
 NET "ledB[2]" LOC = A11;
 NET "ledB[1]" LOC = E10;
 NET "ledB[0]" LOC = D10;
-INST "_pll/CLKIN_IBUFG_INST" LOC = B9;
+//INST "_pll/CLKIN_IBUFG_INST" LOC = B9;
 NET "clk_orig" LOC = B9;
 NET "rst" LOC = U10;
-
+//NET "clk" LOC = B9;//U9;
 NET "ram1_addr[16]" LOC = H16;
 NET "ram1_addr[15]" LOC = H15;
 NET "ram1_addr[14]" LOC = H14;

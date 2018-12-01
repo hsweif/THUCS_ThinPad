@@ -59,7 +59,7 @@ module MemoryModule(
 function Ram1Conflict;
 input _MemRead, _MemWrite, _ram1Address;
 begin
-/*
+
 	if((_MemRead | _MemWrite) == 1)begin
 
 		if(_ram1Address < `RAM1_UPPER)begin
@@ -78,8 +78,8 @@ begin
 	else begin
 		Ram1Conflict = 0;
 	end
-	*/
-	Ram1Conflict = 0;
+	
+	//Ram1Conflict = 0;
 end
 endfunction
 
@@ -129,6 +129,10 @@ begin
 		Ram2EN <= 1;
 		Ram2OE <= 1;
 		Ram2WE <= 1;
+		Ram1Addr <= 18'b0;
+		Ram2Addr <= 18'b0;
+		ram1_data <= 16'b0;
+		ram2_data <= 16'b0;
 	end
 	else begin
 
