@@ -179,7 +179,8 @@ begin
 						status <= 1;
 					end
 					else if(MemWrite == 1) begin
-					 	wrn <= 0;
+					// Write reset status
+					 	wrn <= 1;
 						rdn <= 1;
 						link_data1 <= 1;
 						ram1_data[7:0] <= WriteData[7:0];
@@ -282,10 +283,17 @@ begin
 					 	wrn <= 1;
 						rdn <= 1;
 						link_data1 <= 1;
+						ram1_data[7:0] <= WriteData[7:0];
+						status <= 2;
+						/*
+					 	wrn <= 1;
+						rdn <= 1;
+						link_data1 <= 1;
 						if(tbre == 1)
 							status <= 2;
 						else
 							status <= 1;
+						*/
 					end
 					else
 						;
@@ -323,6 +331,15 @@ begin
 					status <= 0;
 				end
 				else if(MemWrite == 1) begin
+					wrn <= 1;
+					rdn <= 1;
+					link_data1 <= 1;
+					noStop <= 0;
+					if(tbre == 1)
+						status <= 3;
+					else
+						status <= 2;
+					/*
 					if(tsre == 1) begin
 						status <= 0;
 						noStop <= 1;
@@ -331,6 +348,31 @@ begin
 						status <= 2;
 						noStop <= 0;
 					end
+					*/
+				end
+			end
+			else begin
+				noStop <= 1;
+				status <= 0;
+			end
+		end
+		else if(status == 3) begin
+			if(isUart == 1) begin
+				if(MemWrite == 1) begin
+					wrn <= 1;
+					rdn <= 1;
+					if(tsre == 1) begin
+						status <= 0;
+						noStop <= 1;
+					end
+					else begin
+						status <= 3;
+						noStop <= 0;
+					end
+				end
+				else begin
+					noStop <= 1;
+					status <= 0;
 				end
 			end
 			else begin
