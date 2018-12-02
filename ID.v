@@ -48,8 +48,8 @@ module ID(
         ledA[3:0] = register[6][3:0];
         ledB[7:4] = register[4][3:0];
         ledB[3:0] = register[3][3:0];*/
-		  ledA[7:4] = register[3][7:4];
-		  ledA[3:0] = register[3][3:0];
+		  ledA[7:4] = register[2][15:12];
+		  ledA[3:0] = register[2][11:8];
 		  ledB[7:4] = register[2][7:4];
 		  ledB[3:0] = register[2][3:0];
     end

@@ -174,7 +174,7 @@ PC_reg _PC_reg(
 	// .AddedPC (addedPc)
 );
 
-InstructionMemory _IM(
+/*InstructionMemory _IM(
 	
 	//.ledB(ledB),
     .memConflict(mem_conflict),
@@ -182,21 +182,21 @@ InstructionMemory _IM(
 	.rst (rst),
    .pc (pc),
    .Instruction (instruction)
-);
+);*/
 
 MemoryModule _mem(
 //.ledA(ledA),
 	//.ledB(ledB),
 	.clk(clk2x),
     .rst(rst),
-    //.pc(pc),
+    .pc(pc),
     .MemConflict(mem_conflict),
 	.Address(mem_address),
 	.WriteData(mem_wdata),
 	.MemRead(mem_read),
 	.MemWrite(mem_write),
 	.ReadData(mem_readdata),
-    //.Instruct(Instruction), // FIXME: is here right?
+    .Instruct(instruction), // FIXME: is here right?
 	.Ram1Data(ram1_data),
 	.Ram1Addr(ram1_addr),
 	.Ram1OE(ram1_oe),

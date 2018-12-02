@@ -72,11 +72,8 @@ begin
 	memPool[4]  <= 16'b1101100000101000;	//SW 	M[r0+8] <- r1 (0000 -> 7)
 	memPool[5]  <= 16'b1101101101000100;	//SW 	M[r3+4] <- r2 (CF02 -> CF)
 	memPool[6]  <= 16'b1001101111000100;	//LW 	r6 <- M[r3+4] CF
-	//16'b1001101111000000;	//LW 	r6 <- M[r3] CF00
 	memPool[7]  <= 16'b1110011000101011;		//SUBU		r2 <- r6-r1 = C8
-	//16'b1001101111100000;	//LW 	r7 <- M[r3] CF00
 	memPool[8]  <= 16'b1001101110000000;	//LW 	r4 <- M[r3] CF00
-	//16'b1001101111000000;	//LW 	r6 <- M[r3] CF00
 	memPool[9]  <= 16'b1001100010101000;	//LW 	r5 <- M[r0+8] 7
 	memPool[10] <= 16'b1110110001001101;		//OR 		r4 <- r4|r2 CFC8
 	memPool[11] <= 16'b1101110010000011;	//SW 	M[r4+3(CFCB)] <- r4 (CFCB -> CFC8)
@@ -86,9 +83,7 @@ begin
 	memPool[15] <= 16'b1001110000100011;	//LW 	r1 <- M[r4+3] CFC8 
 	memPool[16] <= 16'b1110000110101111;	//SUBU	r3 <- r1-r5 = C1
 	memPool[17] <= 16'b0000100000000000; //nop
-	//16'b1001101110100100;	//LW 	r5 <- M[r3+4] 14
 	memPool[18] <= 16'b0000100000000000; //nop
-	//16'b1110010010110101;	//ADDU   	r5 <- r4+r5 
 	memPool[19] <= 16'b0000100000000000; //nop
 	memPool[20] <= 16'b0000100000000000; //nop
 	memPool[21] <= 16'b1110000110101011;	//SUBU	r2 <- r1-r5 = C1
@@ -111,7 +106,7 @@ always @(*) begin
 end
 
 always @(pc) begin
-	if ((pc >> 2) < 22 && memConflict == 1)
+	if ((pc >> 2) < 22 && memConflict == 0)
 		Instruction[15:0] = memPool[(pc >> 2) % 64];
 	else
 		Instruction[15:0] = 16'b0000100000000000; //nop
