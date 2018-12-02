@@ -34,7 +34,7 @@ module PipeLine(
 	inout [15:0] ram2_data,
 	output [17:0] ram1_addr,
 	output [17:0] ram2_addr,
-	// data_ready,
+	input data_ready,
 	input tbre,
 	input tsre,
 	output rdn,
@@ -44,6 +44,7 @@ module PipeLine(
 // output and input for PLL
 wire clk2x;
 wire clk;
+wire clk_o;
 // output and input of IF
 wire [15:0] pc;
 wire [15:0] addedPc;
@@ -93,6 +94,7 @@ wire [1:0] exe_forwardB;
 // output and input of Mem
 wire mem_write;
 wire mem_read;
+wire no_stop;
 wire [15:0] mem_address;
 wire [15:0] mem_wdata;
 wire [15:0] mem_readdata;
@@ -152,6 +154,13 @@ dcm_pll _dcm1 (
     .CLK2X_OUT(clk2x)
     );
 	*/ 
+/* FIXME
+always @(*)
+begin
+    clk <= clk_o & no_stop;
+end
+*/
+
 PC_reg _PC_reg(
     .PCKeep(pcKeep),
 	 .clk (clk),
@@ -197,6 +206,8 @@ MemoryModule _mem(
 	.Ram2OE(ram2_oe),
 	.Ram2WE(ram2_we),
 	.Ram2EN(ram2_en),
+    .noStop(no_stop),
+	.data_ready(data_ready),
 	.tbre(tbre),
 	.tsre(tsre),
 	.rdn(rdn),

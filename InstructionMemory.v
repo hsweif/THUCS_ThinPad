@@ -112,8 +112,13 @@ always @(*) begin
 end
 
 always @(pc) begin
+<<<<<<< HEAD
 	if ((pc >> 2) < 22)
 		Instruction[15:0] = memPool[(pc >> 2) % 64];
+=======
+	if ((pc >> 2) < 4)
+		Instruction[15:0] = memPool[(pc >> 2) % 32];
+>>>>>>> uart_v2
 	else
 		Instruction[15:0] = 16'b0000100000000000; //nop
 end
