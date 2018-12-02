@@ -71,7 +71,7 @@ begin
 	memPool[1]  <= 16'b0110100110111111; //LI r1 BF
 	memPool[2]  <= 16'b0011000100100000;//SLL r1<<8
 	memPool[3]  <= 16'b1001100101000000; //LW r2 = M[R1+0]
-	// memPool[3]  <= 16'b1101100101000000; //LW r2 = M[R1+0]
+	memPool[4]  <= 16'b1101100101000000;	//SW 	M[r1] <- r2 (BF)
 
 	// Below is original test.
 	// memPool[0]  <= 16'b0100100100000111; //Reg1 addiu 7
@@ -123,7 +123,7 @@ always @(pc) begin
 	// if ((pc >> 2) < 22)
 		// Instruction[15:0] = memPool[(pc >> 2) % 64];
 	// Testing uart now.
-	if ((pc >> 2) < 4)
+	if ((pc >> 2) < 5)
 		Instruction[15:0] = memPool[(pc >> 2) % 32];
 	else
 		Instruction[15:0] = 16'b0000100000000000; //nop
