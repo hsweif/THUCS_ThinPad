@@ -183,7 +183,7 @@ begin
 					 	wrn <= 1;
 						rdn <= 1;
 						link_data1 <= 1;
-						ram1_data[7:0] <= WriteData[7:0];
+						// ram1_data[7:0] <= WriteData[7:0];
 						status <= 1;
 					end
 					else begin
@@ -280,7 +280,7 @@ begin
 						end
 					end
 					else if(MemWrite == 1) begin
-					 	wrn <= 1;
+					 	wrn <= 0;
 						rdn <= 1;
 						link_data1 <= 1;
 						ram1_data[7:0] <= WriteData[7:0];
@@ -327,8 +327,10 @@ begin
 					rdn <= 1;
 					ReadData[7:0] <= Ram1Data[7:0];
 					ReadData[15:8] <= 8'b0;
-					noStop <= 1;
-					status <= 0;
+					// noStop <= 1;
+					// status <= 0;
+					noStop <= 0;
+					status <= 3;
 				end
 				else if(MemWrite == 1) begin
 					wrn <= 1;
