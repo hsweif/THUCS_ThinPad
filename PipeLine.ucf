@@ -99,3 +99,7 @@ NET "tbre" LOC = D14;
 NET "tsre" LOC = N9;
 NET "wrn" LOC = U5;
 NET "data_ready" LOC = A16;
+
+// Below signal is for debugging
+NET "debug[0]" LOC = C7;
+NET "debug[1]" LOC = D7;

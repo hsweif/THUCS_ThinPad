@@ -65,11 +65,19 @@ reg[15:0] memPool[0:32];
 // 	16'b11010 rx imm(8)			//SW_SP		M[SP+imm] <- ry
 always @(negedge rst)
 begin
-	memPool[0]  <= 16'b0100100100000111; //Reg1 addiu 7
-	memPool[1]  <= 16'b0110101011001111; //LI 	r2 <- CF
-	memPool[2]  <= 16'b0011001101000000; //SLL 	r3 <- r2 << 8 CF00
-	memPool[3]  <= 16'b1101101101100000;	//SW 	M[r3] <- r3 (CF02 -> CF00)
-	memPool[4]  <= 16'b1101100000101000;	//SW 	M[r0+8] <- r1 (0000 -> 7)
+	// Below for command is for testing uart.
+	memPool[0]  <= 16'b0000100000000000;
+	memPool[1]  <= 16'b0110100110111111; //LI r1 BF
+	memPool[2]  <= 16'b0011000100100000;//SLL r1<<8
+	memPool[3]  <= 16'b1001100101000000; //LW r2 = M[R1+0]
+	memPool[4]  <= 16'b1101100101000000;	//SW 	M[r1] <- r2 (BF)
+
+	// Below is original test.
+	// memPool[0]  <= 16'b0100100100000111; //Reg1 addiu 7
+	// memPool[1]  <= 16'b0110101011001111; //LI 	r2 <- CF
+	// memPool[2]  <= 16'b0011001101000000; //SLL 	r3 <- r2 << 8 CF00
+	// memPool[3]  <= 16'b1101101101100000;	//SW 	M[r3] <- r3 (CF02 -> CF00)
+	// memPool[4]  <= 16'b1101100000101000;	//SW 	M[r0+8] <- r1 (0000 -> 7)
 	memPool[5]  <= 16'b1101101101000100;	//SW 	M[r3+4] <- r2 (CF02 -> CF)
 	memPool[6]  <= 16'b1001101111000100;	//LW 	r6 <- M[r3+4] CF
 	memPool[7]  <= 16'b1110011000101011;		//SUBU		r2 <- r6-r1 = C8

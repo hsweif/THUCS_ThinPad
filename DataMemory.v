@@ -94,6 +94,7 @@ always @(negedge clk or negedge rst)
 begin
 	if(rst == 0) begin
 		status <= 0;
+		noStop <= 1;
 		rdn <= 1;
 		wrn <= 1;
 		Ram1EN <= 1;
@@ -178,10 +179,11 @@ begin
 						status <= 1;
 					end
 					else if(MemWrite == 1) begin
-					 	wrn <= 0;
+					// Write reset status
+					 	wrn <= 1;
 						rdn <= 1;
 						link_data1 <= 1;
-						ram1_data[7:0] <= WriteData[7:0];
+						// ram1_data[7:0] <= WriteData[7:0];
 						status <= 1;
 					end
 					else begin
@@ -268,16 +270,23 @@ begin
 				if(isUart == 1) begin
 					if(MemRead == 1) begin
 					 	wrn <= 1;
-						rdn <= 0;
 						link_data1 <= 0;
 						if(data_ready == 1) begin
 							status <= 2;
+							rdn <= 0;
 						end
 						else begin
 							status <= 0;
+							rdn <= 1;
 						end
 					end
 					else if(MemWrite == 1) begin
+					 	wrn <= 0;
+						rdn <= 1;
+						link_data1 <= 1;
+						ram1_data[7:0] <= WriteData[7:0];
+						status <= 2;
+						/*
 					 	wrn <= 1;
 						rdn <= 1;
 						link_data1 <= 1;
@@ -285,6 +294,7 @@ begin
 							status <= 2;
 						else
 							status <= 1;
+						*/
 					end
 					else
 						;
@@ -318,10 +328,21 @@ begin
 					rdn <= 1;
 					ReadData[7:0] <= Ram1Data[7:0];
 					ReadData[15:8] <= 8'b0;
-					noStop <= 1;
-					status <= 0;
+					// noStop <= 1;
+					// status <= 0;
+					noStop <= 0;
+					status <= 3;
 				end
 				else if(MemWrite == 1) begin
+					wrn <= 1;
+					rdn <= 1;
+					link_data1 <= 1;
+					noStop <= 0;
+					if(tbre == 1)
+						status <= 3;
+					else
+						status <= 2;
+					/*
 					if(tsre == 1) begin
 						status <= 0;
 						noStop <= 1;
@@ -330,6 +351,31 @@ begin
 						status <= 2;
 						noStop <= 0;
 					end
+					*/
+				end
+			end
+			else begin
+				noStop <= 1;
+				status <= 0;
+			end
+		end
+		else if(status == 3) begin
+			if(isUart == 1) begin
+				if(MemWrite == 1) begin
+					wrn <= 1;
+					rdn <= 1;
+					if(tsre == 1) begin
+						status <= 0;
+						noStop <= 1;
+					end
+					else begin
+						status <= 3;
+						noStop <= 0;
+					end
+				end
+				else begin
+					noStop <= 1;
+					status <= 0;
 				end
 			end
 			else begin
