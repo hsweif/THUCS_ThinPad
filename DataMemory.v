@@ -270,13 +270,14 @@ begin
 				if(isUart == 1) begin
 					if(MemRead == 1) begin
 					 	wrn <= 1;
-						rdn <= 0;
 						link_data1 <= 0;
 						if(data_ready == 1) begin
 							status <= 2;
+							rdn <= 0;
 						end
 						else begin
 							status <= 0;
+							rdn <= 1;
 						end
 					end
 					else if(MemWrite == 1) begin
