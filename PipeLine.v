@@ -34,6 +34,7 @@ module PipeLine(
 	inout [15:0] ram2_data,
 	output [17:0] ram1_addr,
 	output [17:0] ram2_addr,
+	output reg [1:0] debug,
 	input data_ready,
 	input tbre,
 	input tsre,
@@ -43,7 +44,7 @@ module PipeLine(
 
 // output and input for PLL
 wire clk2x;
-wire clk;
+reg clk;
 wire clk_o;
 // output and input of IF
 wire [15:0] pc;
@@ -141,11 +142,11 @@ BTB _BTB(
 
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
-	 .CLKDV_OUT(clk)
+	 .CLKDV_OUT(clk_o)
     );
 	 
 dcm_pll _dcm1 (
-    .CLKIN_IN(clk),  
+    .CLKIN_IN(clk_o),  
     .CLK2X_OUT(clk2x)
     );
 	 
@@ -214,6 +215,13 @@ MemoryModule _mem(
 	.wrn(wrn)
 );
 
+// Use for testing uart.
+always @(*)
+begin
+	debug[0] <= data_ready;
+	debug[1] <= no_stop;
+	clk <= clk_o & no_stop;
+end
 
 if_id _if_id(
 .rst(rst),

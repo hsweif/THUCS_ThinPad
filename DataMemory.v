@@ -94,6 +94,7 @@ always @(negedge clk or negedge rst)
 begin
 	if(rst == 0) begin
 		status <= 0;
+		noStop <= 1;
 		rdn <= 1;
 		wrn <= 1;
 		Ram1EN <= 1;
