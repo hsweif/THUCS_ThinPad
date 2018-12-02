@@ -110,12 +110,12 @@ begin
 end
 
 always @(*) begin
-	status = (pc >> 2) % 64; 
+	status = (pc) % 64; 
 end
 
 always @(pc) begin
-	if ((pc >> 2) < 22 && memConflict == 0)
-		Instruction[15:0] = memPool[(pc >> 2) % 64];
+	if ((pc) < 3 && memConflict == 0)
+		Instruction[15:0] = memPool[(pc) % 64];
 	else
 		Instruction[15:0] = 16'b0000100000000000; //nop
 end

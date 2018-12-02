@@ -129,27 +129,28 @@ BTB _BTB(
     .ifJump(exe_ifjump),
     .error(error)
 );
-
-/*fenpin _fenpin(
-	.clk (clk_orig),
-	.clk_out (clk)
-);*/
-
-/*fenpin _fenpin2x(
-	.clk (clk2x),
-	.clk_out (clk2x_o)
-);*/
-
+wire clk2x_o;
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
-	 .CLKDV_OUT(clk_o)
+	 .CLKDV_OUT(clk_out)
     );
 	 
 dcm_pll _dcm1 (
-    .CLKIN_IN(clk_o),  
-    .CLK2X_OUT(clk2x)
+    .CLKIN_IN(clk_out),  
+    .CLK2X_OUT(clk2x_o)
     );
 	 
+fenpin _fenpin1(
+	.clk (clk_out),
+	.clk_out (clk_o)
+);
+
+fenpin _fenpin2(
+	.clk (clk2x_o),
+	.clk_out (clk2x)
+);
+
+
 /*dcm2 _dcm2 (
     .CLKIN_IN(clk), 
     .CLK2X_OUT(clk2x)
@@ -163,6 +164,7 @@ end
 */
 
 PC_reg _PC_reg(
+
     .PCKeep(pcKeep),
 	 .clk (clk),
 	 .rst (rst),
@@ -186,8 +188,8 @@ PC_reg _PC_reg(
 );*/
 
 MemoryModule _mem(
-//.ledA(ledA),
-	//.ledB(ledB),
+.ledA(ledA),
+	.ledB(ledB),
 	.clk(clk2x),
     .rst(rst),
     .pc(pc),
@@ -197,7 +199,7 @@ MemoryModule _mem(
 	.MemRead(mem_read),
 	.MemWrite(mem_write),
 	.ReadData(mem_readdata),
-    .Instruct(instruction), // FIXME: is here right?
+   .Instruct(instruction), // FIXME: is here right?
 	.Ram1Data(ram1_data),
 	.Ram1Addr(ram1_addr),
 	.Ram1OE(ram1_oe),
@@ -237,8 +239,7 @@ if_id _if_id(
 );
 
 ID _ID(
-	.ledA(ledA),
-	.ledB(ledB),
+	
     .clk(clk),
     .rst(rst),
   	.instr(idInstruction),

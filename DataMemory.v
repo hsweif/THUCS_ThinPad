@@ -21,6 +21,8 @@
 `include "define.v"
 
 module MemoryModule(
+output reg [7:0] ledA,
+output reg [7:0] ledB,
 	 input clk,
 	 input rst,
 	 // Used for instruction module
@@ -62,8 +64,14 @@ integer status = 0;
 reg isUart = 0;
 assign Ram1Data[15:0] = link_data1 ? ram1_data : 16'bz;
 assign Ram2Data[15:0] = link_data2 ? ram2_data : 16'bz;
-
 always @(*) begin
+	/*ledA[7] <= MemRead;
+	ledA[6] <= MemWrite;
+	ledA[5] <= MemConflict;
+	ledA[4] <= clk;
+	ledA[3:0] <= pc[3:0];*/
+	ledA[7:0] <= Instruct[15:8];
+	ledB[7:0] <= Instruct[7:0];
 	// To detect ram1 conflict.
 	if(MemRead == 1|| MemWrite == 1) begin
 		if(Address < `RAM1_UPPER) begin
@@ -121,16 +129,20 @@ begin
 			end
 			//ledA[6] <= 1;
 			// Instruction Module
-			if(MemConflict) begin
+			if(MemConflict == 1) begin
 				Instruct[15:0] <= `NOP_INSTRUCT;
 			end
 			else begin
+				rdn <= 1;
+				wrn <= 1;
 				link_data1 <= 0; // Before read from the bus, we need to set it to z
 				Ram1EN <= 0;
 				Ram1OE <= 0;
 				Ram1WE <= 1;
 				Ram1Addr[17:16] <= 2'b00;
 				Ram1Addr[15:0] <= pc;
+				// FIXME: Be careful
+				status <= 1;
 			end
 
 			// Data Memory module
@@ -160,16 +172,11 @@ begin
 					status <= 1;
 				end
 				else begin
-					Ram1EN <= 1;
-					Ram1OE <= 1;
-					Ram1WE <= 1;
+					// Do nothing.
 				end
 			end
 			else begin
 				// Ram1 is not available now
-				Ram1EN <= 1;
-				Ram1OE <= 1;
-				Ram1WE <= 1;
 				if(isUart == 1) begin
 					// TODO: IO data to port 1
 					if(MemRead == 1) begin
@@ -214,6 +221,7 @@ begin
 						status <= 1;
 					end
 					else begin
+						// FIXME: Be careful
 						Ram2EN <= 1;
 						Ram2OE <= 1;
 						Ram2WE <= 1;
@@ -235,6 +243,11 @@ begin
 				Instruct[15:0] <= `NOP_INSTRUCT;
 			end
 			else begin
+				rdn <= 1;
+				wrn <= 1;
+				Ram1EN <= 0;
+				Ram1OE <= 0;
+				Ram1WE <= 1;
 				Instruct[15:0] <= Ram1Data;
 			end
 			// Data memory module.
@@ -257,16 +270,10 @@ begin
 					Ram1WE <= 1;
 				end
 				else begin
-					Ram1EN <= 1;
-					Ram1OE <= 1;
-					Ram1WE <= 1;
+					// Do nothing
 				end
 			end
 			else  begin // Ram2
-				// Ram1 is not available now
-				Ram1EN <= 1;
-				Ram1OE <= 1;
-				Ram1WE <= 1;
 				if(isUart == 1) begin
 					if(MemRead == 1) begin
 					 	wrn <= 1;

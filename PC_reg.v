@@ -19,6 +19,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module PC_reg(
+
 	 input PCKeep,
 	 input clk,
 	 input rst,
@@ -31,6 +32,8 @@ module PC_reg(
     );
 reg [15:0] origin = 16'b0;
 reg start = 0;
+
+
 always @ (negedge clk or negedge rst) begin
 	if (rst == 0) begin
 		pc <= origin;
@@ -42,7 +45,7 @@ always @ (negedge clk or negedge rst) begin
 		if(ifJump == 0 && error == 1) begin //else if(ifJump === 0 && error == 1) begin 
 			pc <= newPC; //预测错误，恢�
 		end
-		else if (PCKeep == 1 || pc > 16'b0000000001111100) begin//if (PCKeep === 1) begin
+		else if (PCKeep == 1) begin//if (PCKeep === 1) begin
 			
 		end
 		else
