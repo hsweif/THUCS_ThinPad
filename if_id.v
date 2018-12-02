@@ -55,7 +55,7 @@ always @ (negedge rst or negedge clk) begin
 	//ledA[7:0] <= instr_out[15:8];
 	end
 	else begin
-	pc_out <= pc_in + 4;
+	pc_out <= pc_in + 1;
 	instr_out <= instr_in;
 	if (instr_in == 16'b0100111100000010)
 		cnt <= cnt + 1;

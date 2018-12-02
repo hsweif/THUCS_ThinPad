@@ -286,15 +286,6 @@ begin
 						link_data1 <= 1;
 						ram1_data[7:0] <= WriteData[7:0];
 						status <= 2;
-						/*
-					 	wrn <= 1;
-						rdn <= 1;
-						link_data1 <= 1;
-						if(tbre == 1)
-							status <= 2;
-						else
-							status <= 1;
-						*/
 					end
 					else
 						;
@@ -342,16 +333,6 @@ begin
 						status <= 3;
 					else
 						status <= 2;
-					/*
-					if(tsre == 1) begin
-						status <= 0;
-						noStop <= 1;
-					end
-					else begin
-						status <= 2;
-						noStop <= 0;
-					end
-					*/
 				end
 			end
 			else begin
