@@ -188,8 +188,7 @@ PC_reg _PC_reg(
 );*/
 
 MemoryModule _mem(
-.ledA(ledA),
-	.ledB(ledB),
+
 	.clk(clk2x),
     .rst(rst),
     .pc(pc),
@@ -229,7 +228,8 @@ end
 if_id _if_id(
 .rst(rst),
 	.clk (clk),
-	//.ledB(ledB),
+	.ledA(ledA),
+	.ledB(ledB),
     .ifkeep (ifKeep),
     .ifClear(ifClear),
     .pc_in (pc),

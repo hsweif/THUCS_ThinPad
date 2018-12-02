@@ -19,8 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module if_id(
-//output reg [7:0] ledA,
-//output reg [7:0] ledB,
+output reg [7:0] ledA,
+output reg [7:0] ledB,
 	input clk,
 	input rst,
 	input ifkeep,
@@ -55,7 +55,7 @@ always @ (negedge rst or negedge clk) begin
 	//ledA[7:0] <= instr_out[15:8];
 	end
 	else begin
-	pc_out <= pc_in + 1;
+	pc_out <= pc_in;
 	instr_out <= instr_in;
 	if (instr_in == 16'b0100111100000010)
 		cnt <= cnt + 1;
@@ -63,7 +63,8 @@ always @ (negedge rst or negedge clk) begin
 	//ledA[7:0] <= instr_out[15:8];
 	end
 end
-//always@ (*)begin
-//ledA <= cnt;
-//end
+always@ (*)begin
+ledA <= instr_out[15:8];
+ledB <= pc_out[7:0];
+end
 endmodule

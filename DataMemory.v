@@ -21,8 +21,8 @@
 `include "define.v"
 
 module MemoryModule(
-output reg [7:0] ledA,
-output reg [7:0] ledB,
+//output reg [7:0] ledA,
+//output reg [7:0] ledB,
 	 input clk,
 	 input rst,
 	 // Used for instruction module
@@ -70,8 +70,8 @@ always @(*) begin
 	ledA[5] <= MemConflict;
 	ledA[4] <= clk;
 	ledA[3:0] <= pc[3:0];*/
-	ledA[7:0] <= Instruct[15:8];
-	ledB[7:0] <= Instruct[7:0];
+	//ledA[7:0] <= Instruct[15:8];
+	//ledB[7:0] <= Instruct[7:0];
 	// To detect ram1 conflict.
 	if(MemRead == 1|| MemWrite == 1) begin
 		if(Address < `RAM1_UPPER) begin
