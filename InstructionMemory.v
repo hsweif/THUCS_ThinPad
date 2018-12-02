@@ -19,9 +19,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module InstructionMemory(
-  //  input MemConflict,
-	 input clk,
-	 input rst,
+    input memConflict,
+	input clk,
+	input rst,
     input [15:0] pc,
     output reg[15:0] Instruction
 	 //output reg [7:0] ledB,
@@ -29,9 +29,8 @@ module InstructionMemory(
     );
  
 // The size of fake memory
-reg [5:0] status = 6'b000000;
+reg [6:0] status = 7'b000000;
 reg[15:0] memPool[0:32];
-reg[15:0] lastPC;
 
 /* 根据指令名称字典序排序，便于测试，请勿修�*/
 // 	16'b01000 rx ry 0 imm(4)  	//ADDIU3 	ry <- rx+imm  
@@ -112,13 +111,8 @@ always @(*) begin
 end
 
 always @(pc) begin
-<<<<<<< HEAD
-	if ((pc >> 2) < 22)
+	if ((pc >> 2) < 22 && memConflict == 1)
 		Instruction[15:0] = memPool[(pc >> 2) % 64];
-=======
-	if ((pc >> 2) < 4)
-		Instruction[15:0] = memPool[(pc >> 2) % 32];
->>>>>>> uart_v2
 	else
 		Instruction[15:0] = 16'b0000100000000000; //nop
 end

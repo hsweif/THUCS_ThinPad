@@ -177,6 +177,7 @@ PC_reg _PC_reg(
 InstructionMemory _IM(
 	
 	//.ledB(ledB),
+    .memConflict(mem_conflict),
 	.clk(clk),
 	.rst (rst),
    .pc (pc),
@@ -321,6 +322,7 @@ hazard _hazard(
     .readReg1(readReg1),
     .readReg2(readReg2),
     .writeReg(exe_wreg),
+    .memConflict(mem_conflict),
     .controlMem(exe_controlmem),
     .ifKeep(ifKeep),
     .ifClear(ifClear),
