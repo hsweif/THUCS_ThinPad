@@ -139,19 +139,19 @@ BTB _BTB(
 
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
-	 .CLKDV_OUT(clk_out)
+	 .CLKDV_OUT(clk)
     );
 	 
 dcm_pll _dcm1 (
-    .CLKIN_IN(clk_out),  
-    .CLK2X_OUT(clk)
-    );
-	 
-dcm2 _dcm2 (
-    .CLKIN_IN(clk), 
+    .CLKIN_IN(clk),  
     .CLK2X_OUT(clk2x)
     );
 	 
+/*dcm2 _dcm2 (
+    .CLKIN_IN(clk), 
+    .CLK2X_OUT(clk2x)
+    );
+	*/ 
 PC_reg _PC_reg(
     .PCKeep(pcKeep),
 	 .clk (clk),

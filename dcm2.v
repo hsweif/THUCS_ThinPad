@@ -7,7 +7,7 @@
 // \   \   \/     Version : 14.7
 //  \   \         Application : xaw2verilog
 //  /   /         Filename : dcm2.v
-// /___/   /\     Timestamp : 12/01/2018 23:28:34
+// /___/   /\     Timestamp : 12/02/2018 14:17:21
 // \   \  /  \ 
 //  \___\/\___\ 
 //
@@ -48,7 +48,7 @@ module dcm2(CLKIN_IN,
          .CLKIN_PERIOD(20.000), .CLKOUT_PHASE_SHIFT("FIXED"), 
          .DESKEW_ADJUST("SYSTEM_SYNCHRONOUS"), .DFS_FREQUENCY_MODE("LOW"), 
          .DLL_FREQUENCY_MODE("LOW"), .DUTY_CYCLE_CORRECTION("TRUE"), 
-         .FACTORY_JF(16'hC080), .PHASE_SHIFT(32), .STARTUP_WAIT("FALSE") ) 
+         .FACTORY_JF(16'hC080), .PHASE_SHIFT(35), .STARTUP_WAIT("FALSE") ) 
          DCM_SP_INST (.CLKFB(CLKFB_IN), 
                        .CLKIN(CLKIN_IN), 
                        .DSSEN(GND_BIT), 
