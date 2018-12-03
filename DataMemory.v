@@ -23,6 +23,7 @@
 module MemoryModule(
 //output reg [7:0] ledA,
 //output reg [7:0] ledB,
+input clk_main,
 	 input clk,
 	 input rst,
 	 // Used for instruction module
@@ -64,7 +65,17 @@ integer status = 0;
 reg isUart = 0;
 assign Ram1Data[15:0] = link_data1 ? ram1_data : 16'bz;
 assign Ram2Data[15:0] = link_data2 ? ram2_data : 16'bz;
-always @(*) begin
+reg rst_do = 0;
+
+always @ (negedge clk_main or negedge rst) begin
+	if (rst == 0) begin
+		rst_do = 0;
+	end
+	else
+		rst_do = 1;
+end
+
+always @(negedge clk) begin
 	/*ledA[7] <= MemRead;
 	ledA[6] <= MemWrite;
 	ledA[5] <= MemConflict;
@@ -73,28 +84,32 @@ always @(*) begin
 	//ledA[7:0] <= Instruct[15:8];
 	//ledB[7:0] <= Instruct[7:0];
 	// To detect ram1 conflict.
-	if(MemRead == 1|| MemWrite == 1) begin
-		if(Address < `RAM1_UPPER) begin
-			MemConflict <= 1;
-			isUart <= 0;
-		end
-		else if(Address == `COM1_DATA || Address == `COM1_COMMAND)begin
-			MemConflict <= 1;
-			isUart <= 1;
-		end
-		else if(Address == `COM2_DATA || Address == `COM2_COMMAND)begin
-			MemConflict <= 1;
-			isUart <= 1;
+	if (rst_do == 1) begin
+		if(MemRead == 1|| MemWrite == 1) begin
+			if(Address < `RAM1_UPPER) begin
+				MemConflict <= 1;
+				isUart <= 0;
+			end
+			else if(Address == `COM1_DATA || Address == `COM1_COMMAND)begin
+				MemConflict <= 1;
+				isUart <= 1;
+			end
+			else if(Address == `COM2_DATA || Address == `COM2_COMMAND)begin
+				MemConflict <= 1;
+				isUart <= 1;
+			end
+			else begin
+				MemConflict <= 0;
+				isUart <= 0;
+			end
 		end
 		else begin
 			MemConflict <= 0;
 			isUart <= 0;
 		end
 	end
-	else begin
-		MemConflict <= 0;
-		isUart <= 0;
-	end
+	else
+	;
 end
 
 //clock fequency in memory reading is half main frequency.
@@ -116,7 +131,7 @@ begin
 		ram1_data <= 16'b0;
 		ram2_data <= 16'b0;
 	end
-	else begin
+	else if (rst_do == 1) begin
 	// sensitive to clk signal.
 		Ram1Addr[17:16] <= 2'b0;
 		Ram2Addr[17:16] <= 2'b0;
@@ -372,6 +387,8 @@ begin
 			end
 		end
 	end
+	else
+	;
 end
 
 endmodule

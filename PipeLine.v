@@ -188,7 +188,7 @@ PC_reg _PC_reg(
 );*/
 
 MemoryModule _mem(
-
+	.clk_main(clk),
 	.clk(clk2x),
     .rst(rst),
     .pc(pc),
