@@ -52,29 +52,50 @@ module id_exe(
 
 always @ (negedge rst or negedge clk) begin
     if (rst == 0) begin
-		wreg_out <= 4'b1111;
-		controlmem_out <= 4'b11;
+			wreg_out <= 4'b1111;
+			controlmem_out <= 4'b11;
+			rreg1_out <= 4'b1111;
+			rreg2_out <= 4'b1111;
+			rdata1_out <= 16'b0000000000000000;
+			rdata2_out <= 16'b0000000000000000;
+			imme_out <= 16'b0000000000000000;
+			aluop_out <= 4'b0001;
+			controlb_out <= 2'b10;
+			ifjump_out <= 1;
+			jorb_out <= 2'b11;
+			controlwb_out <= 1;
+			pc_out <= 0;
 	 end
 	 else begin
-		 rreg1_out <= rreg1_in;
-		 rreg2_out <= rreg2_in;
-		 rdata1_out <= rdata1_in;
-		 rdata2_out <= rdata2_in;
-		 imme_out <= imme_in;
-		 aluop_out <= aluop_in;
-		 controlb_out <= controlb_in;
-		 ifjump_out <= ifjump_in;
-		 jorb_out <= jorb_in;
-		 controlwb_out <= controlwb_in;
-		 pc_out <= pc_in;
-
 		 if(idClear != 1) begin//if(idClear !== 1) begin
 			  wreg_out <= wreg_in;
 			  controlmem_out <= controlmem_in;
+			 rreg1_out <= rreg1_in;
+			 rreg2_out <= rreg2_in;
+			 rdata1_out <= rdata1_in;
+			 rdata2_out <= rdata2_in;
+			 imme_out <= imme_in;
+			 aluop_out <= aluop_in;
+			 controlb_out <= controlb_in;
+			 ifjump_out <= ifjump_in;
+			 jorb_out <= jorb_in;
+			 controlwb_out <= controlwb_in;
+			 pc_out <= pc_in;
 		 end
 		 else begin
 			  wreg_out <= 4'b1111;
-			  controlmem_out <= 2'b11;      
+			  controlmem_out <= 2'b11; 
+			  rreg1_out <= 4'b1111;
+				rreg2_out <= 4'b1111;
+				rdata1_out <= 16'b0000000000000000;
+				rdata2_out <= 16'b0000000000000000;
+				imme_out <= 16'b0000000000000000;
+				aluop_out <= 4'b0001;
+				controlb_out <= 2'b10;
+				ifjump_out <= 1;
+				jorb_out <= 2'b11;
+				controlwb_out <= 1;
+				pc_out <= 0;
 		end
 	 end
 end

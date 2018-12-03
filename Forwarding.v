@@ -24,8 +24,6 @@ module Forwarding(
     input [3:0] WRegFW2,
 	 input [3:0] R1,
     input [3:0] R2,
-	 input [15:0] RData1,
-    input [15:0] RData2,
 	 input [1:0] MemControl,
 	 output reg [1:0] Forward,
 	 output reg [1:0] ForwardingA,

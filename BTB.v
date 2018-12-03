@@ -32,34 +32,33 @@ module BTB(
     );
 
 reg [15:0] toPC [15:0];		//value
-integer i;
 always @(posedge clk or negedge rst) begin  	//å†™è¡¨
 	if (rst == 0) begin
 		error <= 0;
-		toPC[0] <= 1;
-		toPC[1] <= 1;
-		toPC[2] <= 1;
-		toPC[3] <= 1;
-		toPC[4] <= 1;
-		toPC[5] <= 1;
-		toPC[6] <= 1;
-		toPC[7] <= 1;
-		toPC[8] <= 1;
-		toPC[9] <= 1;
-		toPC[10] <= 1;
-		toPC[11] <= 1;
-		toPC[12] <= 1;
-		toPC[13] <= 1;
-		toPC[14] <= 1;
-		toPC[15] <= 1;
+		toPC[0] <= 16'b1111111111111111;
+		toPC[1] <= 16'b1111111111111111;
+		toPC[2] <= 16'b1111111111111111;
+		toPC[3] <= 16'b1111111111111111;
+		toPC[4] <= 16'b1111111111111111;
+		toPC[5] <= 16'b1111111111111111;
+		toPC[6] <= 16'b1111111111111111;
+		toPC[7] <= 16'b1111111111111111;
+		toPC[8] <= 16'b1111111111111111;
+		toPC[9] <= 16'b1111111111111111;
+		toPC[10] <= 16'b1111111111111111;
+		toPC[11] <= 16'b1111111111111111;
+		toPC[12] <= 16'b1111111111111111;
+		toPC[13] <= 16'b1111111111111111;
+		toPC[14] <= 16'b1111111111111111;
+		toPC[15] <= 16'b1111111111111111;
 	end
 	else if (ifJump === 0) begin //å¦‚æžœæ˜¯è·³è½¬æŒ‡�
-		if(toPC[jFromPC%16] != jToPC) begin
-			if(jToPC == jFromPC+1 && toPC[jFromPC%16] == 1)
+		if(toPC[jFromPC[3:0]] != jToPC) begin
+			if(jToPC == jFromPC+1 && toPC[jFromPC%16] == 16'b1111111111111111)
 				error <= 0;
 			else
 				error <= 1;
-			toPC[(jFromPC)%16] <= jToPC;
+			toPC[jFromPC[3:0]] <= jToPC;
 		end
 		else begin
 			error <= 0;
@@ -69,12 +68,13 @@ always @(posedge clk or negedge rst) begin  	//å†™è¡¨
 		error <= 0;
 	end
 end
+
 always @(ifJump_id or curPC or rst) begin 	//curPCΪ��ǰPC��ϣ�����Ԥ��PCΪprePC
 	if(rst == 0)  begin
 		prePC = 0;
 	end
-	else if(ifJump_id === 0 && toPC[curPC%16] != 1) //toPCΪԤ���
-			prePC = toPC[curPC%16];
+	else if(ifJump_id === 0 && toPC[curPC[3:0]] != 16'b1111111111111111) //toPCΪԤ���
+			prePC = toPC[curPC[3:0]];
 	else 	prePC = curPC + 1;
 end
 

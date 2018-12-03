@@ -7,11 +7,11 @@
 // \   \   \/     Version : 14.7
 //  \   \         Application : xaw2verilog
 //  /   /         Filename : pll_controller.v
-// /___/   /\     Timestamp : 12/03/2018 12:07:19
+// /___/   /\     Timestamp : 12/03/2018 15:38:32
 // \   \  /  \ 
 //  \___\/\___\ 
 //
-//Command: xaw2verilog -intstyle D:/workspace/THUCS_ThinPad/ipcore_dir/pll_controller.xaw -st pll_controller.v
+//Command: xaw2verilog -intstyle D:/THUCS_ThinPad/ipcore_dir/pll_controller.xaw -st pll_controller.v
 //Design Name: pll_controller
 //Device: xc3s1200e-4fg320
 //
