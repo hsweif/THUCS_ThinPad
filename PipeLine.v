@@ -44,8 +44,8 @@ module PipeLine(
 
 // output and input for PLL
 wire clk2x;
-reg clk;
-wire clk_o;
+wire clk;
+//wire clk_o;
 // output and input of IF
 wire [15:0] pc;
 wire [15:0] addedPc;
@@ -110,6 +110,8 @@ wire [3:0] wb_wreg;
 wire [15:0] wb_writeback;
 
 wire pcKeep;
+wire idKeep;
+wire exeKeep;
 wire ifKeep;
 wire ifClear;
 wire idClear;
@@ -132,11 +134,11 @@ BTB _BTB(
 wire clk2x_o;
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
-	 .CLKDV_OUT(clk_o)
+	 .CLKDV_OUT(clk)
     );
 	 
 dcm_pll _dcm1 (
-    .CLKIN_IN(clk_o),  
+    .CLKIN_IN(clk),  
     .CLK2X_OUT(clk2x)
     );
 	 
@@ -222,7 +224,7 @@ always @(*)
 begin
 	debug[0] <= data_ready;
 	debug[1] <= no_stop;
-	clk <= clk_o & no_stop;
+	//clk <= clk_o & no_stop;
 end
 
 if_id _if_id(
@@ -264,6 +266,7 @@ ID _ID(
 id_exe _id_exe(
 .rst(rst),
 	.clk (clk),
+    .idKeep(idKeep),
     .idClear(idClear),
     .rdata1_in (readData1),
     .rdata2_in (readData2),
@@ -329,12 +332,15 @@ Forwarding _forward(
 hazard _hazard(
     // .ifJump(ifJump),
     .error(error),
+    .uartConflict(no_stop),
     .readReg1(readReg1),
     .readReg2(readReg2),
     .writeReg(exe_wreg),
     .memConflict(mem_conflict),
     .controlMem(exe_controlmem),
     .ifKeep(ifKeep),
+    .idKeep(idKeep),
+    .exeKeep(exeKeep),
     .ifClear(ifClear),
     .pcKeep(pcKeep),
     .idClear(idClear)
@@ -343,6 +349,7 @@ hazard _hazard(
 exe_mem _ex_m(
 .rst(rst),
 	.clk (clk),
+    .exeKeep(exeKeep),
 	.controlmem_in (exe_controlmem),
 	.controlwb_in (exe_controlwb),
 	.alu_in (exe_ALURes),

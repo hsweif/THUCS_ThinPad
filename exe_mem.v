@@ -26,6 +26,7 @@ input rst,
 	 input [15:0] alu_in,
 	 input [15:0] wdata_in,
 	 input [3:0] wreg_in,
+	 input exeKeep,
 	 output reg memwrite_out,
 	 output reg memread_out,
 	 output reg controlwb_out,
@@ -41,6 +42,9 @@ if (rst == 0) begin
 	wreg_out <= 4'b1111;
 	alu_out <= 16'b0;//000000000011111;
 end 
+else if (exeKeep == 1) begin
+	
+end
 else begin
 	if (controlmem_in == 2'b01) begin
 		memwrite_out <= 0;

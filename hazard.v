@@ -25,8 +25,11 @@ module hazard(
 	input [3:0] writeReg,
 	input [1:0] controlMem,
 	input memConflict,
+	input uartConflict,
 	output reg ifKeep,
 	output reg pcKeep,
+	output reg idKeep,
+	output reg exeKeep,
 	output reg idClear,
 	output reg ifClear
     );
@@ -35,10 +38,14 @@ module hazard(
 	assign RAC = controlMem[1] == 0 && writeReg != 4'b1111 && (readReg1 == writeReg || readReg2 == writeReg);
 
 	always@(*) begin
-		if(memConflict == 1 || RAC)	pcKeep = 1;
+		if(uartConflict == 0)  		idKeep = 1;
+		else 						idKeep = 0;
+		if(uartConflict == 0) 		exeKeep = 1;
+		else 						exeKeep = 0;
+		if(memConflict == 1 || RAC || uartConflict == 0)	pcKeep = 1;
 		else 						pcKeep = 0;
 
-		if(RAC)	ifKeep = 1;
+		if(RAC || uartConflict == 0)	ifKeep = 1;
 		else 	ifKeep = 0;
 
 		if(memConflict == 1 || error == 1)	ifClear = 1;
