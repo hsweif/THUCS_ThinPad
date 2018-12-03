@@ -34,6 +34,9 @@ module mem_wb(
 always @ (negedge rst or negedge clk) begin
 if (rst == 0) begin
 	wreg_out <= 4'b1111;
+	controlwb_out <= 1;
+	memdata_out <= 16'b0000000000000000;
+	alu_out <= 16'b0000000000000000;
 end
 else begin 
 	controlwb_out <= controlwb_in;

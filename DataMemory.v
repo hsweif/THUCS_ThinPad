@@ -108,8 +108,10 @@ always @(*) begin
 			isUart <= 0;
 		end
 	end
-	else
-	;
+	else begin
+		MemConflict <= 0;
+		isUart <= 0;
+	end
 end
 
 //clock fequency in memory reading is half main frequency.

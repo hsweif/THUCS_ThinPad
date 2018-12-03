@@ -48,7 +48,6 @@ reg clk;
 wire clk_o;
 // output and input of IF
 wire [15:0] pc;
-wire [15:0] addedPc;
 wire [15:0] instruction;
 
 // output and input of Instruction Memory
@@ -87,7 +86,6 @@ wire exe_controlwb;
 wire [15:0] exe_WData;
 wire [15:0] exe_ALURes;
 wire [15:0] exe_NewPC;
-wire [1:0] exe_ControlBTB;
 wire [1:0] exe_forward;
 wire [1:0] exe_forwardA;
 wire [1:0] exe_forwardB;
@@ -173,8 +171,6 @@ PC_reg _PC_reg(
 	 .pc(pc),
     .error(error),
     .prePC(prePC)
-	 //.clk_out (clk_out)
-	// .AddedPC (addedPc)
 );
 
 /*InstructionMemory _IM(
@@ -226,10 +222,8 @@ begin
 end
 
 if_id _if_id(
-.rst(rst),
+	.rst(rst),
 	.clk (clk),
-	//.ledA(ledA),
-	//.ledB(ledB),
     .ifkeep (ifKeep),
     .ifClear(ifClear),
     .pc_in (pc),
@@ -319,8 +313,6 @@ Forwarding _forward(
     .R1 (exe_rreg1),
     .R2 (exe_rreg2),
     .MemControl (exe_controlmem),
-    .RData1 (exe_rdata1),
-    .RData2 (exe_rdata2),
     .Forward (exe_forward),
     .ForwardingA (exe_forwardA),
     .ForwardingB (exe_forwardB)

@@ -60,26 +60,29 @@ module ID(
 
     always @(negedge clk or negedge rst) begin      
         if(rst == 0) begin
-            register[0] <= 0;
-            register[1] <= 0;
-            register[2] <= 0;
-            register[3] <= 0;
-            register[4] <= 0;
-            register[5] <= 0;
-            register[6] <= 0;
-            register[7] <= 0;
-            register[8] <= 0;
-            register[9] <= 0;
-            register[10] <= 0;
-            register[11] <= 0;
-            register[12] <= 0;
-            register[13] <= 0;
-            register[14] <= 0;
-            register[15] <= 0;
+            register[0] <= 16'b0000000000000000;
+            register[1] <= 16'b0000000000000000;
+            register[2] <= 16'b0000000000000000;
+            register[3] <= 16'b0000000000000000;
+            register[4] <= 16'b0000000000000000;
+            register[5] <= 16'b0000000000000000;
+            register[6] <= 16'b0000000000000000;
+            register[7] <= 16'b0000000000000000;
+            register[8] <= 16'b0000000000000000;
+            register[9] <= 16'b0000000000000000;
+            register[10] <= 16'b0000000000000000;
+            register[11] <= 16'b0000000000000000;
+            register[12] <= 16'b0000000000000000;
+            register[13] <= 16'b0000000000000000;
+            register[14] <= 16'b0000000000000000;
+            register[15] <= 16'b0000000000000000;
         end
         else if(writeBackReg != 15)begin
             register[writeBackReg] <= writeBackData;
         end
+		  else begin
+				register[15] <= 16'b0000000000000000;
+		  end
     end
 
     always @(readReg1 or readReg2 or writeBackData or writeBackReg) begin

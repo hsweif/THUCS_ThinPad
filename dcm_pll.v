@@ -7,11 +7,11 @@
 // \   \   \/     Version : 14.7
 //  \   \         Application : xaw2verilog
 //  /   /         Filename : dcm_pll.v
-// /___/   /\     Timestamp : 12/03/2018 12:07:21
+// /___/   /\     Timestamp : 12/03/2018 15:38:34
 // \   \  /  \ 
 //  \___\/\___\ 
 //
-//Command: xaw2verilog -intstyle D:/workspace/THUCS_ThinPad/ipcore_dir/dcm_pll.xaw -st dcm_pll.v
+//Command: xaw2verilog -intstyle D:/THUCS_ThinPad/ipcore_dir/dcm_pll.xaw -st dcm_pll.v
 //Design Name: dcm_pll
 //Device: xc3s1200e-4fg320
 //
