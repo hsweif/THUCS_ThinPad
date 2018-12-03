@@ -48,10 +48,8 @@ module ID(
         ledA[3:0] = register[6][3:0];
         ledB[7:4] = register[4][3:0];
         ledB[3:0] = register[3][3:0];*/
-		  ledA[7:4] = register[10][3:0];
-		  ledA[3:0] = register[8][15:12];
-		  ledB[7:4] = register[0][7:4];
-		  ledB[3:0] = register[0][3:0];
+		  ledA[7:0] = register[4][7:0];
+		  ledB[7:0] = register[6][7:0];
 		  
 		  // Below is for testing uart.
 		  //ledA[7:0] = register[1][15:8];

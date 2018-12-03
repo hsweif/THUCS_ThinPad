@@ -117,7 +117,7 @@ begin
 		2'b00: NewPC = CalPC;
 		2'b01: NewPC = A;
 		2'b10: NewPC = (A == 0) ? CalPC : (PCSrc+1);
-		default: NewPC = (A == 0) ? (PCSrc+1) : CalPC;
+		2'b11: NewPC = (A == 0) ? (PCSrc+1) : CalPC;
 	endcase
 end
 
