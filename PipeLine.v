@@ -218,7 +218,7 @@ always @(*)
 begin
 	debug[0] <= data_ready;
 	debug[1] <= no_stop;
-	clk <= clk_o & no_stop;
+	//clk <= clk_o & no_stop;
 end
 
 if_id _if_id(
