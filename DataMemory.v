@@ -67,6 +67,7 @@ reg isUartCheck = 0;
 assign Ram1Data[15:0] = link_data1 ? ram1_data : 16'bz;
 assign Ram2Data[15:0] = link_data2 ? ram2_data : 16'bz;
 reg rst_do = 0;
+reg flag = 0;
 
 always @ (negedge clk_main or negedge rst) begin
 	if (rst == 0) begin
@@ -138,8 +139,9 @@ begin
 		ram1_data <= 16'b0;
 		ram2_data <= 16'b0;
 	end
-	else if (rst_do == 1) begin
+	else if (rst_do == 1 && ((clk_main == 0 && flag == 1) || flag == 0)) begin
 	// sensitive to clk signal.
+		flag <= 0;
 		Ram1Addr[17:16] <= 2'b0;
 		Ram2Addr[17:16] <= 2'b0;
 		if(status == 0) begin
@@ -338,6 +340,7 @@ begin
 				else if(isUartCheck == 1)begin
 					// TODO: untested
 					status <= 0;
+					/*
 					if(tsre == 1 && tbre == 1 && data_ready == 1) begin
 						ReadData[15:0] <= `ENABLE_BOTH;
 					end
@@ -350,6 +353,7 @@ begin
 					else begin
 						ReadData[15:0] <= 16'b0;
 					end
+					*/
 				end
 				else begin
 				// Normal Ram2 Address
@@ -397,6 +401,8 @@ begin
 				end
 			end
 			else begin
+				// FIXME: Be careful
+				// flag <= 1;
 				noStop <= 1;
 				status <= 0;
 			end
@@ -407,6 +413,7 @@ begin
 					wrn <= 1;
 					rdn <= 1;
 					if(tsre == 1) begin
+						flag <= 1;
 						status <= 0;
 						noStop <= 1;
 					end
@@ -416,11 +423,13 @@ begin
 					end
 				end
 				else begin
+					flag <= 1;
 					noStop <= 1;
 					status <= 0;
 				end
 			end
 			else begin
+				flag <= 1;
 				noStop <= 1;
 				status <= 0;
 			end

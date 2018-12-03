@@ -7,11 +7,11 @@
 // \   \   \/     Version : 14.7
 //  \   \         Application : xaw2verilog
 //  /   /         Filename : pll_controller.v
-// /___/   /\     Timestamp : 12/03/2018 12:07:19
+// /___/   /\     Timestamp : 12/03/2018 22:08:46
 // \   \  /  \ 
 //  \___\/\___\ 
 //
-//Command: xaw2verilog -intstyle D:/workspace/THUCS_ThinPad/ipcore_dir/pll_controller.xaw -st pll_controller.v
+//Command: xaw2verilog -intstyle D:/THUCS_ThinPad/ipcore_dir/pll_controller.xaw -st pll_controller.v
 //Design Name: pll_controller
 //Device: xc3s1200e-4fg320
 //
@@ -54,7 +54,7 @@ module pll_controller(CLKIN_IN,
                         .O(CLK0_OUT));
    BUFG  CLK2X_BUFG_INST (.I(CLK2X_BUF), 
                          .O(CLKFB_IN));
-   DCM_SP #( .CLK_FEEDBACK("2X"), .CLKDV_DIVIDE(2.0), .CLKFX_DIVIDE(1), 
+   DCM_SP #( .CLK_FEEDBACK("2X"), .CLKDV_DIVIDE(10.0), .CLKFX_DIVIDE(1), 
          .CLKFX_MULTIPLY(4), .CLKIN_DIVIDE_BY_2("FALSE"), 
          .CLKIN_PERIOD(20.000), .CLKOUT_PHASE_SHIFT("NONE"), 
          .DESKEW_ADJUST("SYSTEM_SYNCHRONOUS"), .DFS_FREQUENCY_MODE("LOW"), 
