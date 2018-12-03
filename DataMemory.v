@@ -63,7 +63,6 @@ reg link_data2 = 1;
 integer status = 0;
 reg isUartData = 0;
 reg isUartCheck = 0;
-reg isUart = 0;
 assign Ram1Data[15:0] = link_data1 ? ram1_data : 16'bz;
 assign Ram2Data[15:0] = link_data2 ? ram2_data : 16'bz;
 always @(*) begin
@@ -75,7 +74,6 @@ always @(*) begin
 	//ledA[7:0] <= Instruct[15:8];
 	//ledB[7:0] <= Instruct[7:0];
 	// To detect ram1 conflict.
-	isUart <= isUartData | isUartCheck;
 	if(MemRead == 1|| MemWrite == 1) begin
 		if(Address < `RAM1_UPPER) begin
 			MemConflict <= 1;
@@ -214,6 +212,18 @@ begin
 				else if(isUartCheck == 1)begin
 					// TODO: untested
 					status <= 1;
+					if(tsre == 1 && tbre == 1 && data_ready == 1) begin
+						ReadData[15:0] <= `ENABLE_BOTH;
+					end
+					else if(data_ready == 1) begin
+						ReadData[15:0] <= `ENABLE_READ;
+					end
+					else if(tsre == 1 && tbre == 1)begin
+						ReadData[15:0] <= `ENABLE_WRITE;
+					end
+					else begin
+						ReadData[15:0] <= 16'b0;
+					end
 				end
 				else begin
 				// Ram2
@@ -248,7 +258,7 @@ begin
 		end
 		else if(status == 1) begin
 			// status == 1
-			if(isUart == 1) begin
+			if(isUartData == 1) begin
 				noStop <= 0;  
 			end			
 			else begin
@@ -313,7 +323,23 @@ begin
 					end
 					else
 						;
-				end		
+				end
+				else if(isUartCheck == 1)begin
+					// TODO: untested
+					status <= 0;
+					if(tsre == 1 && tbre == 1 && data_ready == 1) begin
+						ReadData[15:0] <= `ENABLE_BOTH;
+					end
+					else if(data_ready == 1) begin
+						ReadData[15:0] <= `ENABLE_READ;
+					end
+					else if(tsre == 1 && tbre == 1)begin
+						ReadData[15:0] <= `ENABLE_WRITE;
+					end
+					else begin
+						ReadData[15:0] <= 16'b0;
+					end
+				end
 				else begin
 				// Normal Ram2 Address
 					rdn <= 1;
