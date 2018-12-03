@@ -7,7 +7,11 @@
 // \   \   \/     Version : 14.7
 //  \   \         Application : xaw2verilog
 //  /   /         Filename : dcm_pll.v
+<<<<<<< HEAD
 // /___/   /\     Timestamp : 12/03/2018 15:38:34
+=======
+// /___/   /\     Timestamp : 12/03/2018 22:08:48
+>>>>>>> uart_test_v1
 // \   \  /  \ 
 //  \___\/\___\ 
 //
@@ -45,7 +49,7 @@ module dcm_pll(CLKIN_IN,
                          .O(CLKFB_IN));
    DCM_SP #( .CLK_FEEDBACK("2X"), .CLKDV_DIVIDE(2.0), .CLKFX_DIVIDE(1), 
          .CLKFX_MULTIPLY(4), .CLKIN_DIVIDE_BY_2("FALSE"), 
-         .CLKIN_PERIOD(40.000), .CLKOUT_PHASE_SHIFT("FIXED"), 
+         .CLKIN_PERIOD(200.000), .CLKOUT_PHASE_SHIFT("FIXED"), 
          .DESKEW_ADJUST("SYSTEM_SYNCHRONOUS"), .DFS_FREQUENCY_MODE("LOW"), 
          .DLL_FREQUENCY_MODE("LOW"), .DUTY_CYCLE_CORRECTION("TRUE"), 
          .FACTORY_JF(16'hC080), .PHASE_SHIFT(37), .STARTUP_WAIT("FALSE") ) 

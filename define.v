@@ -4,5 +4,7 @@
 `define COM2_DATA 16'hBF02 //0xBF02
 `define COM2_COMMAND 16'hBF03 //0xBF03
 `define NOP_INSTRUCT 16'b0000100000000000 // NOP
-
+`define ENABLE_WRITE 16'h0001
+`define ENABLE_READ 16'h0002
+`define ENABLE_BOTH 16'h0003
 // Should I predefined preserverd ports, such as 0xBF0f?

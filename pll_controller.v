@@ -7,7 +7,11 @@
 // \   \   \/     Version : 14.7
 //  \   \         Application : xaw2verilog
 //  /   /         Filename : pll_controller.v
+<<<<<<< HEAD
 // /___/   /\     Timestamp : 12/03/2018 15:38:32
+=======
+// /___/   /\     Timestamp : 12/03/2018 22:08:46
+>>>>>>> uart_test_v1
 // \   \  /  \ 
 //  \___\/\___\ 
 //
@@ -54,7 +58,7 @@ module pll_controller(CLKIN_IN,
                         .O(CLK0_OUT));
    BUFG  CLK2X_BUFG_INST (.I(CLK2X_BUF), 
                          .O(CLKFB_IN));
-   DCM_SP #( .CLK_FEEDBACK("2X"), .CLKDV_DIVIDE(2.0), .CLKFX_DIVIDE(1), 
+   DCM_SP #( .CLK_FEEDBACK("2X"), .CLKDV_DIVIDE(10.0), .CLKFX_DIVIDE(1), 
          .CLKFX_MULTIPLY(4), .CLKIN_DIVIDE_BY_2("FALSE"), 
          .CLKIN_PERIOD(20.000), .CLKOUT_PHASE_SHIFT("NONE"), 
          .DESKEW_ADJUST("SYSTEM_SYNCHRONOUS"), .DFS_FREQUENCY_MODE("LOW"), 
