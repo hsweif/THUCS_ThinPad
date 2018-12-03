@@ -44,7 +44,7 @@ module PipeLine(
 
 // output and input for PLL
 wire clk2x;
-reg clk;
+wire clk;
 wire clk_o;
 // output and input of IF
 wire [15:0] pc;
@@ -109,6 +109,8 @@ wire [15:0] wb_writeback;
 
 wire pcKeep;
 wire ifKeep;
+wire idKeep;
+wire exeKeep;
 wire ifClear;
 wire idClear;
 wire error;
@@ -130,11 +132,11 @@ BTB _BTB(
 wire clk2x_o;
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
-	 .CLKDV_OUT(clk_o)
+	 .CLKDV_OUT(clk)
     );
 	 
 dcm_pll _dcm1 (
-    .CLKIN_IN(clk_o),  
+    .CLKIN_IN(clk),  
     .CLK2X_OUT(clk2x)
     );
 	 
@@ -240,7 +242,6 @@ ID _ID(
   	.instr(idInstruction),
   	.writeBackReg(wb_wreg),
   	.writeBackData(wb_writeback),
-
     .ALUOp(ALUOp),
     .controlB(controlB),
     .controlMem(controlMem),
@@ -258,6 +259,7 @@ ID _ID(
 id_exe _id_exe(
 .rst(rst),
 	.clk (clk),
+    .idKeep(idKeep),
     .idClear(idClear),
     .rdata1_in (readData1),
     .rdata2_in (readData2),
@@ -329,12 +331,15 @@ hazard _hazard(
     .ifKeep(ifKeep),
     .ifClear(ifClear),
     .pcKeep(pcKeep),
-    .idClear(idClear)
+    .idClear(idClear),
+    .idKeep(idKeep),
+    .exeKeep(exeKeep)
 );
 
 exe_mem _ex_m(
 .rst(rst),
 	.clk (clk),
+    .exeKeep(exeKeep),
 	.controlmem_in (exe_controlmem),
 	.controlwb_in (exe_controlwb),
 	.alu_in (exe_ALURes),
