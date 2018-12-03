@@ -22,6 +22,7 @@ module id_exe(
 	input rst,
     input clk,
     input idClear,
+    input idKeep,
     input [15:0] rdata1_in,
     input [15:0] rdata2_in,
     input [15:0] imme_in,
@@ -65,6 +66,8 @@ always @ (negedge rst or negedge clk) begin
 			jorb_out <= 2'b11;
 			controlwb_out <= 1;
 			pc_out <= 0;
+	 end
+	 else if(idKeep == 1) begin
 	 end
 	 else begin
 		 if(idClear != 1) begin//if(idClear !== 1) begin

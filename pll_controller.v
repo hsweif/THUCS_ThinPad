@@ -7,11 +7,7 @@
 // \   \   \/     Version : 14.7
 //  \   \         Application : xaw2verilog
 //  /   /         Filename : pll_controller.v
-<<<<<<< HEAD
-// /___/   /\     Timestamp : 12/03/2018 15:38:32
-=======
-// /___/   /\     Timestamp : 12/03/2018 22:08:46
->>>>>>> uart_test_v1
+// /___/   /\     Timestamp : 12/03/2018 23:56:40
 // \   \  /  \ 
 //  \___\/\___\ 
 //

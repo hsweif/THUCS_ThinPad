@@ -16,7 +16,6 @@ NET "ledB[3]" LOC = B11;
 NET "ledB[2]" LOC = A11;
 NET "ledB[1]" LOC = E10;
 NET "ledB[0]" LOC = D10;
-
 NET "clk_orig" LOC = B9;
 NET "rst" LOC = U10;
 NET "ram1_addr[16]" LOC = H16;

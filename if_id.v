@@ -33,8 +33,10 @@ always @ (negedge rst or negedge clk) begin
 	if (rst == 0) begin
 		instr_out <= 16'b0000100000000000;
 		pc_out <= 0;
+	//ledB[7:0] <= instr_out[7:0];
+	//ledA[7:0] <= instr_out[15:8];
 	end
-	else if(ifkeep == 1) begin
+	else if(ifkeep == 1) begin 
 	end
 	else if(ifClear == 1) begin //else if(ifClear === 1) begin
 		pc_out <= 0;
