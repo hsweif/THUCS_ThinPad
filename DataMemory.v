@@ -75,7 +75,7 @@ always @ (negedge clk_main or negedge rst) begin
 		rst_do = 1;
 end
 
-always @(negedge clk) begin
+always @(*) begin
 	/*ledA[7] <= MemRead;
 	ledA[6] <= MemWrite;
 	ledA[5] <= MemConflict;
