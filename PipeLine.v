@@ -132,15 +132,15 @@ BTB _BTB(
 wire clk2x_o;
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
-	 .CLKDV_OUT(clk_out)
+	 .CLKDV_OUT(clk_o)
     );
 	 
 dcm_pll _dcm1 (
-    .CLKIN_IN(clk_out),  
-    .CLK2X_OUT(clk2x_o)
+    .CLKIN_IN(clk_o),  
+    .CLK2X_OUT(clk2x)
     );
 	 
-fenpin _fenpin1(
+/*fenpin _fenpin1(
 	.clk (clk_out),
 	.clk_out (clk_o)
 );
@@ -148,7 +148,7 @@ fenpin _fenpin1(
 fenpin _fenpin2(
 	.clk (clk2x_o),
 	.clk_out (clk2x)
-);
+);*/
 
 
 /*dcm2 _dcm2 (
@@ -228,8 +228,8 @@ end
 if_id _if_id(
 .rst(rst),
 	.clk (clk),
-	.ledA(ledA),
-	.ledB(ledB),
+	//.ledA(ledA),
+	//.ledB(ledB),
     .ifkeep (ifKeep),
     .ifClear(ifClear),
     .pc_in (pc),
@@ -239,7 +239,8 @@ if_id _if_id(
 );
 
 ID _ID(
-	
+	.ledA(ledA),
+	.ledB(ledB),
     .clk(clk),
     .rst(rst),
   	.instr(idInstruction),

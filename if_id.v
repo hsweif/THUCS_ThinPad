@@ -63,8 +63,8 @@ always @ (negedge rst or negedge clk) begin
 	//ledA[7:0] <= instr_out[15:8];
 	end
 end
-always@ (*)begin
+/*always@ (*)begin
 ledA <= instr_out[15:8];
 ledB <= pc_out[7:0];
-end
+end*/
 endmodule

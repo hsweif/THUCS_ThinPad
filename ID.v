@@ -19,8 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module ID(
-    //output reg [7:0] ledA,
-    //output reg [7:0] ledB,
+    output reg [7:0] ledA,
+    output reg [7:0] ledB,
     input wire rst,
     input wire clk,
     input [15:0] instr,
@@ -43,20 +43,20 @@ module ID(
 
     reg[15:0] register [15:0];
 
-   // always @(writeBackReg or instr) begin
+    always @(writeBackReg or instr) begin
         /*ledA[7:4] = register[6][7:4];
         ledA[3:0] = register[6][3:0];
         ledB[7:4] = register[4][3:0];
-        ledB[3:0] = register[3][3:0];
-		  ledA[7:4] = register[2][15:12];
-		  ledA[3:0] = register[2][11:8];
-		  ledB[7:4] = register[2][7:4];
-		  ledB[3:0] = register[2][3:0];
-		  */
+        ledB[3:0] = register[3][3:0];*/
+		  ledA[7:4] = register[4][3:0];
+		  ledA[3:0] = register[3][3:0];
+		  ledB[7:4] = register[2][3:0];
+		  ledB[3:0] = register[1][3:0];
+		  
 		  // Below is for testing uart.
 		  //ledA[7:0] = register[1][15:8];
 		  //ledB[7:0] = register[1][7:0];
-  //  end
+    end
 
     always @(negedge clk or negedge rst) begin      
         if(rst == 0) begin
