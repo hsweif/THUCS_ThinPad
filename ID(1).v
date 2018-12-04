@@ -100,7 +100,7 @@ module ID(
                 regIndex = 9;
             if (regIndex == 2 && row > 200)
                 regIndex = 10;
-            if((vgaReg[regIndex]>>(15-digit))&1 == 1) begin //Ã¦â€°â€œÃ¥â€¡ÂÃ¥Â¯Â¹Ã¥Âºâ€Ã§Å¡â€žÃ¨Â¯Â¥Ã¥Â¤â€žÃ§Å¡â€žcolor
+            if((vgaReg[regIndex]>>digit)&1 == 1) begin //Ã¦â€°â€œÃ¥â€¡ÂÃ¥Â¯Â¹Ã¥Âºâ€Ã§Å¡â€žÃ¨Â¯Â¥Ã¥Â¤â€žÃ§Å¡â€žcolor
                  if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                       color = 1;
                  else

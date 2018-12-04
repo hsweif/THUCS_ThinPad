@@ -39,12 +39,17 @@ module PipeLine(
 	input tbre,
 	input tsre,
 	output rdn,
-	output wrn
+	output wrn,
+	output [2:0] R,
+   output [2:0] G,
+   output [2:0] B,
+   output Hs,
+   output Vs
     );
 
 // output and input for PLL
 wire clk2x;
-wire clk;
+//wire clk;
 //wire clk_o;
 // output and input of IF
 wire [15:0] pc;
@@ -115,7 +120,7 @@ wire ifClear;
 wire idClear;
 wire error;
 wire [15:0] prePC;
-
+wire clk;
 wire clk_out;
 
 BTB _BTB(
@@ -129,6 +134,7 @@ BTB _BTB(
     .ifJump(exe_ifjump),
     .error(error)
 );
+
 wire clk2x_o;
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
@@ -162,6 +168,21 @@ begin
     clk <= clk_o & no_stop;
 end
 */
+wire color;
+wire [10:0] row;
+wire [10:0] col;
+vga _vga(
+	.clk(clk),
+   .rst(rst),
+	.color(color),
+	.col(col),
+	.row(row),
+   .R(R),
+   .G(G),
+   .B(B),
+   .Hs(Hs),
+   .Vs(Vs)
+);
 
 PC_reg _PC_reg(
 
@@ -234,6 +255,8 @@ if_id _if_id(
     .instr_out (idInstruction)
 );
 
+
+
 ID _ID(
 	.ledA(ledA),
 	.ledB(ledB),
@@ -242,7 +265,9 @@ ID _ID(
   	.instr(idInstruction),
   	.writeBackReg(wb_wreg),
   	.writeBackData(wb_writeback),
-
+	.row(row),
+	.col(col),
+	.color(color),
     .ALUOp(ALUOp),
     .controlB(controlB),
     .controlMem(controlMem),
