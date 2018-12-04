@@ -19,9 +19,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module PipeLine(
-//	input clk_orig, // TODO: need to be checked
+	input clk_orig, // TODO: need to be checked
 	input rst,
-input clk,
+//input clk,
 	output [7:0] ledA,
 	output [7:0] ledB,
 	output ram1_oe,
@@ -120,8 +120,20 @@ wire ifClear;
 wire idClear;
 wire error;
 wire [15:0] prePC;
-
+wire clk;
 wire clk_out;
+
+wire [15:0] R0;
+wire [15:0] R1;
+wire [15:0] R2;
+wire [15:0] R3;
+wire [15:0] R4;
+wire [15:0] R5;
+wire [15:0] R6;
+wire [15:0] R7;
+wire [15:0] R8;
+wire [15:0] R9;
+wire [15:0] R10;
 
 BTB _BTB(
     .rst(rst),
@@ -134,12 +146,12 @@ BTB _BTB(
     .ifJump(exe_ifjump),
     .error(error)
 );
-wire clk2x_o;/*
+wire clk2x_o;
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
 	 .CLKDV_OUT(clk)
     );
-	 */
+	 
 dcm_pll _dcm1 (
     .CLKIN_IN(clk),  
     .CLK2X_OUT(clk2x)
@@ -173,14 +185,22 @@ wire [10:0] col;
 vga _vga(
 	.clk(clk),
    .rst(rst),
-	.color(color),
+	 .R0(R0),
+	 .R1(R1),
+	 .R2(R2),
+	 .R3(R3),
+	 .R4(R4),
+	 .R5(R5),
+	 .R6(R6),
+	 .R7(R7),
+	 .R8(R8),
+	 .R9(R9),
+	 .R10(R10),
    .R(R),
    .G(G),
    .B(B),
    .Hs(Hs),
-   .Vs(Vs),
-	.row(row),
-	.col(col)
+   .Vs(Vs)
 );
 
 PC_reg _PC_reg(
@@ -254,18 +274,27 @@ if_id _if_id(
     .instr_out (idInstruction)
 );
 
+
+
 ID _ID(
 	.ledA(ledA),
 	.ledB(ledB),
     .clk(clk),
     .rst(rst),
-    .color(color),
-    .x(row),
-    .y(col),
   	.instr(idInstruction),
   	.writeBackReg(wb_wreg),
   	.writeBackData(wb_writeback),
-
+	 .R0(R0),
+	 .R1(R1),
+	 .R2(R2),
+	 .R3(R3),
+	 .R4(R4),
+	 .R5(R5),
+	 .R6(R6),
+	 .R7(R7),
+	 .R8(R8),
+	 .R9(R9),
+	 .R10(R10),
     .ALUOp(ALUOp),
     .controlB(controlB),
     .controlMem(controlMem),
