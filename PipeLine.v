@@ -19,9 +19,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module PipeLine(
-	input clk_orig, // TODO: need to be checked
+//	input clk_orig, // TODO: need to be checked
 	input rst,
-//input clk,
+input clk,
 	output [7:0] ledA,
 	output [7:0] ledB,
 	output ram1_oe,
@@ -49,7 +49,7 @@ module PipeLine(
 
 // output and input for PLL
 wire clk2x;
-wire clk;
+//wire clk;
 //wire clk_o;
 // output and input of IF
 wire [15:0] pc;
@@ -134,12 +134,12 @@ BTB _BTB(
     .ifJump(exe_ifjump),
     .error(error)
 );
-wire clk2x_o;
+wire clk2x_o;/*
 pll_controller _pll (
     .CLKIN_IN(clk_orig), 
 	 .CLKDV_OUT(clk)
     );
-	 
+	 */
 dcm_pll _dcm1 (
     .CLKIN_IN(clk),  
     .CLK2X_OUT(clk2x)

@@ -574,7 +574,7 @@ module ID(
     reg [3:0] regIndex;
     reg [3:0] dx;
     reg [4:0] dy;
-    always @(*) begin // 640 * 480  color: 0=black; 1=white æ°´å¹³æ–¹å‘ï¼92ï¼›ç«–ç›´æ–¹å‘ï¼š64
+    always @(x or y) begin // 640 * 480  color: 0=black; 1=white æ°´å¹³æ–¹å‘ï�2ï¼›ç«–ç›´æ–¹å‘ï¼�4
         if(x < 192 || x >= 448 || y < 64 || y >= 416)
             color = 0; //black
         else begin
@@ -582,13 +582,13 @@ module ID(
             dy = y[4:0];
             digit = (x-192)>>4;
             regIndex = (y-64)>>5;
-            if(register[regIndex][digit] == 1) begin //æ‰“å‡º1å¯¹åº”çš„è¯¥å¤„çš„color
+            if(register[regIndex][digit] == 1) begin //æ‰“å‡�å¯¹åº”çš„è¯¥å¤„çš„color
                 if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7))
                     color = 1;
                 else
                     color = 0;
             end
-            else begin //æ‰“å‡º0å¯¹åº”çš„è¯¥å¤„çš„color
+            else begin //æ‰“å‡�å¯¹åº”çš„è¯¥å¤„çš„color
                 if((dx > 1 && dx < 14 && (dy > 29 || (dy > 7 && dy < 10))) || (dy > 7 && ((dx > 1 && dx < 4) || (dx > 27 && dx < 30))))
                     color = 1;
                 else 

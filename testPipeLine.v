@@ -33,7 +33,7 @@ module testPipeLine;
 
 	// Instantiate the Unit Under Test (UUT)
 	PipeLine uut (
-		.clk_orig(clk), 
+		.clk(clk), 
 		.rst(rst)
 	);
 
@@ -53,6 +53,12 @@ module testPipeLine;
 		clk = 0;
 		#10;
 		clk = 1;
+		repeat(1000000) begin
+			#10;
+			clk = 0;
+			#10;
+			clk = 1;
+		end
 		#10;
 		clk = 0;
 		#10;
