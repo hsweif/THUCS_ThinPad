@@ -39,7 +39,12 @@ module PipeLine(
 	input tbre,
 	input tsre,
 	output rdn,
-	output wrn
+	output wrn,
+	output [2:0] R,
+   output [2:0] G,
+   output [2:0] B,
+   output Hs,
+   output Vs
     );
 
 // output and input for PLL
@@ -162,6 +167,21 @@ begin
     clk <= clk_o & no_stop;
 end
 */
+wire color;
+wire [10:0] row;
+wire [10:0] col;
+vga _vga(
+	.clk(clk),
+   .rst(rst),
+	.color(color),
+   .R(R),
+   .G(G),
+   .B(B),
+   .Hs(Hs),
+   .Vs(Vs),
+	.row(row),
+	.col(col)
+);
 
 PC_reg _PC_reg(
 

@@ -1,0 +1,45 @@
+#-----------------------------------------------------------
+# PlanAhead v14.7
+# Build 321239 by xbuild on Fri Sep 27 19:31:35 MDT 2013
+# Start of session at: Tue Dec 04 20:33:38 2018
+# Process ID: 13052
+# Log file: D:/THUCS_ThinPad/planAhead_run_3/planAhead.log
+# Journal file: D:/THUCS_ThinPad/planAhead_run_3/planAhead.jou
+#-----------------------------------------------------------
+start_gui
+source D:/THUCS_ThinPad/pa.fromNetlist.tcl
+startgroup
+set_property package_pin B6 [get_ports {B[2]}]
+endgroup
+startgroup
+set_property package_pin A6 [get_ports {B[1]}]
+endgroup
+startgroup
+set_property package_pin D5 [get_ports {B[0]}]
+endgroup
+set_property package_pin "" [get_ports [list  {G[2]}]]
+startgroup
+set_property package_pin C5 [get_ports {G[2]}]
+endgroup
+startgroup
+set_property package_pin C4 [get_ports {G[1]}]
+endgroup
+startgroup
+set_property package_pin B4 [get_ports {G[0]}]
+endgroup
+startgroup
+set_property package_pin A4 [get_ports {R[2]}]
+endgroup
+startgroup
+set_property package_pin C3 [get_ports {R[1]}]
+endgroup
+startgroup
+set_property package_pin A7 [get_ports {R[0]}]
+endgroup
+startgroup
+set_property package_pin E6 [get_ports Vs]
+endgroup
+startgroup
+set_property package_pin D6 [get_ports Hs]
+endgroup
+save_constraints
