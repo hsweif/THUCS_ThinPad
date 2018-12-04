@@ -145,7 +145,8 @@ begin
 		Ram1Addr[17:16] <= 2'b0;
 		Ram2Addr[17:16] <= 2'b0;
 		if(status == 0) begin
-			if(isUartData == 1) begin
+			// if(isUartData == 1) begin
+			if(isUartData == 1 && MemRead == 1) begin
 				noStop <= 0;  
 			end			
 			else begin
@@ -214,7 +215,7 @@ begin
 					 	wrn <= 1;
 						rdn <= 1;
 						link_data1 <= 1;
-						// ram1_data[7:0] <= WriteData[7:0];
+						ram1_data[7:0] <= WriteData[7:0];
 						status <= 1;
 					end
 					else begin
@@ -271,7 +272,8 @@ begin
 		end
 		else if(status == 1) begin
 			// status == 1
-			if(isUartData == 1) begin
+			// if(isUartData == 1) begin
+			if(isUartData == 1 && MemRead == 1) begin
 				noStop <= 0;  
 			end			
 			else begin
@@ -332,7 +334,8 @@ begin
 						rdn <= 1;
 						link_data1 <= 1;
 						ram1_data[7:0] <= WriteData[7:0];
-						status <= 2;
+						// status <= 2;
+						status <= 0;
 					end
 					else
 						;
@@ -384,11 +387,13 @@ begin
 					rdn <= 1;
 					ReadData[7:0] <= Ram1Data[7:0];
 					ReadData[15:8] <= 8'b0;
-					// noStop <= 1;
-					// status <= 0;
-					noStop <= 0;
-					status <= 3;
+					noStop <= 1;
+					status <= 0;
+					flag <= 1;
+					// noStop <= 0;
+					// status <= 3;
 				end
+				/*
 				else if(MemWrite == 1) begin
 					wrn <= 1;
 					rdn <= 1;
@@ -399,6 +404,7 @@ begin
 					else
 						status <= 2;
 				end
+				*/
 			end
 			else begin
 				// FIXME: Be careful
