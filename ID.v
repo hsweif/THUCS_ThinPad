@@ -26,6 +26,9 @@ module ID(
     input [15:0] instr,
     input [3:0] writeBackReg,
     input [15:0] writeBackData,
+    input [10:0] x,
+    input [10:0] y,
+    output reg color,
 
     output reg [3:0] ALUOp,
     output reg [1:0] controlB,
@@ -48,12 +51,12 @@ module ID(
         ledA[3:0] = register[6][3:0];
         ledB[7:4] = register[4][3:0];
         ledB[3:0] = register[3][3:0];*/
-	  ledA[7:0] = register[2][15:8];
-	  ledB[7:0] = register[7][7:0];
-		  
-		  // Below is for testing uart.
-		  //ledA[7:0] = register[1][15:8];
-		  //ledB[7:0] = register[1][7:0];
+      ledA[7:0] = register[2][15:8];
+      ledB[7:0] = register[7][7:0];
+          
+          // Below is for testing uart.
+          //ledA[7:0] = register[1][15:8];
+          //ledB[7:0] = register[1][7:0];
     end
 
     always @(negedge clk or negedge rst) begin      
@@ -78,9 +81,9 @@ module ID(
         else if(writeBackReg != 15)begin
             register[writeBackReg] <= writeBackData;
         end
-		  else begin
-				register[15] <= 16'b0000000000000000;
-		  end
+          else begin
+                register[15] <= 16'b0000000000000000;
+          end
     end
 
     always @(readReg1 or readReg2 or writeBackData or writeBackReg) begin
@@ -566,6 +569,32 @@ module ID(
                 writeReg = 4'b1111;
             end
         endcase
+    end
+    reg [3:0] digit;
+    reg [3:0] regIndex;
+    reg [3:0] dx;
+    reg [4:0] dy;
+    always @(*) begin // 640 * 480  color: 0=black; 1=white æ°´å¹³æ–¹å‘ï¼92ï¼›ç«–ç›´æ–¹å‘ï¼š64
+        if(x < 192 || x >= 448 || y < 64 || y >= 416)
+            color = 0; //black
+        else begin
+            dx = x[3:0];
+            dy = y[4:0];
+            digit = (x-192)>>4;
+            regIndex = (y-64)>>5;
+            if(register[regIndex][digit] == 1) begin //æ‰“å‡º1å¯¹åº”çš„è¯¥å¤„çš„color
+                if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7))
+                    color = 1;
+                else
+                    color = 0;
+            end
+            else begin //æ‰“å‡º0å¯¹åº”çš„è¯¥å¤„çš„color
+                if((dx > 1 && dx < 14 && (dy > 29 || (dy > 7 && dy < 10))) || (dy > 7 && ((dx > 1 && dx < 4) || (dx > 27 && dx < 30))))
+                    color = 1;
+                else 
+                    color = 0;
+            end
+        end
     end
 
 endmodule
