@@ -145,15 +145,12 @@ begin
 		Ram1Addr[17:16] <= 2'b0;
 		Ram2Addr[17:16] <= 2'b0;
 		if(status == 0) begin
-			// if(isUartData == 1) begin
-			if(isUartData == 1 && MemRead == 1) begin
+			if(isUartData == 1) begin
 				noStop <= 0;  
 			end			
 			else begin
 				noStop <= 1;  
 			end
-			//ledA[6] <= 1;
-			// Instruction Module
 			if(MemConflict == 1) begin
 				Instruct[15:0] <= `NOP_INSTRUCT;
 			end
@@ -271,9 +268,7 @@ begin
 			end
 		end
 		else if(status == 1) begin
-			// status == 1
-			// if(isUartData == 1) begin
-			if(isUartData == 1 && MemRead == 1) begin
+			if(isUartData == 1) begin
 				noStop <= 0;  
 			end			
 			else begin
@@ -296,7 +291,6 @@ begin
 			if(Address < `RAM1_UPPER) begin
 				rdn <= 1;
 				wrn <= 1;
-				// Ram2 is not available now
 				Ram2EN <= 1;
 				Ram2OE <= 1;
 				Ram2WE <= 1;
@@ -312,54 +306,16 @@ begin
 					Ram1WE <= 1;
 				end
 				else begin
-					// Do nothing
 				end
 			end
 			else  begin // Ram2
 				if(isUartData == 1) begin
-					if(MemRead == 1) begin
-					 	wrn <= 1;
-						link_data1 <= 0;
-						if(data_ready == 1) begin
-							status <= 2;
-							rdn <= 0;
-						end
-						else begin
-							status <= 0;
-							rdn <= 1;
-						end
-					end
-					else if(MemWrite == 1) begin
-					 	wrn <= 0;
-						rdn <= 1;
-						link_data1 <= 1;
-						ram1_data[7:0] <= WriteData[7:0];
-						// status <= 2;
-						status <= 0;
-					end
-					else
-						;
+					status <= 2;
 				end
 				else if(isUartCheck == 1)begin
-					// TODO: untested
 					status <= 0;
-					/*
-					if(tsre == 1 && tbre == 1 && data_ready == 1) begin
-						ReadData[15:0] <= `ENABLE_BOTH;
-					end
-					else if(data_ready == 1) begin
-						ReadData[15:0] <= `ENABLE_READ;
-					end
-					else if(tsre == 1 && tbre == 1)begin
-						ReadData[15:0] <= `ENABLE_WRITE;
-					end
-					else begin
-						ReadData[15:0] <= 16'b0;
-					end
-					*/
 				end
 				else begin
-				// Normal Ram2 Address
 					rdn <= 1;
 					wrn <= 1;
 					if(MemWrite == 1) begin
@@ -382,56 +338,81 @@ begin
 			end
 		end
 		else if(status == 2)begin
+			status <= 3;
+		end
+		else if(status == 3)begin
+			status <= 4;
+		end
+		else if(status == 4)begin
 			if(isUartData == 1) begin
 				if(MemRead == 1) begin
-					rdn <= 1;
-					ReadData[7:0] <= Ram1Data[7:0];
-					ReadData[15:8] <= 8'b0;
-					noStop <= 1;
-					status <= 0;
-					flag <= 1;
-					// noStop <= 0;
-					// status <= 3;
-				end
-				/*
-				else if(MemWrite == 1) begin
 					wrn <= 1;
-					rdn <= 1;
-					link_data1 <= 1;
-					noStop <= 0;
-					if(tbre == 1)
-						status <= 3;
-					else
-						status <= 2;
+					link_data1 <= 0;
+					if(data_ready == 1) begin
+						status <= 5;
+						rdn <= 0;
+					end
+					else begin
+						status <= 0;
+						rdn <= 1;
+					end
 				end
-				*/
+				else if(MemWrite == 1) begin
+					status <= 5;
+				end
 			end
 			else begin
-				// FIXME: Be careful
-				// flag <= 1;
 				noStop <= 1;
 				status <= 0;
 			end
 		end
-		else if(status == 3) begin
+		else if(status == 5) begin
+			status <= 6;
+		end
+		else if(status == 6) begin
+			status <= 7;
+		end
+		else if(status == 7) begin
+			status <= 8;
+		end
+		else if(status == 8)begin
+			if(MemRead == 1) begin
+				rdn <= 1;
+				ReadData[7:0] <= Ram1Data[7:0];
+				ReadData[15:8] <= 8'b0;
+				noStop <= 1;
+				status <= 0;
+				flag <= 1;
+			end
+			else if(MemWrite == 1) begin
+				wrn <= 0;
+				rdn <= 1;
+				link_data1 <= 1;
+				ram1_data[7:0] <= WriteData[7:0];
+				status <= 9;
+				noStop <= 0;
+			end
+		end
+		else if(status == 9)begin
+			status <= 10;
+		end
+		else if(status == 10)begin
+			status <= 11;
+		end
+		else if(status == 11)begin
+			status <= 12;
+		end
+		else if(status == 12)begin
 			if(isUartData == 1) begin
 				if(MemWrite == 1) begin
-					wrn <= 1;
-					rdn <= 1;
-					if(tsre == 1) begin
-						flag <= 1;
 						status <= 0;
 						noStop <= 1;
-					end
-					else begin
-						status <= 3;
-						noStop <= 0;
-					end
+						flag <= 1;
 				end
 				else begin
-					flag <= 1;
-					noStop <= 1;
-					status <= 0;
+						flag <= 1;
+						noStop <= 1;
+						status <= 0;
 				end
 			end
 			else begin
@@ -441,8 +422,8 @@ begin
 			end
 		end
 	end
-	else
-	;
+	else begin
+	end
 end
 
 endmodule
