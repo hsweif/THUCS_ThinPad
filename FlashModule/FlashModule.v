@@ -26,7 +26,7 @@ module FlashModule(
     inout [15:0] FlashData,
     output reg [7:0] ledA,
     output reg [7:0] ledB,
-    output reg [23:0] FlashAddr,
+    output reg [22:0] FlashAddr,
     output reg FlashByte,
     output reg FlashVpen,
     output reg FlashCE,
@@ -59,7 +59,8 @@ assign FlashData[15:0] = link_flash ? flash_data : 16'bz;
 assign Ram1Data[15:0] = link_ram1 ? ram1_data : 16'bz;
 
 always @(*) begin
-    ledA[7:0] <= read_data[15:8];
+    ledA[7:4] <= status;
+    ledA[3:0] <= read_data[11:8];
     ledB[7:0] <= read_data[7:0];
 end
 
@@ -72,6 +73,13 @@ always @(negedge rst or negedge clk) begin
 		Ram1EN <= 1;
 		Ram1OE <= 1;
 		Ram1WE <= 1;
+        FlashCE <= 1;
+        FlashVpen <= 1;
+        FlashByte <= 1;
+        FlashCE <= 1;
+        FlashOE <= 1;
+        FlashWE <= 1;
+        FlashRP <= 1;
         Address <= 16'b0;
         finish <= 0;
     end
@@ -91,6 +99,7 @@ always @(negedge rst or negedge clk) begin
         else if(status == 1) begin
             // read1, write op 0xFF
             link_flash <= 1;
+            FlashCE <= 0;
             flash_data[15:0] <= `FLASH_READ_OP;
             FlashWE <= 0;
             status = status + 1;
@@ -98,24 +107,28 @@ always @(negedge rst or negedge clk) begin
         else if(status == 2) begin
             // read2, prepare to read
             FlashWE <= 1;
-            link_flash <= 0;
             status = status + 1;
         end
         else if(status == 3) begin
             // read3, setup the address
             FlashOE <= 0;
-            FlashAddr[23:16] <= 8'b0;
-            FlashAddr[15:0] <= Address;
+            link_flash <= 0;
+            FlashAddr[22:17] <= 6'b0;
+            FlashAddr[16:1] <= Address;
             status = status + 1;
         end
         else if(status == 4)begin
             // read4, read the data from flash. 
-            FlashOE <= 1;
             read_data[15:0] <= FlashData;
             // status = 0;
             status = status + 1;
         end
         else if(status == 5) begin
+            FlashOE <= 1;
+            FlashCE <= 1;
+            status = status + 1;
+        end
+        else if(status == 6) begin
             Ram1Addr[17:16] <= 2'b0;
             Ram1Addr[15:0] <= Address;
             link_ram1 <= 1;
