@@ -161,7 +161,10 @@ module ID(
                             color = 0;
                         end
                         10: begin
-                            color = 0;
+                            if(((dy>27||(dy>7&&dy<10))&&dx>1&&dx<14) || (dx>5&&dx<10&&dy>7))
+										  color = 1;
+									 else
+										  color = 0;
                         end
                     endcase
                 end

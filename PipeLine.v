@@ -136,10 +136,12 @@ BTB _BTB(
 );
 
 wire clk2x_o;
+wire clk_vga;
 
 dcm0 _dcm0 (
 	 .CLKIN_IN(clk_orig),  
-    .CLK2X_OUT(clk2x_o)
+    .CLK2X_OUT(clk2x_o),
+	 .CLKDV_OUT(clk_vga)
 );
 
 pll_controller _pll (
@@ -178,7 +180,7 @@ wire color;
 wire [10:0] row;
 wire [10:0] col;
 vga _vga(
-	.clk(clk),
+	.clk(clk_vga),
    .rst(rst),
 	.color(color),
 	.col(col),
