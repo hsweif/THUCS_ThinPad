@@ -136,8 +136,14 @@ BTB _BTB(
 );
 
 wire clk2x_o;
+
+dcm0 _dcm0 (
+	 .CLKIN_IN(clk_orig),  
+    .CLK2X_OUT(clk2x_o)
+);
+
 pll_controller _pll (
-    .CLKIN_IN(clk_orig), 
+    .CLKIN_IN(clk2x_o), 
 	 .CLKDV_OUT(clk)
     );
 	 

@@ -49,7 +49,7 @@ module ID(
 
     always @(writeBackReg or instr) begin
       ledA[7:0] = register[8][15:8];
-      ledB[7:0] = register[9][7:0];
+      ledB[7:0] = register[8][7:0];
     end
 
     always @(row or col) begin
