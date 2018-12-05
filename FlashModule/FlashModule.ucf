@@ -16,7 +16,7 @@ NET "ledB[2]" LOC = A11;
 NET "ledB[1]" LOC = E10;
 NET "ledB[0]" LOC = D10;
 // NET "clk" LOC = B9;
-NET "clk" LOC = U9;
+NET "clk" LOC = B9;
 NET "rst" LOC = U10;
 NET "Ram1Addr[16]" LOC = H16;
 NET "Ram1Addr[15]" LOC = H15;
@@ -103,3 +103,9 @@ NET "Ram1WE" LOC = M18;
 NET "rdn" LOC = C14;
 NET "wrn" LOC = U5;
 NET "finish" LOC = A16;
+
+
+NET "FlashByte" LOC = C1;
+NET "FlashCE" LOC = E4;
+NET "FlashRP" LOC = D1;
+NET "FlashVpen" LOC = C2;

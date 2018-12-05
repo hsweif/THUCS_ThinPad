@@ -46,6 +46,13 @@ module FlashModule(
 
 `include "define.v"
 
+wire clk_dv;
+dcm _dcm (
+    .CLKIN_IN(clk), 
+    .RST_IN(~rst), 
+    .CLKDV_OUT(clk_dv)
+    );
+
 integer status = 0;
 reg link_flash = 0;
 reg link_ram1 = 0;
@@ -64,7 +71,7 @@ always @(*) begin
     ledB[7:0] <= read_data[7:0];
 end
 
-always @(negedge rst or negedge clk) begin
+always @(negedge rst or negedge clk_dv) begin
     if(rst == 0) begin
         // TODO: Reset behavior in flash.
         status = 0;
@@ -97,7 +104,6 @@ always @(negedge rst or negedge clk) begin
                 finish <= 1;
                 FlashCE <= 1;
             end
-            end
         end
         else if(status == 1) begin
             // read1, write op 0xFF
@@ -117,6 +123,7 @@ always @(negedge rst or negedge clk) begin
             link_flash <= 0;
             FlashAddr[22:17] <= 6'b0;
             FlashAddr[16:1] <= Address;
+				FlashAddr[0] <= 0;
             status = status + 1;
         end
         else if(status == 4)begin
@@ -140,7 +147,7 @@ always @(negedge rst or negedge clk) begin
             ram1_data[15:0] <= read_data;	
             status = status + 1;
         end
-        else if(status == 6) begin
+        else if(status == 7) begin
             Ram1EN <= 0;
             Ram1OE <= 1;
             Ram1WE <= 1;

@@ -10,5 +10,5 @@
 `define FLASH_WRITE_OP 16'h0040
 `define FLASH_READREG_OP 16'h0070
 `define ZERO 16'b0000000000000000
-`define UPPER_BOUND 16'h0100
+`define UPPER_BOUND 16'h0210
 // Should I predefined preserverd ports, such as 0xBF0f?
