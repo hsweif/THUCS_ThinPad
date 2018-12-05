@@ -90,16 +90,18 @@ always @(negedge rst or negedge clk) begin
             if(Address < `UPPER_BOUND) begin
                 status = 1;
                 finish <= 0;
+                FlashCE <= 0;
             end
             else begin
                 status = 0;
                 finish <= 1;
+                FlashCE <= 1;
+            end
             end
         end
         else if(status == 1) begin
             // read1, write op 0xFF
             link_flash <= 1;
-            FlashCE <= 0;
             flash_data[15:0] <= `FLASH_READ_OP;
             FlashWE <= 0;
             status = status + 1;
