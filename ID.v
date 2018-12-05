@@ -104,55 +104,55 @@ module ID(
                 0: begin
                     case(regIndex)
                         0: begin
-                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>17&&dy-dx<19&&dy-dx>15))
+                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>16&&dy-dx<20))
                                 color = 1;
                             else 
                                 color = 0;
                         end
                         1: begin
-                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>17&&dy-dx<19&&dy-dx>15))
+                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>16&&dy-dx<20))
                                 color = 1;
                             else 
                                 color = 0;
                         end
                         2: begin
-                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>17&&dy-dx<19&&dy-dx>15))
+                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>16&&dy-dx<20))
                                 color = 1;
                             else 
                                 color = 0;
                         end
                         3: begin
-                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>17&&dy-dx<19&&dy-dx>15))
+                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>16&&dy-dx<20))
                                 color = 1;
                             else 
                                 color = 0;
                         end
                         4: begin
-                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>17&&dy-dx<19&&dy-dx>15))
+                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>16&&dy-dx<20))
                                 color = 1;
                             else 
                                 color = 0;
                         end
                         5: begin
-                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>17&&dy-dx<19&&dy-dx>15))
+                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>16&&dy-dx<20))
                                 color = 1;
                             else 
                                 color = 0;
                         end
                         6: begin
-                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>17&&dy-dx<19&&dy-dx>15))
+                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>16&&dy-dx<20))
                                 color = 1;
                             else 
                                 color = 0;
                         end
                         7: begin
-                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>17&&dy-dx<19&&dy-dx>15))
+                            if( (dx>1&&dx<14&&((dy>18&&dy<21)||(dy>7&&dy<10))) || (dy>7&&((dx>1&&dx<4)||(dx>11&&dx<14&&dy<21))) || (dx>3&&dx<14&&dy>20&&dy-dx>16&&dy-dx<20))
                                 color = 1;
                             else 
                                 color = 0;
                         end
                         8: begin // S
-                            if( (dx>1&&dx<14&&(dy>29||(dy>7&&dy<10)||(dy>18&&dy<21))) || (dy>7&&dy<21&&dx>1&&dx<4) || (dy>17&&dx>11&&dx<14) )
+                            if( (dx>1&&dx<14&&(dy>29||(dy>7&&dy<10)||(dy>18&&dy<21))) || (dy>7&&dy<21&&dx>1&&dx<4) || (dy>18&&dx>11&&dx<14) )
                                 color = 1;
                             else 
                                 color = 0;
@@ -174,13 +174,13 @@ module ID(
                                 color = 0;
                         end
                         1: begin // 1
-                            if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7))
-                                color = 1;
-                            else
-                                color = 0;
+                            if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
+										 color = 1;
+									else
+										 color = 0;
                         end
                         2: begin // 2
-                            if( (dx>1&&dx<14&&(dy>29||(dy>7&&dy<10)||(dy>18&&dy<21))) || (dy>17&&dx>1&&dx<4) || (dy>7&&dy<21&&dx>11&&dx<14) )
+                            if( (dx>1&&dx<14&&(dy>29||(dy>7&&dy<10)||(dy>18&&dy<21))) || (dy>18&&dx>1&&dx<4) || (dy>7&&dy<21&&dx>11&&dx<14) )
                                 color = 1;
                             else 
                                 color = 0; 
@@ -192,19 +192,19 @@ module ID(
                                 color = 0;
                         end
                         4: begin // 4
-                            if( (dx>1&&dx<14&&dy>18&&dy<21)  || (dy>7&&((dx>11&&dx<14))||(dx>1&&dx<4&&dy<21)) )
+                            if( (dx>1&&dx<14&&dy>18&&dy<21)  || (dy>7&&((dx>11&&dx<14)||(dx>1&&dx<4&&dy<21))) )
                                 color = 1;
                             else 
                                 color = 0;
                         end
                         5: begin // 5
-                            if( (dx>1&&dx<14&&(dy>29||(dy>7&&dy<10)||(dy>18&&dy<21))) || (dy>7&&dy<21&&dx>1&&dx<4) || (dy>17&&dx>11&&dx<14) )
+                            if( (dx>1&&dx<14&&(dy>29||(dy>7&&dy<10)||(dy>18&&dy<21))) || (dy>7&&dy<21&&dx>1&&dx<4) || (dy>18&&dx>11&&dx<14) )
                                 color = 1;
                             else 
                                 color = 0;
                         end
                         6: begin // 6
-                            if( (dx>1&&dx<14&&(dy>29||(dy>7&&dy<10)||(dy>18&&dy<21))) || (dy>7&&dx>1&&dx<4) || (dy>17&&dx>11&&dx<14) )
+                            if( (dx>1&&dx<14&&(dy>29||(dy>7&&dy<10)||(dy>18&&dy<21))) || (dy>7&&dx>1&&dx<4) || (dy>18&&dx>11&&dx<14) )
                                 color = 1;
                             else 
                                 color = 0;
@@ -242,7 +242,7 @@ module ID(
                         color = 0;
                 end
                 3: begin
-                    if(vgaReg[regIndex[3:0]][15] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>15)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -255,7 +255,7 @@ module ID(
                     end
                 end
                 4: begin
-                    if(vgaReg[regIndex[3:0]][14] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>14)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -268,7 +268,7 @@ module ID(
                     end
                 end
                 5: begin
-                    if(vgaReg[regIndex[3:0]][13] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>13)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -281,7 +281,7 @@ module ID(
                     end
                 end
                 6: begin
-                    if(vgaReg[regIndex[3:0]][12] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>12)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -294,7 +294,7 @@ module ID(
                     end
                 end
                 7: begin
-                    if(vgaReg[regIndex[3:0]][11] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>11)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -307,7 +307,7 @@ module ID(
                     end
                 end
                 8: begin
-                   if(vgaReg[regIndex[3:0]][10] == 1) begin
+                   if((vgaReg[regIndex[3:0]]>>10)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -320,7 +320,7 @@ module ID(
                     end 
                 end
                 9: begin
-                    if(vgaReg[regIndex[3:0]][9] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>9)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -333,7 +333,7 @@ module ID(
                     end
                 end
                 10: begin
-                    if(vgaReg[regIndex[3:0]][8] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>8)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -346,7 +346,7 @@ module ID(
                     end
                 end
                 11: begin
-                    if(vgaReg[regIndex[3:0]][7] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>7)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -359,7 +359,7 @@ module ID(
                     end
                 end
                 12: begin
-                    if(vgaReg[regIndex[3:0]][6] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>6)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -372,7 +372,7 @@ module ID(
                     end
                 end
                 13: begin
-                    if(vgaReg[regIndex[3:0]][5] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>5)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -385,7 +385,7 @@ module ID(
                     end
                 end
                 14: begin
-                    if(vgaReg[regIndex[3:0]][4] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>4)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -398,7 +398,7 @@ module ID(
                     end
                 end
                 15: begin
-                   if(vgaReg[regIndex[3:0]][3] == 1) begin
+                   if((vgaReg[regIndex[3:0]]>>3)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -411,7 +411,7 @@ module ID(
                     end 
                 end
                 16: begin
-                    if(vgaReg[regIndex[3:0]][2] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>2)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -424,7 +424,7 @@ module ID(
                     end
                 end
                 17: begin
-                    if(vgaReg[regIndex[3:0]][1] == 1) begin
+                    if((vgaReg[regIndex[3:0]]>>1)&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -437,7 +437,7 @@ module ID(
                     end
                 end
                 18: begin
-                    if(vgaReg[regIndex[3:0]][0] == 1) begin
+                    if((vgaReg[regIndex[3:0]])&1 == 1) begin
                         if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
                             color = 1;
                         else
@@ -448,7 +448,7 @@ module ID(
                         else 
                             color = 0;
                     end
-                end
+                end                                                                              
             endcase
             // if((vgaReg[regIndex]>>(15-digit))&1 == 1) begin //Ã¦â€°â€œÃ¥â€¡ÂÃ¥Â¯Â¹Ã¥Âºâ€Ã§Å¡â€žÃ¨Â¯Â¥Ã¥Â¤â€žÃ§Å¡â€žcolor
             //      if((dy > 27 && dx > 1 && dx < 14) || (dx > 5 && dx < 10 && dy > 7) || (dx > 1 && dx < 6 && dy > 8 && dy < 13 && (dy + dx > 13)))
