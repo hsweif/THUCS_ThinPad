@@ -26,13 +26,13 @@ module FlashModule(
     inout [15:0] FlashData,
     output reg [7:0] ledA,
     output reg [7:0] ledB,
-    output reg [23:0] FlashAddr,
-    output reg FlashByte,
-    output reg FlashVpen,
-    output reg FlashCE,
+    output reg [22:0] FlashAddr,
+    // output reg FlashByte,
+    // output reg FlashVpen,
+    // output reg FlashCE,
     output reg FlashOE,
     output reg FlashWE,
-    output reg FlashRP,
+    // output reg FlashRP,
     output reg finish,
     // Ram1 data
     inout [15:0] Ram1Data,
@@ -59,7 +59,7 @@ assign FlashData[15:0] = link_flash ? flash_data : 16'bz;
 assign Ram1Data[15:0] = link_ram1 ? ram1_data : 16'bz;
 
 always @(*) begin
-    ledA[7:0] <= read_data[15:8];
+    ledA[7:0] <= status;
     ledB[7:0] <= read_data[7:0];
 end
 
@@ -104,7 +104,7 @@ always @(negedge rst or negedge clk) begin
         else if(status == 3) begin
             // read3, setup the address
             FlashOE <= 0;
-            FlashAddr[23:16] <= 8'b0;
+            FlashAddr[22:16] <= 7'b0;
             FlashAddr[15:0] <= Address;
             status = status + 1;
         end
